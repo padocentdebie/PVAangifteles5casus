@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politie Academie | Verhoortraining & Aangifte</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    
+    <style>
+        :root {
+            --police-blue: #002d5d;
+            --police-accent: #004a99;
+            --warning-bg: #fff3cd;
+            --warning-border: #ffeeba;
+            --danger-red: #d9534f;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--police-blue);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid #ffcc00;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hidden { display: none; }
+
+        .instruction-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--police-blue);
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            color: #856404;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: var(--police-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-start {
+            display: block;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-reset {
+            background-color: var(--danger-red);
+            margin-top: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .btn-reset:hover { opacity: 1; }
+
+        .feed-item {
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #fdfdfd;
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--police-blue);
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .feedback-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f1f3f4;
+        }
+
+        .feedback-form { display: flex; gap: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Halt Verhoortraining</h1>
+</header>
+
+<div class="container" id="login-screen">
+    <div class="instruction-box">
+        <h3>📋 Instructies</h3>
+        <ul>
+            <li>Start het verhoor via de chatbot.</li>
+            <li>Stel na het gesprek de aangifte op.</li>
+            <li>Let op feitelijke details: wapen, handeling, locatie.</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        ⚠️ Let op: Maak GEEN gebruik van 'Wachtwoorden opslaan' in deze browser.
+    </div>
+
+    <h2>Aanmelden</h2>
+    <input type="text" id="voornaam" placeholder="Voornaam">
+    <select id="klas">
+        <option value="" disabled selected>Kies NATO klas...</option>
+        <option value="Alpha">Alpha</option><option value="Bravo">Bravo</option>
+        <option value="Charlie">Charlie</option><option value="Delta">Delta</option>
+        <option value="Echo">Echo</option><option value="Foxtrot">Foxtrot</option>
+        <option value="Golf">Golf</option><option value="Hotel">Hotel</option>
+        <option value="Juliett">Juliett</option><option value="Kilo">Kilo</option>
+        <option value="Lima">Lima</option><option value="Mike">Mike</option>
+    </select>
+    <button onclick="login()">Start Training</button>
+</div>
+
+<div class="container hidden" id="main-screen">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2><span id="user-display"></span> | Klas: <span id="klas-display"></span></h2>
+        <button class="btn-reset" onclick="resetDatabase()">Reset Klas Feed</button>
+    </div>
+    
+    <a href="https://gemini.google.com/gem/1JQK31s5yn6d7vFr5quKhV9G_kvrJ16qe?usp=sharing" target="_blank" class="btn-start">▶ START VERHOOR</a>
+
+    <textarea id="pv-tekst" rows="6" placeholder="Typ hier de verklaring..."></textarea>
+    <button onclick="sendPV()">Verzend naar Feed</button>
+
+    <div id="feed-items" style="margin-top: 2rem;"></div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBj8dXkl1rEfyx54_MDy_tYd2P7kAeU8VQ",
+        authDomain: "q2les3samirgem.firebaseapp.com",
+        databaseURL: "https://q2les3samirgem-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "q2les3samirgem",
+        storageBucket: "q2les3samirgem.firebasestorage.app",
+        messagingSenderId: "8681998187",
+        appId: "1:8681998187:web:fd08067494a010dc572e2e"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    let studentNaam = "";
+    let studentKlas = "";
+
+    function login() {
+        studentNaam = document.getElementById('voornaam').value;
+        studentKlas = document.getElementById('klas').value;
+        if(!studentNaam || !studentKlas) return alert("Vul alles in.");
+        
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('main-screen').classList.remove('hidden');
+        document.getElementById('user-display').innerText = studentNaam;
+        document.getElementById('klas-display').innerText = studentKlas;
+        
+        startLiveFeed();
+    }
+
+    function sendPV() {
+        const txt = document.getElementById('pv-tekst').value;
+        if(!txt) return;
+        database.ref('training/pvs/' + studentKlas).push({
+            naam: studentNaam, pv: txt, tijd: new Date().toLocaleTimeString()
+        });
+        document.getElementById('pv-tekst').value = "";
+    }
+
+    function startLiveFeed() {
+        database.ref('training/pvs/' + studentKlas).on('value', (snap) => {
+            const feed = document.getElementById('feed-items');
+            feed.innerHTML = "";
+            const data = snap.val();
+            if(!data) return;
+            
+            Object.keys(data).reverse().forEach(key => {
+                const item = data[key];
+                let fbHtml = "";
+                if(item.feedback) {
+                    Object.values(item.feedback).forEach(f => {
+                        fbHtml += `<div style="font-size:0.85rem; border-top:1px solid #eee; padding:5px;"><strong>${f.van}:</strong> ${f.bericht}</div>`;
+                    });
+                }
+                feed.innerHTML += `
+                    <div class="feed-item">
+                        <div class="feed-header"><span>${item.naam}</span><span>${item.tijd}</span></div>
+                        <p>${item.pv}</p>
+                        <div class="feedback-box">${fbHtml}
+                            <div class="feedback-form">
+                                <input type="text" id="fb-${key}" placeholder="Feedback...">
+                                <button onclick="sendFeedback('${key}')">OK</button>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        });
+    }
+
+    function sendFeedback(key) {
+        const val = document.getElementById('fb-' + key).value;
+        if(!val) return;
+        database.ref('training/pvs/' + studentKlas + '/' + key + '/feedback').push({
+            van: studentNaam, bericht: val
+        });
+    }
+
+    function resetDatabase() {
+        if(confirm("Weet je zeker dat je ALLE aangiftes van klas " + studentKlas + " wilt verwijderen?")) {
+            database.ref('training/pvs/' + studentKlas).remove();
+        }
+    }
+</script>
+</body>
+</html>
