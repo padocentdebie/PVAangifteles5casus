@@ -3,174 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politie Academie | Verhoortraining & Aangifte</title>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    
+    <title>PV Aangifte - Les 6 - Politieacademie</title>
     <style>
         :root {
-            --police-blue: #002d5d;
-            --police-accent: #004a99;
-            --warning-bg: #fff3cd;
-            --warning-border: #ffeeba;
-            --danger-red: #d9534f;
+            --politie-blauw: #00205b;
+            --politie-geel: #fcc917;
+            --licht-grijs: #f4f4f4;
+            --wit: #ffffff;
+            --gevaar-rood: #d9534f;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background-color: var(--licht-grijs);
             margin: 0;
-            line-height: 1.6;
-        }
-
-        header {
-            background-color: var(--police-blue);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            border-bottom: 4px solid #ffcc00;
+            padding: 20px;
+            color: #333;
         }
 
         .container {
-            max-width: 850px;
-            margin: 2rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--wit);
+            padding: 30px;
+            border-top: 8px solid var(--politie-blauw);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .hidden { display: none; }
+        /* Inlogscherm */
+        #login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--politie-blauw);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 4px;
+            width: 400px;
+            text-align: left;
+        }
+
+        .main-content { display: none; }
+
+        header {
+            border-bottom: 2px solid var(--politie-blauw);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        h1 { color: var(--politie-blauw); margin: 0; font-size: 22px; text-transform: uppercase; }
 
         .instruction-box {
-            background-color: #e3f2fd;
-            border-left: 5px solid var(--police-blue);
-            padding: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .warning-box {
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-            color: #856404;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 16px 0;
+            background: #f9f9f9;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
-        button {
-            background-color: var(--police-blue);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
+        .login-info {
+            background: #eee;
+            padding: 10px;
+            border: 1px solid #999;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 13px;
         }
 
         .btn-start {
-            display: block;
-            background-color: #28a745;
+            background-color: var(--politie-blauw);
             color: white;
-            padding: 15px;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 2px;
             font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
+            display: inline-block;
+            text-transform: uppercase;
         }
 
-        .btn-reset {
-            background-color: var(--danger-red);
-            margin-top: 10px;
-            font-size: 0.8rem;
-            opacity: 0.7;
+        textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #999; 
+            border-radius: 2px; 
+            box-sizing: border-box; 
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        .btn-reset:hover { opacity: 1; }
-
-        .feed-item {
-            border: 1px solid #ddd;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            background: #fdfdfd;
+        .pv-item { 
+            background: #fff; 
+            border: 1px solid #ccc; 
+            padding: 15px; 
+            margin-bottom: 20px; 
         }
 
-        .feed-header {
-            display: flex;
-            justify-content: space-between;
-            color: var(--police-blue);
-            font-weight: bold;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
+        .pv-header { 
+            font-weight: bold; 
+            color: var(--politie-blauw); 
+            border-bottom: 1px solid #eee; 
+            margin-bottom: 10px; 
         }
 
-        .feedback-box {
-            margin-top: 15px;
-            padding: 10px;
-            background: #f1f3f4;
+        .feedback-section { 
+            margin-top: 10px; 
+            background: #ffffcc; 
+            padding: 10px; 
+            border-left: 4px solid var(--politie-geel); 
         }
 
-        .feedback-form { display: flex; gap: 10px; }
+        .feedback-input-area { display: none; margin-top: 10px; }
+
+        .admin-section { margin-top: 60px; border-top: 1px solid #ddd; padding-top: 20px; text-align: right; }
+        
+        .btn-reset { 
+            background: var(--gevaar-rood); 
+            color: white; 
+            border: none; 
+            padding: 4px 8px; 
+            cursor: pointer; 
+            font-size: 10px; 
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Halt Verhoortraining</h1>
-</header>
+<div id="login-overlay">
+    <div class="login-card">
+        <h2 style="color: var(--politie-blauw); margin-top:0;">LOGIN LES 6</h2>
+        
+        <div class="login-info" style="margin-bottom: 20px; background: #f0f0f0;">
+            <strong>GEM INLOGGEGEVENS:</strong><br>
+            E-mail: bpostudentleusden@gmail.com<br>
+            Wachtwoord: Stud3ntl3usd3n
+        </div>
 
-<div class="container" id="login-screen">
+        <div style="margin-bottom: 15px;">
+            <label>Voornaam:</label>
+            <input type="text" id="userFirstName" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #999;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label>NAVO-klas:</label>
+            <select id="userClass" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #999;">
+                <option value="Alpha">Alpha</option>
+                <option value="Bravo">Bravo</option>
+                <option value="Delta">Delta</option>
+                <option value="Echo">Echo</option>
+                <option value="Foxtrot">Foxtrot</option>
+                <option value="Golf">Golf</option>
+                <option value="Hotel">Hotel</option>
+                <option value="India">India</option>
+                <option value="Juliett">Juliett</option>
+                <option value="Kilo">Kilo</option>
+                <option value="Lima">Lima</option>
+                <option value="Mike">Mike</option>
+            </select>
+        </div>
+        <button onclick="startLesson()" style="background: var(--politie-blauw); color: white; width: 100%; padding: 12px; border: none; cursor: pointer; font-weight: bold;">TOEGANG</button>
+    </div>
+</div>
+
+<div class="container main-content" id="mainContent">
+    <header>
+        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 6</h1>
+        <p id="classDisplay" style="font-weight:bold;"></p>
+    </header>
+
     <div class="instruction-box">
-        <h3>📋 Instructies</h3>
-        <ul>
-            <li>Start het verhoor via de chatbot.</li>
-            <li>Stel na het gesprek de aangifte op.</li>
-            <li>Let op feitelijke details: wapen, handeling, locatie.</li>
-        </ul>
+        <h3 style="margin-top:0; color:var(--politie-blauw);">STAPPENPLAN VERHOOR & AANGIFTE</h3>
+        <ol>
+            <li><strong>Inloggen bij Google:</strong> Gebruik de onderstaande accountgegevens voor de Gem:
+                <div class="login-info">
+                    E-mail: bpostudentleusden@gmail.com<br>
+                    Wachtwoord: Stud3ntl3usd3n
+                </div>
+            </li>
+            <li><strong>Verhoor:</strong> Start de interactie met Priscilla via de onderstaande knop. Vraag door naar de dynamiek van het geweld, de positie van de dader en de details van het trappenhuis.</li>
+            <li><strong>Rapportage:</strong> Stel het proces-verbaal op. Focus op de feitelijke omschrijving en de functionele beperkingen van het slachtoffer.</li>
+        </ol>
     </div>
 
-    <div class="warning-box">
-        ⚠️ Let op: Maak GEEN gebruik van 'Wachtwoorden opslaan' in deze browser.
+    <div style="text-align: center; margin-bottom: 40px;">
+        <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="btn-start">Start Verhoor Priscilla</a>
     </div>
 
-    <h2>Aanmelden</h2>
-    <input type="text" id="voornaam" placeholder="Voornaam">
-    <select id="klas">
-        <option value="" disabled selected>Kies NATO klas...</option>
-        <option value="Alpha">Alpha</option><option value="Bravo">Bravo</option>
-        <option value="Charlie">Charlie</option><option value="Delta">Delta</option>
-        <option value="Echo">Echo</option><option value="Foxtrot">Foxtrot</option>
-        <option value="Golf">Golf</option><option value="Hotel">Hotel</option>
-        <option value="Juliett">Juliett</option><option value="Kilo">Kilo</option>
-        <option value="Lima">Lima</option><option value="Mike">Mike</option>
-    </select>
-    <button onclick="login()">Start Training</button>
+    <div id="submission-area">
+        <label style="font-weight:bold;">Tekst Proces-Verbaal:</label>
+        <textarea id="pvText" rows="12" placeholder="Start hier uw verslaglegging..."></textarea>
+        <button onclick="submitPV()" style="background: var(--politie-blauw); color: white; margin-top: 15px; padding: 12px 24px; border: none; cursor: pointer; font-weight: bold;">PV DEFINITIEF INLEVEREN</button>
+    </div>
+
+    <div id="livefeed">
+        <h2 style="color: var(--politie-blauw); border-bottom: 2px solid var(--politie-blauw); padding-bottom: 5px;">LIVEFEED AANGIFTES</h2>
+        <div id="feedContent">Verbinding maken met database...</div>
+    </div>
+
+    <div class="admin-section">
+        <button class="btn-reset" onclick="resetDatabase()">DATABASE RESET (BEVOEGD GEBRUIK)</button>
+    </div>
 </div>
 
-<div class="container hidden" id="main-screen">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2><span id="user-display"></span> | Klas: <span id="klas-display"></span></h2>
-        <button class="btn-reset" onclick="resetDatabase()">Reset Klas Feed</button>
-    </div>
-    
-    <a href="https://gemini.google.com/gem/1JQK31s5yn6d7vFr5quKhV9G_kvrJ16qe?usp=sharing" target="_blank" class="btn-start">▶ START VERHOOR</a>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    <textarea id="pv-tekst" rows="6" placeholder="Typ hier de verklaring..."></textarea>
-    <button onclick="sendPV()">Verzend naar Feed</button>
-
-    <div id="feed-items" style="margin-top: 2rem;"></div>
-</div>
-
-<script>
     const firebaseConfig = {
         apiKey: "AIzaSyBj8dXkl1rEfyx54_MDy_tYd2P7kAeU8VQ",
         authDomain: "q2les3samirgem.firebaseapp.com",
@@ -181,77 +221,71 @@
         appId: "1:8681998187:web:fd08067494a010dc572e2e"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    let studentNaam = "";
-    let studentKlas = "";
+    let currentStudent = "";
+    let currentClass = "";
 
-    function login() {
-        studentNaam = document.getElementById('voornaam').value;
-        studentKlas = document.getElementById('klas').value;
-        if(!studentNaam || !studentKlas) return alert("Vul alles in.");
-        
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('main-screen').classList.remove('hidden');
-        document.getElementById('user-display').innerText = studentNaam;
-        document.getElementById('klas-display').innerText = studentKlas;
-        
-        startLiveFeed();
-    }
+    window.startLesson = function() {
+        currentStudent = document.getElementById('userFirstName').value;
+        currentClass = document.getElementById('userClass').value;
+        if(currentStudent) {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('classDisplay').innerText = "GEBRUIKER: " + currentStudent.toUpperCase() + " | KLAS: " + currentClass.toUpperCase();
+        }
+    };
 
-    function sendPV() {
-        const txt = document.getElementById('pv-tekst').value;
-        if(!txt) return;
-        database.ref('training/pvs/' + studentKlas).push({
-            naam: studentNaam, pv: txt, tijd: new Date().toLocaleTimeString()
-        });
-        document.getElementById('pv-tekst').value = "";
-    }
+    window.submitPV = function() {
+        const text = document.getElementById('pvText').value;
+        if (text) {
+            push(ref(db, 'aangiftes'), {
+                student: currentStudent,
+                klas: currentClass,
+                inhoud: text,
+                feedback: ""
+            });
+            document.getElementById('pvText').value = "";
+            alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen.");
+        }
+    };
 
-    function startLiveFeed() {
-        database.ref('training/pvs/' + studentKlas).on('value', (snap) => {
-            const feed = document.getElementById('feed-items');
-            feed.innerHTML = "";
-            const data = snap.val();
-            if(!data) return;
-            
+    onValue(ref(db, 'aangiftes'), (snapshot) => {
+        const data = snapshot.val();
+        const feed = document.getElementById('feedContent');
+        feed.innerHTML = "";
+        if (data) {
             Object.keys(data).reverse().forEach(key => {
                 const item = data[key];
-                let fbHtml = "";
-                if(item.feedback) {
-                    Object.values(item.feedback).forEach(f => {
-                        fbHtml += `<div style="font-size:0.85rem; border-top:1px solid #eee; padding:5px;"><strong>${f.van}:</strong> ${f.bericht}</div>`;
-                    });
-                }
                 feed.innerHTML += `
-                    <div class="feed-item">
-                        <div class="feed-header"><span>${item.naam}</span><span>${item.tijd}</span></div>
-                        <p>${item.pv}</p>
-                        <div class="feedback-box">${fbHtml}
-                            <div class="feedback-form">
-                                <input type="text" id="fb-${key}" placeholder="Feedback...">
-                                <button onclick="sendFeedback('${key}')">OK</button>
-                            </div>
+                    <div class="pv-item">
+                        <div class="pv-header">${item.student.toUpperCase()} - KLAS ${item.klas.toUpperCase()}</div>
+                        <p style="white-space: pre-wrap;">${item.inhoud}</p>
+                        ${item.feedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${item.feedback}</div>` : ''}
+                        <button onclick="document.getElementById('input-${key}').style.display='block'" style="font-size:10px; padding:2px 5px; cursor:pointer;">FEEDBACK TOEVOEGEN</button>
+                        <div id="input-${key}" class="feedback-input-area">
+                            <textarea id="text-${key}" style="height:60px;"></textarea>
+                            <button onclick="saveFeedback('${key}')" style="background:var(--politie-geel); border:none; cursor:pointer; font-weight:bold; padding:5px;">BEVESTIGEN</button>
                         </div>
                     </div>`;
             });
-        });
-    }
-
-    function sendFeedback(key) {
-        const val = document.getElementById('fb-' + key).value;
-        if(!val) return;
-        database.ref('training/pvs/' + studentKlas + '/' + key + '/feedback').push({
-            van: studentNaam, bericht: val
-        });
-    }
-
-    function resetDatabase() {
-        if(confirm("Weet je zeker dat je ALLE aangiftes van klas " + studentKlas + " wilt verwijderen?")) {
-            database.ref('training/pvs/' + studentKlas).remove();
+        } else {
+            feed.innerHTML = "Geen records gevonden.";
         }
-    }
+    });
+
+    window.saveFeedback = function(key) {
+        const fbText = document.getElementById(`text-${key}`).value;
+        set(ref(db, `aangiftes/${key}/feedback`), fbText);
+    };
+
+    window.resetDatabase = function() {
+        if (confirm("WAARSCHUWING: Alle data in de livefeed wordt definitief verwijderd. Doorgaan?")) {
+            remove(ref(db, 'aangiftes'));
+        }
+    };
 </script>
+
 </body>
 </html>
