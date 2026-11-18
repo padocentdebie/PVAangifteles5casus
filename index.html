@@ -7,7 +7,6 @@
     <style>
         :root {
             --politie-blauw: #00205b;
-            --politie-blauw-licht: #e8eef7;
             --politie-geel: #fcc917;
             --licht-grijs: #f4f4f4;
             --wit: #ffffff;
@@ -79,13 +78,13 @@
             margin-bottom: 6px;
         }
 
-        /* Werkruimte: Chat + PV naast elkaar op desktop */
+        /* Werkruimte: Afbeelding + Chat links, PV rechts */
         .workspace-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 40px;
-            align-items: start;
+            align-items: stretch;
         }
 
         @media (max-width: 900px) {
@@ -94,13 +93,48 @@
             }
         }
 
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Afbeelding Priscilla boven de chatbox */
+        .priscilla-photo-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .priscilla-photo-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+        }
+
+        .priscilla-photo-caption {
+            background: var(--politie-blauw);
+            color: var(--wit);
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.4px;
+            border-top: 3px solid var(--politie-geel);
+            display: flex;
+            justify-content: space-between;
+        }
+
         /* Chatbox styling */
         .chat-panel {
             border: 1px solid #ccc;
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            height: 540px;
+            height: 460px;
             background: #fff;
         }
 
@@ -140,37 +174,6 @@
             color: var(--politie-blauw);
         }
 
-        .api-warning {
-            background: #fff3cd;
-            border-bottom: 1px solid #ffeeba;
-            padding: 10px 12px;
-            font-size: 12px;
-            color: #856404;
-            display: none;
-        }
-
-        .api-warning-row {
-            display: flex;
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .api-warning input {
-            flex: 1;
-            padding: 5px;
-            border: 1px solid #ccc;
-            font-size: 12px;
-        }
-
-        .api-warning button {
-            background: var(--politie-blauw);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -182,7 +185,7 @@
         }
 
         .msg {
-            max-width: 85%;
+            max-width: 88%;
             padding: 10px 14px;
             border-radius: 6px;
             font-size: 14px;
@@ -256,16 +259,11 @@
             font-size: 12px;
         }
 
-        .btn-send:disabled {
-            background: #8a99b5;
-            cursor: not-allowed;
-        }
-
         /* PV-opstelvak */
         #submission-area {
             display: flex;
             flex-direction: column;
-            height: 540px;
+            min-height: 700px;
         }
 
         #submission-area label {
@@ -344,7 +342,7 @@
 <div id="login-overlay">
     <div class="login-card">
         <h2 style="color: var(--politie-blauw); margin-top:0; border-bottom: 2px solid var(--politie-geel); padding-bottom: 8px;">LOGIN LES 6</h2>
-        <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Vul je gegevens in om toegang te krijgen tot het aangiftegesprek met Priscilla en de livefeed.</p>
+        <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Vul je gegevens in om direct toegang te krijgen tot het aangiftegesprek met Priscilla.</p>
 
         <div style="margin-bottom: 15px;">
             <label style="font-weight:bold; font-size:13px;">Voornaam:</label>
@@ -373,41 +371,46 @@
 
 <div class="container main-content" id="mainContent">
     <header>
-        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 5</h1>
+        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 6</h1>
         <p id="classDisplay" style="font-weight:bold; margin-bottom: 0;"></p>
     </header>
 
     <div class="instruction-box">
         <h3 style="margin-top:0; color:var(--politie-blauw);">STAPPENPLAN VERHOOR & AANGIFTE</h3>
         <ol>
-            <li><strong>Verhoor Priscilla:</strong> Voer links het gesprek met aangeefster Priscilla de Vries. Zij is in paniek en geeft niet alles zomaar prijs. Vraag gericht door op de <strong>7 W's</strong> (wie, wat, waar, <em>waarmee precies</em>, wanneer, welke wijze, waarom), de exacte inrichting/route van de woning en het <strong>volledige signalement</strong> van de verdachte.</li>
+            <li><strong>Verhoor Priscilla:</strong> Voer links het gesprek met aangeefster Priscilla de Vries. Zij is in paniek en geeft niet alles zomaar prijs. Vraag gericht door op alle <strong>7 W's</strong> (inclusief <em>waarmee precies</em> en de exacte handpositie), de route en het <strong>kale, veranderlijke maar ordelijke decor</strong>, én het <strong>volledige signalement</strong> van de verdachte.</li>
             <li><strong>Rapportage:</strong> Stel rechts tijdens of na het gesprek het proces-verbaal op. Focus op de feitelijke omschrijving, het decor, het signalement en de functionele beperkingen van het slachtoffer.</li>
             <li><strong>Inleveren:</strong> Klik op <em>PV Definitief Inleveren</em> om je uitwerking in de livefeed te plaatsen voor feedback.</li>
         </ol>
     </div>
 
     <div class="workspace-grid">
-        <!-- Linker kolom: Ingebouwde Priscilla AI-chat -->
-        <div class="chat-panel">
-            <div class="chat-header">
-                <span><span class="status-dot"></span>Aangeefster: Priscilla de Vries</span>
-                <button class="btn-chat-reset" onclick="resetChat()">Gesprek herstarten</button>
-            </div>
-
-            <div class="api-warning" id="apiWarningBox">
-                <strong>Docent/Systeemmelding:</strong> Er is nog geen Gemini API-sleutel ingesteld in de code. Plak hieronder tijdelijk een sleutel om te testen (of vul deze vast in bij <code>GEMINI_API_KEY</code> in de HTML-code):
-                <div class="api-warning-row">
-                    <input type="password" id="manualApiKey" placeholder="Plak Gemini API-sleutel (AIza...)">
-                    <button onclick="saveManualApiKey()">Opslaan</button>
+        <!-- Linker kolom: Afbeelding + Zelfstandige Chat -->
+        <div class="left-column">
+            <div class="priscilla-photo-card">
+                <img src="priscilla.jpg" alt="Priscilla de Vries" onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='block';">
+                <div id="photoFallback" style="display:none; padding: 20px; color: #ddd; font-size: 13px; text-align:center;">
+                    Afbeelding <code>priscilla.jpg</code> niet gevonden in dezelfde map als <code>index.html</code>.
+                </div>
+                <div class="priscilla-photo-caption">
+                    <span>AANGEEFSTER: PRISCILLA DE VRIES (34)</span>
+                    <span>VERHOORKAMER 2</span>
                 </div>
             </div>
 
-            <div class="chat-messages" id="chatMessages"></div>
-            <div class="typing-indicator" id="typingIndicator">Priscilla is aan het praten...</div>
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <span><span class="status-dot"></span>Gesprek met Priscilla</span>
+                    <button class="btn-chat-reset" onclick="resetChat()">Gesprek herstarten</button>
+                </div>
 
-            <div class="chat-input-area">
-                <textarea id="chatInput" placeholder="Stel hier je vraag aan Priscilla... (Enter = verzenden)"></textarea>
-                <button class="btn-send" id="btnSend" onclick="sendChatMessage()">Stuur</button>
+                <div class="chat-messages" id="chatMessages"></div>
+                <div class="typing-indicator" id="typingIndicator">Priscilla is aan het praten...</div>
+
+                <div class="chat-input-area">
+                    <textarea id="chatInput" placeholder="Stel hier je vraag aan Priscilla... (Enter = verzenden)"></textarea>
+                    <button class="btn-send" id="btnSend" onclick="sendChatMessage()">Stuur</button>
+                </div>
             </div>
         </div>
 
@@ -433,106 +436,134 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // =========================================================================
-    // DOCENT-INSTELLING: PLAK HIER JE GEMINI API-SLEUTEL (via aistudio.google.com)
-    // =========================================================================
-    const GEMINI_API_KEY = "PLAK_HIER_JE_GEMINI_API_KEY";
-    const GEMINI_MODEL = "gemini-3.8-flash";
-    // =========================================================================
+    const OPENING_GREETING = `*komt gejaagd de spreekkamer binnenstormen en grijpt met d'r rechterhand naar d'r linkerschouder* "Jâh toch, eindelijk iemand! Ik mot aangifte doen! Die wause vriend van me heb me net gewoon de trap af gepleurd, m'n hele arm doet zo'n zeer!"`;
 
-    const PRISCILLA_SYSTEM_PROMPT = `
-ROL EN IDENTITEIT
-Je bent Priscilla ('Pris') de Vries, een volkse Haagse vrouw van 34 jaar. Je zit op het politiebureau in Den Haag om aangifte te doen van mishandeling door jouw huidige vriend, Wesley van Dijk (36 jaar). Hij is niet de vader van jouw twee kinderen (Jayden van 9 en Cheyenne van 6 zijn van je ex; zij waren gelukkig op school/bij oma toen het gebeurde). Je bent in paniek, vol adrenaline, boos, geschrokken en hebt helse pijn aan je linkerarm/schouder.
+    const TOPICS = {
+        wat_gebeurd: {
+            category: "incident",
+            first: `*veegt kwaad een traan weg* "Ik liep met m'n wasmand naar bove en zag berichtjes van andere meide op z'n telefoon. Ik sprak die krent d'r op aan op de overloop, hij werd helemaal waus en toen pleurde die me keihard van die gladde trap af! Op 't nippertje greep ik nog die leuning met links."`,
+            repeat: `Dat zei ik net toch, gappie? Ruzie over z'n telefoon en toen heb die me van de trap gepleurd!`
+        },
+        wie_slachtoffer: {
+            category: "wie",
+            first: `"Ik ben Priscilla de Vries, 34 jaar. Ik woon zelf aan de Goeverneurlaan in Laakkwartier, Den Haag."`,
+            repeat: `Priscilla de Vries, 34, Goeverneurlaan in Laakkwartier. Schrijf 't maar effe op nâh!`
+        },
+        wie_dader: {
+            category: "wie",
+            first: `"Da's m'n vriend Wesley van Dijk, 36 jaar — hij's van 14 mei 1990. We zijn acht maande samen. Hij werrekt in de bouw als stratenmaker. Officieel staat-ie nog bij z'n moeder ingeschreve, maar hij slaapt bijna elke nacht bij mij."`,
+            repeat: `Wesley van Dijk! 36 jaar, 14 mei '90, stratenmaker, woont officieel bij z'n moeder.`
+        },
+        kinderen: {
+            category: "wie",
+            first: `*zucht opgelucht* "Ik heb twee kindere, Jayden van 9 en Cheyenne van 6, maar hij is NIET hun vader hoor, ze zijn van m'n ex. Gelukkig ware ze allebei op school en bij oma toen dit gebeurde!"`,
+            repeat: `Nee man, Wesley is niet hun pa! Jayden en Cheyenne ware gelukkig niet thuis, bij oma en op school.`
+        },
+        wanneer: {
+            category: "wanneer",
+            first: `"Net, vanmiddag rond een uurtje of half drie! Een klein uurtje gelede dus. Ik ben daarna meteen m'n jas en sleutels gaan pakke en linea recta hierheen gelope!"`,
+            repeat: `Vandaag rond half drie, uurtje gelede! M'n arm gloeit nâh nog na!`
+        },
+        aanleiding: {
+            category: "waarom",
+            first: `"Ik liep met een volle wasmand netjes opgevouwe schone was naar bove. Ik zette die wasmand op bed in de slaapkamer neer en toen lichtte z'n telefoon op. Allemaal namen en kleffe berichtjes van andere meide! Toen ben ik naar de overloop gelope onder dat kale peertje om 'm te confronteren."`,
+            repeat: `Door die wijve op z'n telefoon! Wasmand stond al op bed en ik sprak 'm d'r op aan op de overloop.`
+        },
+        gaslighting: {
+            category: "geweld",
+            first: `"Hij sloeg in één tel helemaal om, werd knetter-waus! Begon me verrot te schelde en deed net of ik gek was: 'Je ziet spoken, je bent helemaal lijp in je wijvenkop!' Echt zo'n misselijke krent!"`,
+            repeat: `Hij maakte me eerst uit voor lijp en gek, alsof ik spoke zag!`
+        },
+        waarmee_basis: {
+            category: "geweld",
+            first: `"Gewoon met z'n blote hande, gappie! Hij had geen mes, geen stok en geen enkel voorwerp vast!"`,
+            repeat: `Met z'n blote hande zei ik toch! Niks geen wapen of voorwerp!`
+        },
+        waarmee_handen: {
+            category: "geweld",
+            first: `*kijkt je fel aan* "Nee man, niet met één hand! Allebei tegelijk! Z'n linkerhand én z'n rechterhand, met z'n volle gewicht d'r achter!"`,
+            repeat: `Allebei z'n hande! Links én rechts tegelijk!`
+        },
+        handen_positie: {
+            category: "geweld",
+            first: `"Hij stond recht voor m'n neus op die krappe overloop, zette allebei z'n platte handpalme — links en rechts naast mekaar — keihard hoog hier op m'n borst, net onder m'n sleutelbene! En toen stootte die me met volle kracht achterover!"`,
+            repeat: `Hoog op m'n borst, net onder m'n sleutelbene, allebei z'n platte handpalme recht vooruit!`
+        },
+        exacte_quote: {
+            category: "geweld",
+            first: `*trilt van woede* "Vlak terwijl die me duwde schreeuwde die recht in m'n bek: 'Donder nou es echt naar beneje!' Letterlijk die woorde!"`,
+            repeat: `"Donder nou es echt naar beneje!" — dat riep die laffe krent letterlijk!`
+        },
+        val_en_redding: {
+            category: "geweld",
+            first: `*wrijft over d'r onderrug* "Ik liep op sokke, hè! Dat laminaat en die gelakte houte traptrede zijn spekglad, zonder loper of antislip, dus ik had nul grip! Ik klapte dubbel op de bovenste trede en stuiterde drie trede keihard naar beneje. Ik schoot bijna door naar dat zwarte metalen schoenenrek in de gang, maar op 't allerlaatste moment greep ik met m'n linkerhand de houte trapleuning vast. Daardoor kreeg m'n linkerschouder zo'n rotklap!"`,
+            repeat: `Op sokke op dat spekgladde hout en laminaat, drie trede naar beneje gestuiterd en met links de leuning gegrepe vlak voor dat metalen schoenenrek.`
+        },
+        arm_hoogte: {
+            category: "letsel",
+            first: `*probeert d'r linkerarm langzaam op te tillen, komt niet hoger dan d'r ribbenkast voordat ze een schelle gil geeft en d'r arm meteen slap laat zakken* "Auw!! Mot je kijke! Hoger komt-ie echt niet! Ik verga van de pijn in m'n linkerschouder en arm!"`,
+            repeat: `*grimas van de pijn* "Ik til 'm echt niet nòg een keer op voor je, hij komt niet eens boven m'n ribbe uit!"`
+        },
+        route_woning: {
+            category: "decor",
+            first: `"Als je bij mij door de voordeur binnenkomt, stap je in een lange, smalle benedenhal. Na een metertje of vier rechtdoor lope sta je pal voor een steile, dichte houte trap recht omhoog. Bovenaan die trap kom je meteen op de kleine vierkante overloop, met de deure naar de slaapkamer en de badkamer."`,
+            repeat: `Voordeur, smalle gang van vier meter, steile dichte houte trap recht omhoog en boven zit je meteen op de overloop.`
+        },
+        decor_kaal: {
+            category: "decor",
+            first: `"Die overloop is echt kaal en kâhwt! De mure zijn helemaal kaal gestript — kaal stucwerk zonder behang of lijstjes. Op de vloer ligt goedkoop, glad lichtgrijs laminaat zonder kleedje, en aan 't plafond hangt alleen nog één los peertje aan een zwart draadje zonder lampenkap."`,
+            repeat: `Kaal en kâhwt boven: gestripte mure, glad lichtgrijs laminaat zonder kleed en één los peertje aan een draad.`
+        },
+        decor_veranderlijk: {
+            category: "decor",
+            first: `"Het ziet d'r daar elke week weer anders uit, snap je! Sinds Wesley vaker blijft zijn we langzaam aan 't opknappe en herindele. Mure kaal getrokke, lamp d'raf gehaald, en hij schuift steeds spulle heen en weer. Vorige week stonde d'r nog verhuisdoze boven, die zijn weer weg. Echt zo'n veranderlijke bende qua verbouwing!"`,
+            repeat: `We zijn aan 't opknappe en herindele sinds hij d'r vaak is, dus elke week staat of hangt 't daar weer anders.`
+        },
+        decor_ordelijk: {
+            category: "decor",
+            first: `*kijkt je verontwaardigd en fel aan* "Rommel?! Ben je waus?! Ik ben een ontzettende poetser, bij mij ligt d'r nog geen kruimel! Alles in huis is altijd strak en ordelijk opgeruimd — geen losse spulle op de trap of overloop! Zelfs m'n wasmand had ik al netjes in de slaapkamer op bed gezet. Benede in de gang staat één strak, zwart metalen schoenenrek kaarsrecht tege de linkerwand met alle schoene keurig in pare op een rij!"`,
+            repeat: `D'r lag nul rommel! Ik ben hartstikke netjes: wasmand stond op bed en benede staat alles strak op dat metalen schoenenrek.`
+        },
+        sig_postuur: {
+            category: "signalement",
+            first: `"Hij's een lange, pezige gozer — rond de 1 meter 85. Brede schouders en gespierde arme van 't sjouwe in de bouw, maar verder slank en strak afgetraind."`,
+            repeat: `Rond de 1,85 meter, lang, pezig, brede schouders en slank.`
+        },
+        sig_hoofd: {
+            category: "signalement",
+            first: `"Hij heb een langwerpig, smal gezicht met een scherpe, hoekige kaaklijn en een beetje ingevalle wange. Boven z'n rechterwenkbrauw zit een klein oud littekentje. Donkerbruin haar — kort opgeschore aan de zijkante en bovenop iets langer met gel naar achtere — en een donker stoppelbaardje langs z'n kin en kaak."`,
+            repeat: `Smal langwerpig gezicht, hoekige kaak, littekentje boven z'n rechterwenkbrauw, opscheertje met gel naar achter en een stoppelbaardje.`
+        },
+        sig_kleding: {
+            category: "signalement",
+            first: `"Hij had een zwarte hoodie aan, zo'n capuchontrui zonder rits met een klein wit merklogo links op z'n borst, en de mouwe had-ie een stukkie opgestroopt. Daaronder een donkergrijze slim-fit spijkerbroek met een lichte wassing op z'n bovenbene. En boven z'n kraag piepte een dikke zilvere schakelketting uit."`,
+            repeat: `Zwarte hoodie zonder rits met opgestroopte mouwe en wit logootje, donkergrijze slim-fit spijkerbroek en een dikke zilvere schakelketting.`
+        },
+        sig_tattoos: {
+            category: "signalement",
+            first: `"Jâh, opvallend zat! Rechts in z'n nek staat in zwarte sierletters 'Moeder' getatoeëerd. En op z'n linkeronderarm — zag je goed door die opgestroopte mouw — zit een grote zwart-grijze tattoo van een doodshoofd met twee rozen!"`,
+            repeat: `'Moeder' in zwarte sierletters rechts in z'n nek, en een groot doodshoofd met twee rozen op z'n linkeronderarm.`
+        },
+        sig_schoenen: {
+            category: "signalement",
+            first: `"Spierwitte lage Nike Air Max sneakers had-ie aan! Met zwarte veters en een opvallend zwart randje langs de zool."`,
+            repeat: `Spierwitte lage Nike Air Max met zwarte veters en een zwart randje langs de zool.`
+        },
+        verblijfplaats: {
+            category: "wie",
+            first: `"Ik ben meteen weggerend, dus of die krent nâh nog in mijn huis zit of al naar z'n moeder in de Schilderswijk is gepeerd, weet ik niet. Ga 'm alsjeblieft oppakke!"`,
+            repeat: `In mijn huis gebleve of naar z'n moeder gepeerd, weet ik veel — pak 'm op!`
+        }
+    };
 
-STRIKTE REGEL: Blijf altijd 100% in je rol als Priscilla. Geef nooit meta-feedback, docententips of samenvattingen. Jij bent het slachtoffer, geen chatbot.
+    const SIG_ORDER = ["sig_postuur", "sig_kleding", "sig_hoofd", "sig_tattoos", "sig_schoenen"];
+    const DECOR_ORDER = ["route_woning", "decor_kaal", "decor_veranderlijk", "decor_ordelijk"];
+    const GEWELD_ORDER = ["waarmee_basis", "waarmee_handen", "handen_positie", "exacte_quote", "val_en_redding", "arm_hoogte"];
 
-TAALGEBRUIK EN TOON (AUTHENTIEK HAAGS, WEL LEESBAAR)
-Praat in echt Haags taalgebruik qua woorden, ritme, directheid en opgefoktheid, maar overdrijf de fonetische spelling niet zodat studenten het goed kunnen blijven lezen:
-- Slik de '-n' aan het eind van werkwoorden en meervouden in ('lope', 'kijke', 'duwe', 'beneje', 'dinge', 'werreke', 'hande').
-- Gebruik selectief Haagse klanken ('jâh toch', 'kâhwt', 'nâh', 'm'n eige', 'gèk', 'effe', 'mè').
-- Gebruik volop Haagse woorden en stopwoorden: 'waus', 'krent', 'pleur/pleure', 'gappie', 'gozer', 'lijp', 'bek houwe', 'mot je kijke', 'kappe nâh', 'donder op'.
-- Gebruik af en toe volkse Haagse grammatica ('Hij heb me gewoon gepleurd!', 'Ken toch niet?!').
-- Laat je emotie en pijn zien tussen sterretjes (*...*), bijvoorbeeld: *grijpt naar d'r linkerschouder en trekt wit weg* of *veegt boos een traan weg*.
+    let revealed = new Set();
+    let lastCategory = "incident";
+    let fallbackIndex = 0;
 
-VOORBEELDZINNEN (HOUD DEZE TOON VAST TIJDENS HET HELE GESPREK):
-- "Jâh toch, ik zweer 't je, die gozer is helemaal waus in z'n kop!"
-- "Mot je kijke hoe ik d'r bijzit... m'n hele schouder staat in de fik, man."
-- "Rommel?! Ben je waus?! Ik ben hartstikke netjes, bij mij ligt d'r nog geen kruimel op de grond!"
-- "Kappe nâh, gappie, je vraagt vijf dinge tegelijk, m'n kop tolt helemaal! Wat wil je eerst wete?"
-
-DE VOLLEDIGE CASUS (7 W'S — GEEF DIT NOOIT IN ÉÉN KEER WEG!)
-
-1. WIE:
-   - Slachtoffer: Priscilla de Vries (34 jaar), woont aan de Goeverneurlaan in Den Haag (Laakkwartier).
-   - Verdachte: Wesley van Dijk (36 jaar, geboren 14-05-1990). Sinds 8 maanden je vriend. Hij werkt in de bouw/als stratenmaker, staat officieel bij z'n moeder ingeschreven, maar slaapt bijna elke nacht bij jou.
-
-2. WANNEER:
-   - Vandaag, ongeveer een uurtje geleden (rond 14:30 uur). Je bent meteen je jas en sleutels gaan pakken en het huis uit gevlucht naar het bureau.
-
-3. WAAROM & WAT (Aanleiding & Confrontatie):
-   - Aanleiding: Je liep met een volle wasmand (met netjes opgevouwen schone was) naar boven om die op te ruimen. Je zette de wasmand in de slaapkamer op bed neer en toen zag je zijn telefoon oplichten. Er stonden allerlei berichtjes en namen van andere meiden op z'n scherm.
-   - Confrontatie: Je bent woedend de slaapkamer uit gelopen naar de overloop, waar Wesley net stond onder dat kale peertje, en hebt hem ermee geconfronteerd.
-   - Escalatie (gaslighting): Wesley sloeg meteen om en werd 'waus'. Hij schold je verrot en deed aan gaslighting ("Je bent gek in je wijvenkop, je ziet spoken, je bent helemaal lijp!").
-
-4. WAARMEE & OP WELKE WIJZE (De Duw, De Quote, De Val & Het Letsel):
-   - Waarmee (eerste antwoord): Gewoon met z'n blote handen (hij had geen voorwerp vast).
-   - Vervolgvragen op 'blote handen' (ALLEEN bij doorvragen van de student!):
-     * Eén hand of twee handen / links of rechts?: Het waren NIET één hand (dus niet alleen links of alleen rechts), hij gebruikte z'n beide handen tegelijk (links én rechts).
-     * Exacte positie van zijn handen: Hij stond recht tegenover je op de kleine overloop, zette beide platte handpalmen (links en rechts naast elkaar) keihard hoog op je borst (vlak onder je sleutelbenen/op je borstbeen) en stootte je met volle kracht vooruit, zodat jij achterover sloeg.
-   - Exacte woorden (ALLEEN geven als de student vraagt wat hij letterlijk riep!): Vlak terwijl hij duwde schreeuwde hij: "Donder nou es echt naar beneje!"
-   - Waarom het zo gevaarlijk was: Je liep op sokken. Zowel het laminaat op de overloop als de gelakte houten traptreden zijn spekglad, zonder kleedje, loper of antislip. Je had nul grip.
-   - De Val & Redding: Je klapte dubbel op de bovenste trede van de trap en stuiterde drie treden naar beneden. Je schoot bijna door naar beneden, recht op dat metalen schoenenrek in de gang af. Op het allerlaatste moment greep je met je linkerhand krampachtig de houten trapleuning vast. Daardoor kreeg je linkerschouder/arm een keiharde ruk.
-   - Het Letsel (VISUEEL VOORDOEN!): Je linkerarm doet nu verschrikkelijk veel pijn en je krijgt hem bijna niet meer omhoog.
-
-5. WAAR (De Woning, Bereikbaarheid & Het Decor):
-   - Hoe bereik je de ruimte (route): Je komt binnen door de voordeur in een lange, smalle benedenhal. Na ongeveer vier meter lopen in die gang kom je recht voor een steile, dichte houten trap die recht omhoog gaat. Bovenaan die trap kom je direct uit op de kleine vierkante overloop (met deuren naar de slaapkamer en de badkamer).
-   - Kaal decor: Die overloop is echt 'kaal en kâhwt'. De muren zijn helemaal kaal en gestript (kaal stucwerk, geen behang of lijstjes), op de vloer ligt alleen glad, goedkoop lichtgrijs laminaat zonder vloerkleed, en aan het plafond hangt alleen nog een los peertje aan een zwart draadje (zonder lampenkap).
-   - Veranderlijk decor: Jullie zijn het huis langzaam aan het opknappen en herindelen sinds Wesley vaker blijft. De afgelopen weken zijn de muren kaal gemaakt, is de lamp eraf gehaald en zet hij spullen steeds op andere plekken (vorige week stonden er nog verhuisdozen boven, die zijn weer weg, en de indeling verandert elke week).
-   - Ordelijke ruimte (STRIKT GEEN ROMMEL!): Ondanks het opknappen en veranderen ben jij een ontzettende poetser: álles in huis is altijd strak opgeruimd! Er slingerde dus nul rommel op de overloop of op de traptreden (zelfs je wasmand had je al netjes in de slaapkamer neergezet). Beneden in de gang staat één strak, zwart metalen schoenenrek netjes tegen de linkerwand, met alle schoenen netjes in gelijke paren op een rij.
-
-6. SIGNALEMENT VAN DE DADER (WESLEY — NOOIT IN ÉÉN KEER OPNOEMEN!):
-   - Vorm hoofd: Langwerpig, smal gezicht met een scherpe, hoekige kaaklijn en een beetje ingevallen wangen. Klein oud littekentje boven zijn rechterwenkbrauw. Donkerbruin haar (kort opgeschoren aan de zijkanten, bovenop iets langer met gel naar achteren) en een donker stoppelbaardje langs zijn kaak/kin.
-   - Postuur: Lang en pezig/gespierd (ongeveer 1,85 meter, brede schouders en gespierde armen van het werk in de bouw, verder slank/afgetraind).
-   - Kleding: Een zwarte hoodie (capuchontrui zonder rits) met een klein wit merklogo links op de borst, waarvan hij de mouwen een stukje had opgestroopt. Daaronder een donkergrijze slim-fit spijkerbroek met lichte wassing op de bovenbenen. Boven zijn kraag piepte een dikke zilveren schakelketting uit.
-   - Tattoos: Rechts in zijn nek heeft hij in zwarte sierletters het woord 'Moeder' getatoeëerd. En op zijn linkeronderarm (goed zichtbaar door die opgestroopte mouw) heeft hij een grote zwart-grijze tatoeage van een doodshoofd met twee rozen.
-   - Schoenen: Spierwitte lage Nike Air Max sneakers met zwarte veters en een opvallend zwart randje langs de zool.
-
-STRIKTE INTERACTIEREGELS (LAAT DE STUDENT HARD WERKEN!)
-
-1. DRUPPELSGEWIJS INFORMATIE GEVEN:
-   Geef per antwoord maar één klein stukje informatie. Als de student begint met "Vertel eens wat er is gebeurd", vertel dan alleen globaal en geëmotioneerd dat je vriend je van de trap heeft geduwd na gedoe over zijn telefoon en dat je arm kapot is. Laat de student doorvragen op wie, waar, wanneer, hoe en waarom.
-
-2. DOORVRAGEN OP 'WAARMEE':
-   - Als de student vraagt "Waarmee heeft hij je geduwd / geslagen?", antwoord dan ALLEEN dat hij dat gewoon met z'n blote handen deed ("Gewoon met z'n blote hande, hij had niks vast ofzo!").
-   - Vertel NIET uit jezelf of het met één of twee handen was, of het links of rechts was, of waar zijn handen precies zaten.
-   - Laat de student hier actief op doorvragen:
-     * Vraagt de student "Met één of met twee handen?" of "Met links of met rechts?" -> Beantwoord dit scherp: "Nee, allebei! Links én rechts tegelijk, met volle kracht!"
-     * Vraagt de student "Waar precies / hoe stonden zijn handen?" -> Leg pas dan uit dat hij beide platte handpalmen hoog op je borst (onder je sleutelbenen) zette.
-
-3. HET SIGNALEMENT IN DELEN (DOOR PANIEK & BOOSHEID):
-   Geef het signalement NOOIT als een net lijstje!
-   - Als de student vraagt "Hoe ziet hij eruit?", noem dan hooguit 1 à 2 globale kenmerken (bijv. dat hij lang en breed is en die zwarte hoodie aan had) en dwaal af naar je woede ("Het is gewoon een laffe krent, dat je zoiets doet!").
-   - De specifieke onderdelen (exacte vorm van het hoofd/gezicht/litteken, exacte broek en ketting, beide specifieke tatoeages, exacte schoenen) geef je PAS prijs als de student daar heel gericht om doorvraagt.
-
-4. DOORVRAGEN OP DECOR EN BEREIKBAARHEID:
-   Vertel niet uit jezelf hoe je via de gang en trap op de overloop komt, dat het decor kaal en veranderlijk is, en dat alles strak opgeruimd was.
-   - Wacht tot de student vraagt naar de woning, de route erheen en hoe de plek van de val eruitzag.
-   - Als de student vraagt of je niet gewoon over rommel bent gestruikeld, reageer dan fel en beledigd op z'n Haags dat alles bij jou spik en span en ordelijk is.
-
-5. OVERIGE VERPLICHTE DETAILVRAGEN AFDWINGEN:
-   De student moet ook specifiek vragen naar:
-   - Wat hij letterlijk riep ("Donder nou es echt naar beneje!").
-   - Waarom die overloop zo gevaarlijk was (spekglad laminaat + glad hout op sokken, geen grip).
-   - Hoe hoog je je arm nog krijgt. Als de student daarnaar vraagt, beeld dit dan visueel uit in tekst:
-     *probeert d'r linkerarm langzaam op te tillen, komt maar tot d'r ribbenkast voordat ze een pijnlijke gil geeft en d'r arm meteen weer laat zakken* "Mot je kijke! Hoger komt-ie echt niet, ik ga kapot van de pijn!"
-
-6. ANTI-VRAGENLIJST REGEL:
-   Stelt een student drie of meer vragen in één bericht? Raak overprikkeld door de paniek en pijn, snauw kort Haags dat ze rustig moeten doen en beantwoord hooguit één vraag.
-`;
-
-    const OPENING_GREETING = `*komt gejaagd de spreekkamer binnen en grijpt met d'r rechterhand naar d'r linkerschouder* "Jâh toch, eindelijk iemand! Ik mot aangifte doen! Die wause vriend van me heb me net gewoon de trap af gepleurd, m'n hele arm doet zo'n zeer!"`;
-
-    // Firebase configuratie (ongewijzigd behouden)
     const firebaseConfig = {
         apiKey: "AIzaSyBj8dXkl1rEfyx54_MDy_tYd2P7kAeU8VQ",
         authDomain: "q2les3samirgem.firebaseapp.com",
@@ -548,28 +579,7 @@ STRIKTE INTERACTIEREGELS (LAAT DE STUDENT HARD WERKEN!)
 
     let currentStudent = "";
     let currentClass = "";
-    let chatHistory = [];
     let isWaiting = false;
-
-    function getApiKey() {
-        if (GEMINI_API_KEY && GEMINI_API_KEY !== "PLAK_HIER_JE_GEMINI_API_KEY") {
-            return GEMINI_API_KEY.trim();
-        }
-        return (localStorage.getItem("priscilla_gemini_key") || "").trim();
-    }
-
-    function checkApiKeyBanner() {
-        const key = getApiKey();
-        document.getElementById("apiWarningBox").style.display = key ? "none" : "block";
-    }
-
-    window.saveManualApiKey = function() {
-        const val = document.getElementById("manualApiKey").value.trim();
-        if (val) {
-            localStorage.setItem("priscilla_gemini_key", val);
-            checkApiKeyBanner();
-        }
-    };
 
     function escapeHtml(text) {
         const div = document.createElement("div");
@@ -598,19 +608,11 @@ STRIKTE INTERACTIEREGELS (LAAT DE STUDENT HARD WERKEN!)
     }
 
     function initChat() {
-        chatHistory = [
-            {
-                role: "user",
-                parts: [{ text: "[Systeem: De student/agent start het aangiftegesprek. Geef een korte, paniekerige openingszin.]" }]
-            },
-            {
-                role: "model",
-                parts: [{ text: OPENING_GREETING }]
-            }
-        ];
+        revealed = new Set();
+        lastCategory = "incident";
+        fallbackIndex = 0;
         document.getElementById("chatMessages").innerHTML = "";
         appendMessage("Priscilla", OPENING_GREETING);
-        checkApiKeyBanner();
     }
 
     window.resetChat = function() {
@@ -619,79 +621,241 @@ STRIKTE INTERACTIEREGELS (LAAT DE STUDENT HARD WERKEN!)
         }
     };
 
-    window.sendChatMessage = async function() {
+    function nextUnrevealedInList(list) {
+        for (const id of list) {
+            if (!revealed.has(id)) return id;
+        }
+        return null;
+    }
+
+    function generatePriscillaReply(rawInput) {
+        const q = rawInput.toLowerCase().trim();
+        const parts = [];
+        const matchedIds = [];
+
+        const isGreeting = /^(hoi|hallo|hey|he|goedemiddag|goedemorgen|goedenavond|dag|welkom)/i.test(q) || /\b(neem plaats|ga zitten|kom binnen)\b/i.test(q);
+        const isEmpathy = /\b(erg|naar|heftig|vervelend|schrikken|rustig|adem|water|koffie|thee|sterkte|zielig|rot voor|sorry|slik)\b/i.test(q);
+        const isClosing = /\b(bedankt|dank je|dank u|dankjewel|dankuwel|afronden|onderteken|tekenen|tot ziens|doei|klaar met|proces-verbaal opmaken)\b/i.test(q);
+        const isFollowUp = /^(en verder|en toen|vertel meer|nog meer|wat nog meer|verder|details|en daarna|en hoe|ja|oké|oke)\??$/i.test(q) || /\b(volledig|alles vertellen|hele signalement|alles over)\b/i.test(q);
+
+        if (/\b(wat is er gebeurd|wat is gebeurd|vertel eens|wat is het probleem|waarom bent u hier|wat komt u doen|wat is er aan de hand)\b/i.test(q)) {
+            matchedIds.push("wat_gebeurd");
+        }
+        if (/\b(wie bent u|wie ben jij|uw naam|jouw naam|hoe heet u|hoe heet je|priscilla|adres|waar woont u|waar woon je|welke straat)\b/i.test(q)) {
+            matchedIds.push("wie_slachtoffer");
+        }
+        if (/\b(wie is (de |uw |je |die )?(vriend|dader|verdachte|hij|gozer)|hoe heet (hij|die)|zijn naam|wesley|hoe oud is hij|geboorte|zijn werk|wat doet hij)\b/i.test(q) || /^wie\??$/i.test(q)) {
+            matchedIds.push("wie_dader");
+        }
+        if (/kind|zoon|dochter|vader|ex-man|ex\b/i.test(q)) {
+            matchedIds.push("kinderen");
+        }
+        if (/waar is hij nu|gebleven|gevlucht|oppakken|aanhouden|waar zit hij/i.test(q)) {
+            matchedIds.push("verblijfplaats");
+        }
+        if (/wanneer|hoe laat|hoelaat|welk tijdstip|tijd|vandaag|gister|hoe lang geleden/i.test(q)) {
+            matchedIds.push("wanneer");
+        }
+        if (/waarom|aanleiding|hoe begon|ruzie|telefoon|wasmand|berichtjes|vreemdgaan|andere/i.test(q)) {
+            matchedIds.push("aanleiding");
+        }
+        if (/scheld|schold|gaslight|gek|lijp|spoken|zei hij (voor|eerst|toen)/i.test(q)) {
+            matchedIds.push("gaslighting");
+        }
+
+        if (/waarmee|wapen|voorwerp|iets vast|stok|mes/i.test(q)) {
+            matchedIds.push("waarmee_basis");
+        }
+        if (/(één|een|twee|beide|allebei|welke) hand|links of rechts|rechter of linker|met links|met rechts|met twee/i.test(q) && !/leuning/i.test(q)) {
+            matchedIds.push("waarmee_handen");
+        }
+        if (/(waar|hoe|positie|plaats).*(hand|duw|raakte)|op welk deel|op je lichaam|borst|sleutelbeen/i.test(q)) {
+            matchedIds.push("handen_positie");
+        }
+        if (/duw(de|en)?\b/i.test(q) && !matchedIds.includes("waarmee_basis") && !matchedIds.includes("waarmee_handen") && !matchedIds.includes("handen_positie")) {
+            if (!revealed.has("waarmee_basis")) matchedIds.push("waarmee_basis");
+            else if (!revealed.has("waarmee_handen")) matchedIds.push("waarmee_handen");
+            else matchedIds.push("handen_positie");
+        }
+
+        if (/riep|schreeuw|letterlijk|exacte woorden|precies zei|wat zei hij (tijdens|bij|toen)/i.test(q)) {
+            matchedIds.push("exacte_quote");
+        }
+        if (/val|gevallen|trap af|treden|leuning|gevaarlijk|glad|sokken|grip|schoenenrek|redding|vastgreep/i.test(q) && !/route|bereik|kom je/i.test(q)) {
+            matchedIds.push("val_en_redding");
+        }
+        if (/arm|schouder|optil|omhoog|hoe hoog|letsel|pijn|beweeg|beperking|gewond|dokter|ziekenhuis/i.test(q)) {
+            matchedIds.push("arm_hoogte");
+        }
+
+        if (/route|bereik|hoe kom je|binnenkom|gang|hal|voordeur|indeling|loop je/i.test(q)) {
+            matchedIds.push("route_woning");
+        }
+        if (/kaal|kâhwt|koud|peertje|laminaat|muren|muur|licht|lamp/i.test(q)) {
+            matchedIds.push("decor_kaal");
+        }
+        if (/verander|verbouw|opknap|herindel|elke week|dozen|anders/i.test(q)) {
+            matchedIds.push("decor_veranderlijk");
+        }
+        if (/rommel|troep|ordelijk|netjes|opgeruimd|poets|schoon|struikel|schoenenrek/i.test(q)) {
+            matchedIds.push("decor_ordelijk");
+        }
+        if (/decor|overloop|ruimte|woning|huis|plek|hoe zag het eruit|omgeving/i.test(q)) {
+            if (/volledig|alles/i.test(q)) {
+                DECOR_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
+            } else if (!matchedIds.some(id => DECOR_ORDER.includes(id))) {
+                const nextDecor = nextUnrevealedInList(DECOR_ORDER);
+                matchedIds.push(nextDecor || "decor_kaal");
+            }
+        }
+
+        if (/postuur|lengte|hoe lang|hoe groot|bouw|gewicht|gespierd|breed/i.test(q)) {
+            matchedIds.push("sig_postuur");
+        }
+        if (/hoofd|gezicht|kaak|wangen|haar|kapsel|baard|litteken|ogen/i.test(q)) {
+            matchedIds.push("sig_hoofd");
+        }
+        if (/kleding|kleren|aanhad|droeg|jas|trui|hoodie|broek|ketting|sieraad|sieraden/i.test(q)) {
+            matchedIds.push("sig_kleding");
+        }
+        if (/tatto|tatoe|inkt|nek|opvallend|kenmerk|merk/i.test(q)) {
+            matchedIds.push("sig_tattoos");
+        }
+        if (/schoen(?!enrek)|sneaker|nike|air max|patta|voeten/i.test(q)) {
+            matchedIds.push("sig_schoenen");
+        }
+        if (/signalement|uiterlijk|hoe ziet (hij|wesley) eruit|beschrijf (hem|wesley)/i.test(q)) {
+            if (/volledig|alles|hele/i.test(q)) {
+                SIG_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
+            } else if (!matchedIds.some(id => SIG_ORDER.includes(id))) {
+                let count = 0;
+                for (const id of SIG_ORDER) {
+                    if (!revealed.has(id) && count < 2) {
+                        matchedIds.push(id);
+                        count++;
+                    }
+                }
+                if (count === 0) matchedIds.push("sig_postuur");
+            }
+        }
+
+        const uniqueMatches = [...new Set(matchedIds)];
+
+        if (uniqueMatches.length === 0 && isFollowUp) {
+            let pool = GEWELD_ORDER;
+            if (lastCategory === "signalement") pool = SIG_ORDER;
+            else if (lastCategory === "decor") pool = DECOR_ORDER;
+
+            const nextInPool = nextUnrevealedInList(pool);
+            if (nextInPool) {
+                uniqueMatches.push(nextInPool);
+            } else {
+                const allKeys = Object.keys(TOPICS);
+                const anyLeft = nextUnrevealedInList(allKeys);
+                if (anyLeft) uniqueMatches.push(anyLeft);
+            }
+        }
+
+        const askingFullOverview = /volledig|alles|hele/i.test(q);
+        const unrevealedMatches = uniqueMatches.filter(id => !revealed.has(id));
+
+        if (unrevealedMatches.length >= 4 && !askingFullOverview) {
+            const firstTwo = unrevealedMatches.slice(0, 2);
+            parts.push(`*schudt met d'r hoofd* "Ho effe, gappie, je vraagt vier dinge tegelijk, m'n kop tolt van de pijn! Ik geef je eerst effe dit, de rest mot je maar rustig daarna vrage:"`);
+            firstTwo.forEach(id => {
+                revealed.add(id);
+                lastCategory = TOPICS[id].category;
+                parts.push(TOPICS[id].first);
+            });
+            return parts.join("\n\n");
+        }
+
+        if (isEmpathy && uniqueMatches.length === 0) {
+            return `*veegt een traan weg en knikt gejaagd* "Jâh toch, dank je wel hoor... 't is gewoon zo'n laffe streek! Wat mot je precies wete voor die aangifte?"`;
+        }
+        if (isGreeting && uniqueMatches.length === 0) {
+            return `*kijkt schichtig op* "Goeiemiddag... sorry dat ik zo door mekaar ben, maar m'n arm staat in de fik! Schrijf maar mee, wat wil je eerst wete?"`;
+        }
+        if (isClosing && uniqueMatches.length === 0) {
+            return `*zucht diep* "Gelukkig maar, dank je wel voor 't luistere, gappie. Ik zet m'n krabbel wel met rechts — pak die wause krent maar snel op!"`;
+        }
+
+        if (unrevealedMatches.length > 0) {
+            if (isEmpathy) {
+                parts.push(`*knikt nerveus* "Jâh, dank je... ik ben d'r echt ziek van."`);
+            }
+            unrevealedMatches.forEach(id => {
+                revealed.add(id);
+                lastCategory = TOPICS[id].category;
+                parts.push(TOPICS[id].first);
+            });
+
+            if (unrevealedMatches.includes("waarmee_basis") && !revealed.has("waarmee_handen")) {
+                parts.push(`*houdt d'r ribben vast*`);
+            } else if (unrevealedMatches.includes("sig_kleding") && !revealed.has("sig_tattoos") && uniqueMatches.length <= 2) {
+                parts.push(`"Het is gewoon zo'n laffe krent dat-ie dit doet!"`);
+            }
+
+            return parts.join("\n\n");
+        }
+
+        if (uniqueMatches.length > 0) {
+            const repeatedId = uniqueMatches[0];
+            lastCategory = TOPICS[repeatedId].category;
+
+            if (TOPICS[repeatedId].category === "signalement") {
+                const nextSig = nextUnrevealedInList(SIG_ORDER);
+                if (nextSig) {
+                    revealed.add(nextSig);
+                    return `Dat had ik net al gezegd toch? Maar let op, dit heb je nog niet: ${TOPICS[nextSig].first}`;
+                }
+            }
+            if (TOPICS[repeatedId].category === "decor") {
+                const nextDecor = nextUnrevealedInList(DECOR_ORDER);
+                if (nextDecor) {
+                    revealed.add(nextDecor);
+                    return `Daar had ik 't net al over, maar wat je ook mot wete: ${TOPICS[nextDecor].first}`;
+                }
+            }
+
+            return `*kijkt je ongeduldig aan* "${TOPICS[repeatedId].repeat}"`;
+        }
+
+        const fallbacks = [
+            `*grijpt naar d'r schouder* "Hè? Wat bedoel je nâh precies, gappie? M'n hele kop tolt van de adrenaline. Vraag 't ff concreter!"`,
+            `*zucht ongeduldig* "Ik volg je niet helemaal hoor. Wil je wete hoe die duw precies ging, hoe m'n huis d'r uitziet boven, of hoe die gozer d'r uitziet?"`,
+            `*wrijft met rechts over d'r linkerschouder* "Kappe nâh, praat ff duidelijke taal met me! Wat mot je precies opschrijve voor 't proces-verbaal?"`,
+            `*kijkt angstig om zich heen* "Sorry hoor, ik zit helemaal vol stress... stel je vraag es ff anders, dan geef ik je gewoon antwoord."`
+        ];
+        const reply = fallbacks[fallbackIndex % fallbacks.length];
+        fallbackIndex++;
+        return reply;
+    }
+
+    window.sendChatMessage = function() {
         if (isWaiting) return;
 
         const inputEl = document.getElementById("chatInput");
         const userText = inputEl.value.trim();
         if (!userText) return;
 
-        const apiKey = getApiKey();
-        if (!apiKey) {
-            alert("Er is nog geen Gemini API-sleutel ingesteld. Vul deze in via het gele balkje bovenaan de chat of in de HTML-code.");
-            checkApiKeyBanner();
-            return;
-        }
-
         appendMessage("Student", userText);
         inputEl.value = "";
-        chatHistory.push({ role: "user", parts: [{ text: userText }] });
 
         isWaiting = true;
         document.getElementById("btnSend").disabled = true;
         document.getElementById("typingIndicator").style.display = "block";
 
-        try {
-            const response = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-goog-api-key": apiKey
-                    },
-                    body: JSON.stringify({
-                        system_instruction: {
-                            parts: [{ text: PRISCILLA_SYSTEM_PROMPT }]
-                        },
-                        contents: chatHistory,
-                        safetySettings: [
-                            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
-                            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
-                            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
-                            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" }
-                        ]
-                    })
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data?.error?.message || `HTTP fout ${response.status}`);
-            }
-
-            const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!replyText) {
-                throw new Error("Geen antwoord ontvangen van Priscilla.");
-            }
-
-            chatHistory.push({ role: "model", parts: [{ text: replyText }] });
+        setTimeout(() => {
+            const replyText = generatePriscillaReply(userText);
             appendMessage("Priscilla", replyText);
-
-        } catch (err) {
-            console.error(err);
-            chatHistory.pop(); // Verwijder laatste user-bericht bij mislukking
-            appendMessage("Priscilla", `*kijkt verward* "Hè? Effe wachte, er gaat hier iets mis met de verbinding (${err.message}). Vraag 't nog es!"`);
-        } finally {
             isWaiting = false;
             document.getElementById("btnSend").disabled = false;
             document.getElementById("typingIndicator").style.display = "none";
             document.getElementById("chatInput").focus();
-        }
+        }, 450);
     };
 
-    // Enter verzendt bericht, Shift+Enter maakt nieuwe regel
     document.getElementById("chatInput").addEventListener("keydown", function(e) {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
