@@ -341,7 +341,7 @@
 
 <div id="login-overlay">
     <div class="login-card">
-        <h2 style="color: var(--politie-blauw); margin-top:0; border-bottom: 2px solid var(--politie-geel); padding-bottom: 8px;">LOGIN LES 6</h2>
+        <h2 style="color: var(--politie-blauw); margin-top:0; border-bottom: 2px solid var(--politie-geel); padding-bottom: 8px;">LOGIN LES 5</h2>
         <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Vul je gegevens in om direct toegang te krijgen tot het aangiftegesprek met Priscilla.</p>
 
         <div style="margin-bottom: 15px;">
@@ -371,7 +371,7 @@
 
 <div class="container main-content" id="mainContent">
     <header>
-        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 6</h1>
+        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 5</h1>
         <p id="classDisplay" style="font-weight:bold; margin-bottom: 0;"></p>
     </header>
 
@@ -877,62 +877,106 @@
         initChat();
     };
 
-    window.submitPV = function() {
-        const text = document.getElementById('pvText').value.trim();
+    window.submitPV = async function() {
+        const pvEl = document.getElementById('pvText');
+        const text = pvEl.value.trim();
         if (!text) {
             alert("Typ eerst je proces-verbaal voordat je het inlevert.");
             return;
         }
-        push(ref(db, 'aangiftes'), {
-            student: currentStudent,
-            klas: currentClass,
-            inhoud: text,
-            feedback: ""
-        });
-        document.getElementById('pvText').value = "";
-        alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen.");
+        try {
+            await push(ref(db, 'aangiftes'), {
+                student: currentStudent,
+                klas: currentClass,
+                inhoud: text,
+                feedback: ""
+            });
+            pvEl.value = "";
+            alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen.");
+        } catch (err) {
+            alert("Fout bij opslaan in database (controleer internetverbinding): " + err.message);
+        }
     };
 
     onValue(ref(db, 'aangiftes'), (snapshot) => {
         const data = snapshot.val();
         const feed = document.getElementById('feedContent');
-        feed.innerHTML = "";
-        if (data) {
-            Object.keys(data).reverse().forEach(key => {
-                const item = data[key];
+
+        if (!data) {
+            feed.innerHTML = "Geen records gevonden.";
+            return;
+        }
+
+        if (!feed.querySelector('.pv-item')) {
+            feed.innerHTML = "";
+        }
+
+        const keys = Object.keys(data).reverse();
+
+        Array.from(feed.querySelectorAll('.pv-item')).forEach(el => {
+            if (!data[el.dataset.key]) {
+                el.remove();
+            }
+        });
+
+        keys.forEach((key, index) => {
+            const item = data[key];
+            const safeStudent = escapeHtml((item.student || "").toUpperCase());
+            const safeKlas = escapeHtml((item.klas || "").toUpperCase());
+            const safeInhoud = escapeHtml(item.inhoud || "");
+            const rawFeedback = item.feedback || "";
+            const safeFeedback = rawFeedback ? escapeHtml(rawFeedback) : "";
+
+            let existing = document.getElementById(`pv-${key}`);
+
+            if (!existing) {
                 const itemDiv = document.createElement("div");
                 itemDiv.className = "pv-item";
-
-                const safeStudent = escapeHtml((item.student || "").toUpperCase());
-                const safeKlas = escapeHtml((item.klas || "").toUpperCase());
-                const safeInhoud = escapeHtml(item.inhoud || "");
-                const safeFeedback = item.feedback ? escapeHtml(item.feedback) : "";
+                itemDiv.id = `pv-${key}`;
+                itemDiv.dataset.key = key;
 
                 itemDiv.innerHTML = `
                     <div class="pv-header">${safeStudent} - KLAS ${safeKlas}</div>
                     <p style="white-space: pre-wrap;">${safeInhoud}</p>
-                    ${safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : ''}
+                    <div class="feedback-slot" data-last-fb="${escapeHtml(rawFeedback)}">${safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : ''}</div>
                     <button onclick="document.getElementById('input-${key}').style.display='block'" style="font-size:10px; padding:2px 5px; cursor:pointer;">FEEDBACK TOEVOEGEN</button>
                     <div id="input-${key}" class="feedback-input-area">
                         <textarea id="text-${key}" style="width:100%; height:60px; box-sizing:border-box;"></textarea>
                         <button onclick="saveFeedback('${key}')" style="background:var(--politie-geel); border:none; cursor:pointer; font-weight:bold; padding:5px; margin-top:4px;">BEVESTIGEN</button>
                     </div>
                 `;
-                feed.appendChild(itemDiv);
-            });
-        } else {
-            feed.innerHTML = "Geen records gevonden.";
-        }
+                feed.insertBefore(itemDiv, feed.children[index] || null);
+            } else {
+                const fbSlot = existing.querySelector('.feedback-slot');
+                if (fbSlot.dataset.lastFb !== rawFeedback) {
+                    fbSlot.dataset.lastFb = rawFeedback;
+                    fbSlot.innerHTML = safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : '';
+                }
+                if (feed.children[index] !== existing) {
+                    feed.insertBefore(existing, feed.children[index] || null);
+                }
+            }
+        });
     });
 
-    window.saveFeedback = function(key) {
-        const fbText = document.getElementById(`text-${key}`).value;
-        set(ref(db, `aangiftes/${key}/feedback`), fbText);
+    window.saveFeedback = async function(key) {
+        const inputEl = document.getElementById(`text-${key}`);
+        const fbText = inputEl.value;
+        try {
+            await set(ref(db, `aangiftes/${key}/feedback`), fbText);
+            document.getElementById(`input-${key}`).style.display = 'none';
+        } catch (err) {
+            alert("Fout bij opslaan van feedback: " + err.message);
+        }
     };
 
-    window.resetDatabase = function() {
+    window.resetDatabase = async function() {
         if (confirm("WAARSCHUWING: Alle data in de livefeed wordt definitief verwijderd. Doorgaan?")) {
-            remove(ref(db, 'aangiftes'));
+            try {
+                await remove(ref(db, 'aangiftes'));
+            } catch (err) {
+                alert("Fout bij resetten van database: " + err.message);
+            }
         }
     };
 </script>
