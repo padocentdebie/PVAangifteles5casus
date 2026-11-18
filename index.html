@@ -14,612 +14,117 @@
             --succes-groen: #2e7d32;
             --waarschuwing-oranje: #e65100;
         }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: var(--licht-grijs);
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--wit);
-            padding: 30px;
-            border-top: 8px solid var(--politie-blauw);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        /* Inlogscherm */
-        #login-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--politie-blauw);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 4px;
-            width: 400px;
-            max-width: 90%;
-            text-align: left;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-
+        body { font-family: Arial, sans-serif; background-color: var(--licht-grijs); margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; background: var(--wit); padding: 30px; border-top: 8px solid var(--politie-blauw); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--politie-blauw); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-card { background: white; padding: 40px; border-radius: 4px; width: 410px; max-width: 90%; text-align: left; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        #closing-score-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 32, 91, 0.96); color: var(--wit); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; box-sizing: border-box; }
+        .closing-card { background: var(--wit); color: #333; width: 850px; max-width: 95%; max-height: 88vh; overflow-y: auto; border-top: 8px solid var(--politie-geel); border-radius: 6px; padding: 28px; box-shadow: 0 12px 35px rgba(0,0,0,0.45); }
+        .countdown-banner { background: var(--politie-geel); color: var(--politie-blauw); font-weight: bold; padding: 10px 15px; border-radius: 4px; margin-bottom: 18px; font-size: 16px; text-align: center; }
         .main-content { display: none; }
-
-        header {
-            border-bottom: 2px solid var(--politie-blauw);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        header { border-bottom: 2px solid var(--politie-blauw); margin-bottom: 15px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px; }
         h1 { color: var(--politie-blauw); margin: 0; font-size: 22px; text-transform: uppercase; }
-
-        /* Fasenavigatie */
-        .phase-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 22px;
-            flex-wrap: wrap;
-            background: #eef2f8;
-            padding: 10px 14px;
-            border-radius: 4px;
-            border: 1px solid #d0d9e8;
-            align-items: center;
-        }
-
-        .phase-btn {
-            padding: 8px 14px;
-            border: 1px solid var(--politie-blauw);
-            background: var(--wit);
-            color: var(--politie-blauw);
-            font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
-            border-radius: 3px;
-            text-transform: uppercase;
-        }
-
-        .phase-btn.active {
-            background: var(--politie-blauw);
-            color: var(--wit);
-        }
-
-        .phase-btn:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-        }
-
-        .phase-badge-locked {
-            font-size: 11px;
-            color: #666;
-            padding: 6px 10px;
-            background: #e4e4e4;
-            border-radius: 3px;
-        }
-
-        .instruction-box {
-            background: #f9f9f9;
-            border: 1px solid #ccc;
-            border-left: 5px solid var(--politie-geel);
-            padding: 15px 20px;
-            margin-bottom: 25px;
-        }
-
-        .instruction-box ol {
-            margin: 8px 0 0 0;
-            padding-left: 20px;
-        }
-
-        .instruction-box li {
-            margin-bottom: 6px;
-        }
-
-        /* Werkruimte Fase 1: Afbeelding + Chat links, PV rechts */
-        .workspace-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-bottom: 40px;
-            align-items: stretch;
-        }
-
-        @media (max-width: 900px) {
-            .workspace-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .left-column {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Afbeelding Priscilla boven de chatbox */
-        .priscilla-photo-card {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #111;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        }
-
-        .priscilla-photo-card img {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            object-position: center 20%;
-            display: block;
-        }
-
-        .priscilla-photo-caption {
-            background: var(--politie-blauw);
-            color: var(--wit);
-            padding: 8px 14px;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.4px;
-            border-top: 3px solid var(--politie-geel);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Chatbox styling */
-        .chat-panel {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            height: 460px;
-            background: #fff;
-        }
-
-        .chat-header {
-            background: var(--politie-blauw);
-            color: var(--wit);
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 9px;
-            height: 9px;
-            background: #2ecc71;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .btn-chat-reset {
-            background: transparent;
-            color: var(--politie-geel);
-            border: 1px solid var(--politie-geel);
-            padding: 4px 10px;
-            font-size: 11px;
-            cursor: pointer;
-            border-radius: 2px;
-            font-weight: bold;
-        }
-
-        .btn-chat-reset:hover {
-            background: var(--politie-geel);
-            color: var(--politie-blauw);
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            background: #f7f8fa;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .msg {
-            max-width: 88%;
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 14px;
-            line-height: 1.45;
-            word-wrap: break-word;
-        }
-
-        .msg-priscilla {
-            align-self: flex-start;
-            background: var(--wit);
-            border: 1px solid #d8dde6;
-            border-left: 4px solid var(--politie-blauw);
-        }
-
-        .msg-student {
-            align-self: flex-end;
-            background: var(--politie-blauw);
-            color: var(--wit);
-        }
-
-        .msg-sender {
-            font-size: 11px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            opacity: 0.8;
-            text-transform: uppercase;
-        }
-
-        .msg-action {
-            font-style: italic;
-            color: #666;
-        }
-
-        .typing-indicator {
-            padding: 6px 15px;
-            font-size: 12px;
-            font-style: italic;
-            color: #666;
-            background: #f7f8fa;
-            display: none;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 8px;
-            padding: 12px;
-            border-top: 1px solid #ccc;
-            background: var(--wit);
-        }
-
-        .chat-input-area textarea {
-            flex: 1;
-            resize: none;
-            height: 44px;
-            padding: 8px 10px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            border: 1px solid #999;
-            border-radius: 2px;
-        }
-
-        .btn-send {
-            background: var(--politie-blauw);
-            color: var(--wit);
-            border: none;
-            padding: 0 18px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 2px;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-        /* PV-opstelvak */
-        #submission-area {
-            display: flex;
-            flex-direction: column;
-            min-height: 700px;
-        }
-
-        #submission-area label {
-            font-weight: bold;
-            color: var(--politie-blauw);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        #pvText { 
-            width: 100%; 
-            flex: 1;
-            padding: 12px; 
-            border: 1px solid #999; 
-            border-radius: 2px; 
-            box-sizing: border-box; 
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 14px;
-            resize: none;
-        }
-
-        .btn-submit-pv {
-            background: var(--politie-blauw);
-            color: white;
-            margin-top: 12px;
-            padding: 14px 24px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .btn-submit-pv:hover {
-            background: #00338d;
-        }
-
-        /* FASE 2 STYLING */
-        #phase2Screen { display: none; }
-
-        .phase2-header-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-            align-items: stretch;
-        }
-
-        @media (max-width: 800px) {
-            .phase2-header-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .phase2-instruction-box {
-            background: #f9f9f9;
-            border: 1px solid #ccc;
-            border-left: 6px solid var(--politie-geel);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .phase2-instruction-box h2 {
-            margin: 0 0 10px 0;
-            color: var(--politie-blauw);
-            font-size: 18px;
-            text-transform: uppercase;
-        }
-
-        .phase2-photo-card {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #111;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .phase2-photo-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            object-position: center 20%;
-            display: block;
-        }
-
-        .sentence-card {
-            background: #fff;
-            border: 1px solid #d5dbe5;
-            border-left: 4px solid var(--politie-blauw);
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 14px;
-        }
-
-        .sentence-card.is-correct {
-            border-left-color: var(--succes-groen);
-            background: #f3fbf4;
-        }
-
-        .sentence-card.is-wrong {
-            border-left-color: var(--gevaar-rood);
-            background: #fff8f8;
-        }
-
-        .sentence-card.is-missing {
-            border-color: var(--waarschuwing-oranje);
-            box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.2);
-        }
-
-        .sentence-num {
-            font-weight: bold;
-            color: var(--politie-blauw);
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-
-        .sentence-original {
-            background: #f2f4f8;
-            padding: 9px 12px;
-            border-radius: 3px;
-            font-size: 14px;
-            margin-bottom: 10px;
-            border: 1px solid #e1e6ef;
-        }
-
-        .sentence-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #999;
-            border-radius: 3px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-
-        .sentence-input:disabled {
-            background: #e9f5ea;
-            color: #1b5e20;
-            border-color: #a5d6a7;
-            font-weight: bold;
-        }
-
-        .sentence-feedback {
-            margin-top: 8px;
-            padding: 8px 12px;
-            border-radius: 3px;
-            font-size: 13px;
-            display: none;
-        }
-
-        .sentence-feedback.fb-ok {
-            display: block;
-            background: #e8f5e9;
-            color: #1b5e20;
-            border-left: 4px solid var(--succes-groen);
-        }
-
-        .sentence-feedback.fb-err {
-            display: block;
-            background: #ffebee;
-            color: #b71c1c;
-            border-left: 4px solid var(--gevaar-rood);
-        }
-
-        .phase2-actions {
-            position: sticky;
-            bottom: 15px;
-            background: var(--politie-blauw);
-            color: var(--wit);
-            padding: 14px 20px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
-            margin-bottom: 35px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.22);
-            z-index: 50;
-        }
-
-        .btn-check-phase2 {
-            background: var(--politie-geel);
-            color: var(--politie-blauw);
-            border: none;
-            padding: 12px 24px;
-            font-weight: bold;
-            font-size: 14px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 3px;
-        }
-
-        .btn-check-phase2:disabled {
-            background: #ccc;
-            color: #666;
-            cursor: not-allowed;
-        }
-
-        .phase2-score-banner {
-            display: none;
-            background: #eef6ee;
-            border: 2px solid var(--succes-groen);
-            padding: 16px 20px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 15px;
-        }
-
-        /* Klassenscore / Voortgangsmonitor */
-        #scoreboard-section {
-            margin-top: 40px;
-            margin-bottom: 40px;
-            border-top: 3px solid var(--politie-blauw);
-            padding-top: 20px;
-        }
-
-        .scoreboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .score-table-wrap {
-            overflow-x: auto;
-        }
-
-        table.score-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: #fff;
-        }
-
-        table.score-table th {
-            background: var(--politie-blauw);
-            color: #fff;
-            text-align: left;
-            padding: 10px 12px;
-            text-transform: uppercase;
-            font-size: 11px;
-        }
-
-        table.score-table td {
-            padding: 9px 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        table.score-table tr:nth-child(even) {
-            background: #f9fafc;
-        }
-
-        .pill {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
+        .phase-nav { display: flex; gap: 10px; margin-bottom: 22px; flex-wrap: wrap; background: #eef2f8; padding: 10px 14px; border-radius: 4px; border: 1px solid #d0d9e8; align-items: center; }
+        .phase-btn { padding: 8px 14px; border: 1px solid var(--politie-blauw); background: var(--wit); color: var(--politie-blauw); font-weight: bold; font-size: 12px; cursor: pointer; border-radius: 3px; text-transform: uppercase; }
+        .phase-btn.active { background: var(--politie-blauw); color: var(--wit); }
+        .phase-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+        .instruction-box { background: #f9f9f9; border: 1px solid #ccc; border-left: 5px solid var(--politie-geel); padding: 15px 20px; margin-bottom: 25px; }
+        .instruction-box ol { margin: 8px 0 0 0; padding-left: 20px; }
+        .instruction-box li { margin-bottom: 6px; }
+        .workspace-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; align-items: stretch; }
+        @media (max-width: 900px) { .workspace-grid { grid-template-columns: 1fr; } }
+        .left-column { display: flex; flex-direction: column; gap: 15px; }
+        .priscilla-photo-card { border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #111; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .priscilla-photo-card img { width: 100%; height: 230px; object-fit: cover; object-position: center 20%; display: block; }
+        .priscilla-photo-caption { background: var(--politie-blauw); color: var(--wit); padding: 8px 14px; font-size: 12px; font-weight: bold; letter-spacing: 0.4px; border-top: 3px solid var(--politie-geel); display: flex; justify-content: space-between; }
+        .chat-panel { border: 1px solid #ccc; border-radius: 4px; display: flex; flex-direction: column; height: 460px; background: #fff; }
+        .chat-header { background: var(--politie-blauw); color: var(--wit); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 14px; }
+        .status-dot { display: inline-block; width: 9px; height: 9px; background: #2ecc71; border-radius: 50%; margin-right: 8px; }
+        .btn-chat-reset { background: transparent; color: var(--politie-geel); border: 1px solid var(--politie-geel); padding: 4px 10px; font-size: 11px; cursor: pointer; border-radius: 2px; font-weight: bold; }
+        .btn-chat-reset:hover { background: var(--politie-geel); color: var(--politie-blauw); }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 15px; background: #f7f8fa; display: flex; flex-direction: column; gap: 12px; }
+        .msg { max-width: 88%; padding: 10px 14px; border-radius: 6px; font-size: 14px; line-height: 1.45; word-wrap: break-word; }
+        .msg-priscilla { align-self: flex-start; background: var(--wit); border: 1px solid #d8dde6; border-left: 4px solid var(--politie-blauw); }
+        .msg-student { align-self: flex-end; background: var(--politie-blauw); color: var(--wit); }
+        .msg-sender { font-size: 11px; font-weight: bold; margin-bottom: 4px; opacity: 0.8; text-transform: uppercase; }
+        .msg-action { font-style: italic; color: #666; }
+        .typing-indicator { padding: 6px 15px; font-size: 12px; font-style: italic; color: #666; background: #f7f8fa; display: none; }
+        .chat-input-area { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #ccc; background: var(--wit); }
+        .chat-input-area textarea { flex: 1; resize: none; height: 44px; padding: 8px 10px; font-family: Arial, sans-serif; font-size: 14px; border: 1px solid #999; border-radius: 2px; }
+        .btn-send { background: var(--politie-blauw); color: var(--wit); border: none; padding: 0 18px; font-weight: bold; cursor: pointer; border-radius: 2px; text-transform: uppercase; font-size: 12px; }
+        #submission-area { display: flex; flex-direction: column; min-height: 700px; }
+        #submission-area label { font-weight: bold; color: var(--politie-blauw); margin-bottom: 8px; display: block; }
+        #pvText { width: 100%; flex: 1; padding: 12px; border: 1px solid #999; border-radius: 2px; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; font-size: 14px; resize: none; }
+        .btn-submit-pv { background: var(--politie-blauw); color: white; margin-top: 12px; padding: 14px 24px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        .btn-submit-pv:hover { background: #00338d; }
+        #phase2Screen, #phase3Screen, #phase4Screen { display: none; }
+        .phase2-header-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; margin-bottom: 25px; align-items: stretch; }
+        @media (max-width: 800px) { .phase2-header-grid { grid-template-columns: 1fr; } }
+        .phase2-instruction-box { background: #f9f9f9; border: 1px solid #ccc; border-left: 6px solid var(--politie-geel); padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+        .phase2-instruction-box h2 { margin: 0 0 10px 0; color: var(--politie-blauw); font-size: 18px; text-transform: uppercase; }
+        .phase2-photo-card { border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #111; display: flex; flex-direction: column; }
+        .phase2-photo-card img { width: 100%; height: 220px; object-fit: cover; object-position: center 20%; display: block; }
+        .sentence-card { background: #fff; border: 1px solid #d5dbe5; border-left: 4px solid var(--politie-blauw); border-radius: 4px; padding: 15px; margin-bottom: 16px; }
+        .sentence-card.is-correct { border-left-color: var(--succes-groen); background: #f3fbf4; }
+        .sentence-card.is-wrong { border-left-color: var(--gevaar-rood); background: #fff8f8; }
+        .sentence-card.is-missing { border-color: var(--waarschuwing-oranje); box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.2); }
+        .sentence-num { font-weight: bold; color: var(--politie-blauw); font-size: 13px; margin-bottom: 6px; }
+        .sentence-original { background: #f2f4f8; padding: 9px 12px; border-radius: 3px; font-size: 14px; margin-bottom: 10px; border: 1px solid #e1e6ef; }
+        .sentence-input { width: 100%; padding: 10px; border: 1px solid #999; border-radius: 3px; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; resize: vertical; }
+        .sentence-input:disabled { background: #e9f5ea; color: #1b5e20; border-color: #a5d6a7; font-weight: bold; }
+        .sentence-feedback { margin-top: 8px; padding: 8px 12px; border-radius: 3px; font-size: 13px; display: none; line-height: 1.45; }
+        .sentence-feedback.fb-ok { display: block; background: #e8f5e9; color: #1b5e20; border-left: 4px solid var(--succes-groen); }
+        .sentence-feedback.fb-err { display: block; background: #ffebee; color: #b71c1c; border-left: 4px solid var(--gevaar-rood); }
+        .phase2-actions { position: sticky; bottom: 15px; background: var(--politie-blauw); color: var(--wit); padding: 14px 20px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 20px; margin-bottom: 35px; box-shadow: 0 4px 14px rgba(0,0,0,0.22); z-index: 50; }
+        .btn-check-phase2 { background: var(--politie-geel); color: var(--politie-blauw); border: none; padding: 12px 24px; font-weight: bold; font-size: 14px; text-transform: uppercase; cursor: pointer; border-radius: 3px; }
+        .btn-check-phase2:disabled { background: #ccc; color: #666; cursor: not-allowed; }
+        .phase2-score-banner { display: none; background: #eef6ee; border: 2px solid var(--succes-groen); padding: 16px 20px; border-radius: 4px; margin-bottom: 20px; font-size: 15px; }
+        .phase3-card-layout { display: grid; grid-template-columns: 340px 1fr; gap: 18px; align-items: start; }
+        @media (max-width: 850px) { .phase3-card-layout { grid-template-columns: 1fr; } }
+        .phase3-img-box { border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: #1a1a1a; }
+        .phase3-img-box img { width: 100%; height: 210px; object-fit: cover; display: block; }
+        .phase3-img-label { background: var(--politie-blauw); color: var(--wit); padding: 6px 10px; font-size: 11px; font-weight: bold; border-top: 2px solid var(--politie-geel); }
+        .btn-datetime { background: #eef2f8; color: var(--politie-blauw); border: 1px solid var(--politie-blauw); padding: 6px 12px; font-size: 12px; font-weight: bold; border-radius: 3px; cursor: pointer; margin-bottom: 8px; display: inline-block; }
+        .btn-datetime:hover { background: var(--politie-geel); }
+        .btn-datetime:disabled { opacity: 0.45; cursor: not-allowed; }
+        .crossword-layout { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; margin-bottom: 25px; }
+        @media (max-width: 1050px) { .crossword-layout { grid-template-columns: 1fr; } }
+        .cw-grid-scroll { overflow-x: auto; background: #182338; padding: 12px; border-radius: 6px; border: 2px solid var(--politie-blauw); }
+        .cw-grid { display: grid; gap: 2px; width: max-content; margin: 0 auto; }
+        .cw-cell { width: 26px; height: 26px; position: relative; }
+        .cw-cell.cw-black { background: transparent; }
+        .cw-cell.cw-white { background: #fff; border-radius: 2px; }
+        .cw-cell.cw-active-word { background: #fff9d6; }
+        .cw-cell.cw-correct { background: #dff5e1 !important; }
+        .cw-cell.cw-wrong { background: #ffe0e0 !important; }
+        .cw-num { position: absolute; top: 1px; left: 2px; font-size: 8px; font-weight: bold; color: var(--politie-blauw); pointer-events: none; line-height: 1; z-index: 2; }
+        .cw-input { width: 100%; height: 100%; border: none; background: transparent; text-align: center; font-weight: bold; font-size: 14px; text-transform: uppercase; color: #111; padding: 4px 0 0 0; box-sizing: border-box; outline: none; cursor: pointer; }
+        .cw-input:focus { background: rgba(252, 201, 23, 0.45); }
+        .cw-clues-panel { background: #f9fafc; border: 1px solid #d5dbe5; border-radius: 4px; padding: 16px; max-height: 760px; overflow-y: auto; }
+        .cw-clues-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 650px) { .cw-clues-columns { grid-template-columns: 1fr; } }
+        .cw-clue-list { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+        .cw-clue-item { padding: 6px 8px; border-radius: 3px; cursor: pointer; margin-bottom: 4px; line-height: 1.35; border-left: 3px solid transparent; }
+        .cw-clue-item:hover { background: #e9eff8; }
+        .cw-clue-item.active-clue { background: #fff6cf; border-left-color: var(--politie-geel); font-weight: bold; }
+        .cw-clue-item.solved-clue { color: var(--succes-groen); text-decoration: line-through; }
+        #scoreboard-section { margin-top: 40px; margin-bottom: 40px; border-top: 3px solid var(--politie-blauw); padding-top: 20px; }
+        .scoreboard-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+        .score-table-wrap { overflow-x: auto; }
+        table.score-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+        table.score-table th { background: var(--politie-blauw); color: #fff; text-align: left; padding: 10px 12px; text-transform: uppercase; font-size: 11px; }
+        table.score-table td { padding: 9px 12px; border-bottom: 1px solid #e0e0e0; }
+        table.score-table tr:nth-child(even) { background: #f9fafc; }
+        .pill { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
         .pill-done { background: #e8f5e9; color: #1b5e20; }
         .pill-busy { background: #fff8e1; color: #b26a00; }
         .pill-wait { background: #eeeeee; color: #666; }
-
-        /* Livefeed & Feedback */
-        .pv-item { 
-            background: #fff; 
-            border: 1px solid #ccc; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-        }
-
-        .pv-header { 
-            font-weight: bold; 
-            color: var(--politie-blauw); 
-            border-bottom: 1px solid #eee; 
-            margin-bottom: 10px; 
-            padding-bottom: 5px;
-        }
-
-        .feedback-section { 
-            margin-top: 10px; 
-            background: #ffffcc; 
-            padding: 10px; 
-            border-left: 4px solid var(--politie-geel); 
-        }
-
+        .pv-item { background: #fff; border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+        .pv-header { font-weight: bold; color: var(--politie-blauw); border-bottom: 1px solid #eee; margin-bottom: 10px; padding-bottom: 5px; }
+        .feedback-section { margin-top: 10px; background: #ffffcc; padding: 10px; border-left: 4px solid var(--politie-geel); }
         .feedback-input-area { display: none; margin-top: 10px; }
-
         .admin-section { margin-top: 60px; border-top: 1px solid #ddd; padding-top: 20px; text-align: right; }
-        
-        .btn-reset { 
-            background: var(--gevaar-rood); 
-            color: white; 
-            border: none; 
-            padding: 4px 8px; 
-            cursor: pointer; 
-            font-size: 10px; 
-        }
+        .btn-reset { background: var(--gevaar-rood); color: white; border: none; padding: 6px 12px; cursor: pointer; font-size: 11px; border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -627,13 +132,12 @@
 <div id="login-overlay">
     <div class="login-card">
         <h2 style="color: var(--politie-blauw); margin-top:0; border-bottom: 2px solid var(--politie-geel); padding-bottom: 8px;">LOGIN LES 5</h2>
-        <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Vul je gegevens in om direct toegang te krijgen tot het aangiftegesprek met Priscilla.</p>
-
+        <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Vul je gegevens in om direct toegang te krijgen tot de les.</p>
         <div style="margin-bottom: 15px;">
             <label style="font-weight:bold; font-size:13px;">Voornaam:</label>
             <input type="text" id="userFirstName" placeholder="Bijv. Lisa" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #999; box-sizing: border-box;">
         </div>
-        <div style="margin-bottom: 20px;">
+        <div style="margin-bottom: 15px;">
             <label style="font-weight:bold; font-size:13px;">NAVO-klas:</label>
             <select id="userClass" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #999; box-sizing: border-box;">
                 <option value="Alpha">Alpha</option>
@@ -650,7 +154,23 @@
                 <option value="Mike">Mike</option>
             </select>
         </div>
+        <div style="margin-bottom: 20px; font-size: 12px; color: #444;">
+            <label style="cursor:pointer; display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="isTeacherLogin">
+                <span>Ik ben docent / meekijker (telt niet mee als laatste student)</span>
+            </label>
+        </div>
         <button onclick="startLesson()" style="background: var(--politie-blauw); color: white; width: 100%; padding: 12px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase;">TOEGANG</button>
+    </div>
+</div>
+
+<div id="closing-score-overlay">
+    <div class="closing-card">
+        <h2 style="color: var(--politie-blauw); margin-top:0; text-transform:uppercase;">AFSLUITING VAN DE LES — EINDSTAND SCORES</h2>
+        <div class="countdown-banner" id="closingCountdown">
+            Alle ingelogde studenten hebben hun teksten ingeleverd! Over 5 seconden springen alle schermen naar Scherm 1...
+        </div>
+        <div id="closingScoreTableWrap"></div>
     </div>
 </div>
 
@@ -665,18 +185,14 @@
         </div>
     </header>
 
-    <!-- Fasenavigatie -->
     <div class="phase-nav">
         <button class="phase-btn active" id="btnNavPhase1" onclick="showPhase(1)">Fase 1: Verhoor &amp; PV Aangifte</button>
         <button class="phase-btn" id="btnNavPhase2" onclick="showPhase(2)" disabled>Fase 2: 25 Stijlfouten</button>
-        <span class="phase-badge-locked">Fase 3: Binnenkort</span>
-        <span class="phase-badge-locked">Fase 4: Pac-Man (Binnenkort)</span>
+        <button class="phase-btn" id="btnNavPhase3" onclick="showPhase(3)" disabled>Fase 3: 15 Beroepsvaardigheden</button>
+        <button class="phase-btn" id="btnNavPhase4" onclick="showPhase(4)" disabled>Fase 4: Kruiswoordraadsel</button>
         <button class="phase-btn" style="margin-left:auto; border-style:dashed;" onclick="document.getElementById('scoreboard-section').scrollIntoView({behavior:'smooth'})">Klassenscores &amp; Livefeed ↓</button>
     </div>
 
-    <!-- =================================================================== -->
-    <!-- FASE 1 SCHERM (ONGEWIJZIGD)                                         -->
-    <!-- =================================================================== -->
     <div id="phase1Screen">
         <div class="instruction-box">
             <h3 style="margin-top:0; color:var(--politie-blauw);">STAPPENPLAN VERHOOR &amp; AANGIFTE</h3>
@@ -686,9 +202,7 @@
                 <li><strong>Inleveren:</strong> Klik op <em>PV Definitief Inleveren</em> om je uitwerking in de livefeed te plaatsen en door te gaan naar <strong>Fase 2</strong>.</li>
             </ol>
         </div>
-
         <div class="workspace-grid">
-            <!-- Linker kolom: Afbeelding + Zelfstandige Chat -->
             <div class="left-column">
                 <div class="priscilla-photo-card">
                     <img src="priscilla.jpg" alt="Priscilla de Vries" onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='block';">
@@ -700,24 +214,19 @@
                         <span>VERHOORKAMER 2</span>
                     </div>
                 </div>
-
                 <div class="chat-panel">
                     <div class="chat-header">
                         <span><span class="status-dot"></span>Gesprek met Priscilla</span>
                         <button class="btn-chat-reset" onclick="resetChat()">Gesprek herstarten</button>
                     </div>
-
                     <div class="chat-messages" id="chatMessages"></div>
                     <div class="typing-indicator" id="typingIndicator">Priscilla is aan het praten...</div>
-
                     <div class="chat-input-area">
                         <textarea id="chatInput" placeholder="Stel hier je vraag aan Priscilla... (Enter = verzenden)"></textarea>
                         <button class="btn-send" id="btnSend" onclick="sendChatMessage()">Stuur</button>
                     </div>
                 </div>
             </div>
-
-            <!-- Rechter kolom: PV invoer -->
             <div id="submission-area">
                 <label for="pvText">Tekst Proces-Verbaal van Aangifte:</label>
                 <textarea id="pvText" placeholder="Start hier uw feitelijke verslaglegging (7 W's, decor/route, signalement, letsel)..."></textarea>
@@ -726,26 +235,18 @@
         </div>
     </div>
 
-    <!-- =================================================================== -->
-    <!-- FASE 2 SCHERM: 25 ZINNEN MET STIJLFOUTEN                            -->
-    <!-- =================================================================== -->
     <div id="phase2Screen">
         <div class="phase2-header-grid">
             <div class="phase2-instruction-box">
                 <h2>FASE 2: STIJLFOUTEN VERBETEREN</h2>
-                <p style="font-size: 16px; font-weight: bold; color: var(--politie-blauw); margin: 0 0 10px 0;">
-                    Noteer de correcte zin.
-                </p>
-                <p style="font-size: 13px; margin: 0 0 8px 0; line-height: 1.5;">
-                    Hieronder staan 25 zinnen uit de politiepraktijk met een stijlfout. Herschrijf elke zin foutloos in zakelijk, correct Nederlands.
-                </p>
+                <p style="font-size: 16px; font-weight: bold; color: var(--politie-blauw); margin: 0 0 10px 0;">Noteer de correcte zin.</p>
+                <p style="font-size: 13px; margin: 0 0 8px 0; line-height: 1.5;">Hieronder staan 25 zinnen uit de politiepraktijk met een stijlfout. Herschrijf elke zin foutloos in zakelijk, correct Nederlands.</p>
                 <ul style="font-size: 13px; margin: 0; padding-left: 18px; line-height: 1.5;">
                     <li><strong>Alle 25 zinnen</strong> moeten ingevuld zijn voordat je op <em>Nakijken</em> kunt klikken.</li>
                     <li>Elke zin die in één keer goed is levert <strong>2 punten</strong> op (max. 50 punten).</li>
                     <li>Bij fouten zie je <em>wat er fout is</em> (nog niet het antwoord) en mag je de zin verbeteren voor <strong>1 extra punt</strong> per verbeterde zin.</li>
                 </ul>
             </div>
-
             <div class="phase2-photo-card">
                 <img src="priscilla2.jpg" alt="Priscilla - Fase 2" onerror="this.style.display='none'; document.getElementById('photoFallback2').style.display='block';">
                 <div id="photoFallback2" style="display:none; padding: 20px; color: #ddd; font-size: 13px; text-align:center;">
@@ -757,11 +258,8 @@
                 </div>
             </div>
         </div>
-
         <div class="phase2-score-banner" id="phase2ScoreBanner"></div>
-
         <div id="sentencesContainer"></div>
-
         <div class="phase2-actions">
             <div>
                 <span id="filledCounter" style="font-weight:bold; font-size:14px;">Ingevuld: 0 / 25 zinnen</span>
@@ -771,13 +269,70 @@
         </div>
     </div>
 
-    <!-- =================================================================== -->
-    <!-- REAL-TIME KLASSENSCORE & VOORTGANG (VOOR COLLEGA'S)                 -->
-    <!-- =================================================================== -->
+    <div id="phase3Screen">
+        <div class="instruction-box">
+            <h3 style="margin-top:0; color:var(--politie-blauw);">FASE 3: BEROEPSVAARDIGHEDEN VERWOORDEN (15 FOTO'S)</h3>
+            <p style="margin: 0 0 8px 0; font-size: 14px;">Beschrijf voor alle 15 situaties wat jij als verbalisant hebt gedaan en waargenomen volgens de regels van het proces-verbaal:</p>
+            <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.55;">
+                <li><strong>Dag, datum en tijd:</strong> Klik op het knopje <em>"🕒 Actuele dag, datum &amp; tijd invoegen"</em> boven het invulveld of typ deze zelf uit.</li>
+                <li><strong>Altijd in de ik-vorm + redenen van wetenschap:</strong> Schrijf alleen wat jij zelf zag, hoorde, voelde, rook of deed (<em>"Ik zag dat..."</em>, <em>"Ik voelde dat..."</em>, <em>"Ik vorderde..."</em>). Geen aannames of conclusies!</li>
+                <li><strong>Controleren &amp; verbeteren:</strong> De knop <em>Controleren</em> toont de fouten + uitleg en geeft een tweede kans (+2 pnt in één keer goed, +1 pnt bij verbeteren, max. 30 pnt). Daarna open je <strong>Fase 4 (Kruiswoordraadsel)</strong>.</li>
+            </ul>
+        </div>
+        <div class="phase2-score-banner" id="phase3ScoreBanner"></div>
+        <div id="phase3Container"></div>
+        <div class="phase2-actions">
+            <div>
+                <span id="phase3FilledCounter" style="font-weight:bold; font-size:14px;">Ingevuld: 0 / 15 situaties</span>
+                <span id="phase3StatusHint" style="font-size:12px; opacity:0.9; display:block;">Vul alle 15 situaties in om te kunnen controleren.</span>
+            </div>
+            <button class="btn-check-phase2" id="btnCheckPhase3" onclick="checkPhase3()">CONTROLEREN</button>
+        </div>
+    </div>
+
+    <div id="phase4Screen">
+        <div class="instruction-box">
+            <h3 style="margin-top:0; color:var(--politie-blauw);">FASE 4: WOORDENSCHAT KRUISWOORDRAADSEL (28 WOORDEN)</h3>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                Vul het kruiswoordraadsel in (1 punt per goed woord, max. 28 punten). Klik op een vakje of omschrijving en typ direct.
+                <strong>Afsluiting:</strong> Zodra de laatste ingelogde student zijn teksten heeft ingeleverd, komen eerst 5 seconden de scores in beeld en springen alle schermen terug naar Scherm 1 voor het klassikaal nakijken.
+            </p>
+        </div>
+        <div class="phase2-score-banner" id="phase4ScoreBanner"></div>
+        <div class="crossword-layout">
+            <div class="cw-grid-scroll">
+                <div class="cw-grid" id="crosswordGrid"></div>
+            </div>
+            <div class="cw-clues-panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:2px solid var(--politie-blauw); padding-bottom:6px;">
+                    <strong style="color:var(--politie-blauw); font-size:14px;">OMSCHRIJVINGEN (KLIK OM TE SELECTEREN)</strong>
+                    <span id="cwScoreBadge" style="font-size:12px; font-weight:bold; color:var(--politie-blauw);">0 / 28 goed</span>
+                </div>
+                <div class="cw-clues-columns">
+                    <div>
+                        <h4 style="margin:0 0 8px 0; color:var(--politie-blauw); font-size:13px;">HORIZONTAAL</h4>
+                        <ul class="cw-clue-list" id="cluesAcross"></ul>
+                    </div>
+                    <div>
+                        <h4 style="margin:0 0 8px 0; color:var(--politie-blauw); font-size:13px;">VERTICAAL</h4>
+                        <ul class="cw-clue-list" id="cluesDown"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="phase2-actions">
+            <div>
+                <span id="cwProgressText" style="font-weight:bold; font-size:14px;">Kruiswoordraadsel (28 woorden)</span>
+                <span style="font-size:12px; opacity:0.9; display:block;">Klik op Controleren om je punten op te slaan in het klassenoverzicht.</span>
+            </div>
+            <button class="btn-check-phase2" id="btnCheckPhase4" onclick="checkPhase4()">KRUISWOORDRAADSEL CONTROLEREN &amp; OPSLAAN</button>
+        </div>
+    </div>
+
     <div id="scoreboard-section">
         <div class="scoreboard-header">
             <h2 style="color: var(--politie-blauw); margin:0;">VOORTGANG &amp; SCORES PER KLAS (REAL-TIME)</h2>
-            <div>
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
                 <label for="classFilter" style="font-size:13px; font-weight:bold;">Filter op NAVO-klas: </label>
                 <select id="classFilter" style="padding:5px 8px; border:1px solid #999;">
                     <option value="ALLE">Alle klassen</option>
@@ -794,6 +349,9 @@
                     <option value="Lima">Lima</option>
                     <option value="Mike">Mike</option>
                 </select>
+                <button onclick="triggerClassClosing('docent')" style="background:var(--politie-geel); color:var(--politie-blauw); border:1px solid var(--politie-blauw); padding:6px 12px; font-weight:bold; font-size:12px; cursor:pointer; border-radius:3px;">
+                    🏁 Les klassikaal afsluiten (5s scores → Scherm 1)
+                </button>
             </div>
         </div>
         <div class="score-table-wrap">
@@ -802,25 +360,26 @@
                     <tr>
                         <th>Student</th>
                         <th>Klas</th>
-                        <th>Fase 1 (PV Aangifte)</th>
+                        <th>Fase 1 (PV)</th>
                         <th>Fase 2 (25 Zinnen)</th>
-                        <th>Score Fase 2</th>
+                        <th>Fase 3 (15 Foto's)</th>
+                        <th>Fase 4 (Raadsel)</th>
                         <th>Totaalscore</th>
                     </tr>
                 </thead>
                 <tbody id="scoreboardBody">
-                    <tr><td colspan="6">Scores laden uit database...</td></tr>
+                    <tr><td colspan="7">Scores laden uit database...</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- =================================================================== -->
-    <!-- LIVEFEED AANGIFTES (ONGEWIJZIGD + ANTI-VERSPRING FIX)               -->
-    <!-- =================================================================== -->
     <div id="livefeed">
-        <h2 style="color: var(--politie-blauw); border-bottom: 2px solid var(--politie-blauw); padding-bottom: 5px;">LIVEFEED AANGIFTES</h2>
+        <h2 style="color: var(--politie-blauw); border-bottom: 2px solid var(--politie-blauw); padding-bottom: 5px;">LIVEFEED AANGIFTES (FASE 1)</h2>
         <div id="feedContent">Verbinding maken met database...</div>
+
+        <h2 style="color: var(--politie-blauw); border-bottom: 2px solid var(--politie-blauw); padding-bottom: 5px; margin-top: 35px;">INGELEVERDE TEKSTEN BEROEPSVAARDIGHEDEN (FASE 3)</h2>
+        <div id="phase3FeedContent">Nog geen Fase 3 teksten ingeleverd.</div>
     </div>
 
     <div class="admin-section">
@@ -832,441 +391,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue, set, get, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // =========================================================================
-    // FASE 1: UITGEBREIDE CHAT MET PRISCILLA (ONGEWIJZIGD)
-    // =========================================================================
-    const OPENING_GREETING = `*komt gejaagd de spreekkamer binnenstormen en grijpt met d'r rechterhand naar d'r linkerschouder* "Jâh toch, eindelijk iemand! Ik mot aangifte doen! Die wause vriend van me heb me net gewoon de trap af gepleurd, m'n hele arm doet zo'n zeer!"`;
-
-    const TOPICS = {
-        wat_gebeurd: {
-            category: "incident",
-            first: `*veegt kwaad een traan weg* "Ik liep met m'n wasmand naar bove en zag berichtjes van andere meide op z'n telefoon. Ik sprak die krent d'r op aan op de overloop, hij werd helemaal waus en toen pleurde die me keihard van die gladde trap af! Op 't nippertje greep ik nog die leuning met links."`,
-            repeat: `Dat zei ik net toch, gappie? Ruzie over z'n telefoon en toen heb die me van de trap gepleurd!`
-        },
-        wie_slachtoffer: {
-            category: "wie",
-            first: `"Ik ben Priscilla de Vries, 34 jaar. Ik woon zelf aan de Goeverneurlaan in Laakkwartier, Den Haag."`,
-            repeat: `Priscilla de Vries, 34, Goeverneurlaan in Laakkwartier. Schrijf 't maar effe op nâh!`
-        },
-        wie_dader: {
-            category: "wie",
-            first: `"Da's m'n vriend Wesley van Dijk, 36 jaar — hij's van 14 mei 1990. We zijn acht maande samen. Hij werrekt in de bouw als stratenmaker. Officieel staat-ie nog bij z'n moeder ingeschreve, maar hij slaapt bijna elke nacht bij mij."`,
-            repeat: `Wesley van Dijk! 36 jaar, 14 mei '90, stratenmaker, woont officieel bij z'n moeder.`
-        },
-        kinderen: {
-            category: "wie",
-            first: `*zucht opgelucht* "Ik heb twee kindere, Jayden van 9 en Cheyenne van 6, maar hij is NIET hun vader hoor, ze zijn van m'n ex. Gelukkig ware ze allebei op school en bij oma toen dit gebeurde!"`,
-            repeat: `Nee man, Wesley is niet hun pa! Jayden en Cheyenne ware gelukkig niet thuis, bij oma en op school.`
-        },
-        wanneer: {
-            category: "wanneer",
-            first: `"Net, vanmiddag rond een uurtje of half drie! Een klein uurtje gelede dus. Ik ben daarna meteen m'n jas en sleutels gaan pakke en linea recta hierheen gelope!"`,
-            repeat: `Vandaag rond half drie, uurtje gelede! M'n arm gloeit nâh nog na!`
-        },
-        aanleiding: {
-            category: "waarom",
-            first: `"Ik liep met een volle wasmand netjes opgevouwe schone was naar bove. Ik zette die wasmand op bed in de slaapkamer neer en toen lichtte z'n telefoon op. Allemaal namen en kleffe berichtjes van andere meide! Toen ben ik naar de overloop gelope onder dat kale peertje om 'm te confronteren."`,
-            repeat: `Door die wijve op z'n telefoon! Wasmand stond al op bed en ik sprak 'm d'r op aan op de overloop.`
-        },
-        gaslighting: {
-            category: "geweld",
-            first: `"Hij sloeg in één tel helemaal om, werd knetter-waus! Begon me verrot te schelde en deed net of ik gek was: 'Je ziet spoken, je bent helemaal lijp in je wijvenkop!' Echt zo'n misselijke krent!"`,
-            repeat: `Hij maakte me eerst uit voor lijp en gek, alsof ik spoke zag!`
-        },
-        waarmee_basis: {
-            category: "geweld",
-            first: `"Gewoon met z'n blote hande, gappie! Hij had geen mes, geen stok en geen enkel voorwerp vast!"`,
-            repeat: `Met z'n blote hande zei ik toch! Niks geen wapen of voorwerp!`
-        },
-        waarmee_handen: {
-            category: "geweld",
-            first: `*kijkt je fel aan* "Nee man, niet met één hand! Allebei tegelijk! Z'n linkerhand én z'n rechterhand, met z'n volle gewicht d'r achter!"`,
-            repeat: `Allebei z'n hande! Links én rechts tegelijk!`
-        },
-        handen_positie: {
-            category: "geweld",
-            first: `"Hij stond recht voor m'n neus op die krappe overloop, zette allebei z'n platte handpalme — links en rechts naast mekaar — keihard hoog hier op m'n borst, net onder m'n sleutelbene! En toen stootte die me met volle kracht achterover!"`,
-            repeat: `Hoog op m'n borst, net onder m'n sleutelbene, allebei z'n platte handpalme recht vooruit!`
-        },
-        exacte_quote: {
-            category: "geweld",
-            first: `*trilt van woede* "Vlak terwijl die me duwde schreeuwde die recht in m'n bek: 'Donder nou es echt naar beneje!' Letterlijk die woorde!"`,
-            repeat: `"Donder nou es echt naar beneje!" — dat riep die laffe krent letterlijk!`
-        },
-        val_en_redding: {
-            category: "geweld",
-            first: `*wrijft over d'r onderrug* "Ik liep op sokke, hè! Dat laminaat en die gelakte houte traptrede zijn spekglad, zonder loper of antislip, dus ik had nul grip! Ik klapte dubbel op de bovenste trede en stuiterde drie trede keihard naar beneje. Ik schoot bijna door naar dat zwarte metalen schoenenrek in de gang, maar op 't allerlaatste moment greep ik met m'n linkerhand de houte trapleuning vast. Daardoor kreeg m'n linkerschouder zo'n rotklap!"`,
-            repeat: `Op sokke op dat spekgladde hout en laminaat, drie trede naar beneje gestuiterd en met links de leuning gegrepe vlak voor dat metalen schoenenrek.`
-        },
-        arm_hoogte: {
-            category: "letsel",
-            first: `*probeert d'r linkerarm langzaam op te tillen, komt niet hoger dan d'r ribbenkast voordat ze een schelle gil geeft en d'r arm meteen slap laat zakken* "Auw!! Mot je kijke! Hoger komt-ie echt niet! Ik verga van de pijn in m'n linkerschouder en arm!"`,
-            repeat: `*grimas van de pijn* "Ik til 'm echt niet nòg een keer op voor je, hij komt niet eens boven m'n ribbe uit!"`
-        },
-        route_woning: {
-            category: "decor",
-            first: `"Als je bij mij door de voordeur binnenkomt, stap je in een lange, smalle benedenhal. Na een metertje of vier rechtdoor lope sta je pal voor een steile, dichte houte trap recht omhoog. Bovenaan die trap kom je meteen op de kleine vierkante overloop, met de deure naar de slaapkamer en de badkamer."`,
-            repeat: `Voordeur, smalle gang van vier meter, steile dichte houte trap recht omhoog en boven zit je meteen op de overloop.`
-        },
-        decor_kaal: {
-            category: "decor",
-            first: `"Die overloop is echt kaal en kâhwt! De mure zijn helemaal kaal gestript — kaal stucwerk zonder behang of lijstjes. Op de vloer ligt goedkoop, glad lichtgrijs laminaat zonder kleedje, en aan 't plafond hangt alleen nog één los peertje aan een zwart draadje zonder lampenkap."`,
-            repeat: `Kaal en kâhwt boven: gestripte mure, glad lichtgrijs laminaat zonder kleed en één los peertje aan een draad.`
-        },
-        decor_veranderlijk: {
-            category: "decor",
-            first: `"Het ziet d'r daar elke week weer anders uit, snap je! Sinds Wesley vaker blijft zijn we langzaam aan 't opknappe en herindele. Mure kaal getrokke, lamp d'raf gehaald, en hij schuift steeds spulle heen en weer. Vorige week stonde d'r nog verhuisdoze boven, die zijn weer weg. Echt zo'n veranderlijke bende qua verbouwing!"`,
-            repeat: `We zijn aan 't opknappe en herindele sinds hij d'r vaak is, dus elke week staat of hangt 't daar weer anders.`
-        },
-        decor_ordelijk: {
-            category: "decor",
-            first: `*kijkt je verontwaardigd en fel aan* "Rommel?! Ben je waus?! Ik ben een ontzettende poetser, bij mij ligt d'r nog geen kruimel! Alles in huis is altijd strak en ordelijk opgeruimd — geen losse spulle op de trap of overloop! Zelfs m'n wasmand had ik al netjes in de slaapkamer op bed gezet. Benede in de gang staat één strak, zwart metalen schoenenrek kaarsrecht tege de linkerwand met alle schoene keurig in pare op een rij!"`,
-            repeat: `D'r lag nul rommel! Ik ben hartstikke netjes: wasmand stond op bed en benede staat alles strak op dat metalen schoenenrek.`
-        },
-        sig_postuur: {
-            category: "signalement",
-            first: `"Hij's een lange, pezige gozer — rond de 1 meter 85. Brede schouders en gespierde arme van 't sjouwe in de bouw, maar verder slank en strak afgetraind."`,
-            repeat: `Rond de 1,85 meter, lang, pezig, brede schouders en slank.`
-        },
-        sig_hoofd: {
-            category: "signalement",
-            first: `"Hij heb een langwerpig, smal gezicht met een scherpe, hoekige kaaklijn en een beetje ingevalle wange. Boven z'n rechterwenkbrauw zit een klein oud littekentje. Donkerbruin haar — kort opgeschore aan de zijkante en bovenop iets langer met gel naar achtere — en een donker stoppelbaardje langs z'n kin en kaak."`,
-            repeat: `Smal langwerpig gezicht, hoekige kaak, littekentje boven z'n rechterwenkbrauw, opscheertje met gel naar achter en een stoppelbaardje.`
-        },
-        sig_kleding: {
-            category: "signalement",
-            first: `"Hij had een zwarte hoodie aan, zo'n capuchontrui zonder rits met een klein wit merklogo links op z'n borst, en de mouwe had-ie een stukkie opgestroopt. Daaronder een donkergrijze slim-fit spijkerbroek met een lichte wassing op z'n bovenbene. En boven z'n kraag piepte een dikke zilvere schakelketting uit."`,
-            repeat: `Zwarte hoodie zonder rits met opgestroopte mouwe en wit logootje, donkergrijze slim-fit spijkerbroek en een dikke zilvere schakelketting.`
-        },
-        sig_tattoos: {
-            category: "signalement",
-            first: `"Jâh, opvallend zat! Rechts in z'n nek staat in zwarte sierletters 'Moeder' getatoeëerd. En op z'n linkeronderarm — zag je goed door die opgestroopte mouw — zit een grote zwart-grijze tattoo van een doodshoofd met twee rozen!"`,
-            repeat: `'Moeder' in zwarte sierletters rechts in z'n nek, en een groot doodshoofd met twee rozen op z'n linkeronderarm.`
-        },
-        sig_schoenen: {
-            category: "signalement",
-            first: `"Spierwitte lage Nike Air Max sneakers had-ie aan! Met zwarte veters en een opvallend zwart randje langs de zool."`,
-            repeat: `Spierwitte lage Nike Air Max met zwarte veters en een zwart randje langs de zool.`
-        },
-        verblijfplaats: {
-            category: "wie",
-            first: `"Ik ben meteen weggerend, dus of die krent nâh nog in mijn huis zit of al naar z'n moeder in de Schilderswijk is gepeerd, weet ik niet. Ga 'm alsjeblieft oppakke!"`,
-            repeat: `In mijn huis gebleve of naar z'n moeder gepeerd, weet ik veel — pak 'm op!`
-        }
-    };
-
-    const SIG_ORDER = ["sig_postuur", "sig_kleding", "sig_hoofd", "sig_tattoos", "sig_schoenen"];
-    const DECOR_ORDER = ["route_woning", "decor_kaal", "decor_veranderlijk", "decor_ordelijk"];
-    const GEWELD_ORDER = ["waarmee_basis", "waarmee_handen", "handen_positie", "exacte_quote", "val_en_redding", "arm_hoogte"];
-
-    let revealed = new Set();
-    let lastCategory = "incident";
-    let fallbackIndex = 0;
-
-    // =========================================================================
-    // FASE 2: 25 STIJLFOUTEN + BEOORDELINGSLOGICA
-    // =========================================================================
-    const PHASE2_EXERCISES = [
-        {
-            id: 1,
-            wrong: "Het opstellen van het uitgebreide proces-verbaal kostte veel tijd in beslag.",
-            errorType: "Contaminatie",
-            hint: "Je haalt twee uitdrukkingen ('veel tijd kosten' en 'veel tijd in beslag nemen') door elkaar. Kies er één.",
-            sample: "Het opstellen van het uitgebreide proces-verbaal nam veel tijd in beslag.",
-            validate: (s) => {
-                if (/\b(kost|kostte|kosten)\b.*\bin beslag\b|\bin beslag\b.*\b(kost|kostte|kosten)\b/i.test(s)) return false;
-                return /(proces-verbaal|proces verbaal|pv)/i.test(s) && /\btijd\b/i.test(s) && (/\b(nam|neemt)\b.*\bin beslag\b/i.test(s) || /\b(kost|kostte)\b/i.test(s) || /\bduurde\b/i.test(s));
-            }
-        },
-        {
-            id: 2,
-            wrong: "De agent wees de verdachte erop attent dat hij gebruik mocht maken van zijn zwijgrecht.",
-            errorType: "Contaminatie",
-            hint: "'Ergens op wijzen' en 'ergens attent op maken' worden hier vermengd. Gebruik één juiste constructie.",
-            sample: "De agent wees de verdachte erop dat hij gebruik mocht maken van zijn zwijgrecht.",
-            validate: (s) => {
-                if (/\b(wees|wijst|wijzen)\b.*\battent\b/i.test(s)) return false;
-                return /zwijgrecht/i.test(s) && (/\b(wees|wijst)\b.*\b(erop|op)\b/i.test(s) || /\b(maakte|maakt)\b.*\battent\b/i.test(s) || /\battendeerde\b/i.test(s));
-            }
-        },
-        {
-            id: 3,
-            wrong: "De verbalisant greep bij de vechtpartij direct tot actie over.",
-            errorType: "Contaminatie",
-            hint: "'Ingrijpen' en 'tot actie overgaan' lopen hier door elkaar.",
-            sample: "De verbalisant ging bij de vechtpartij direct tot actie over.",
-            validate: (s) => {
-                if (/\b(greep|grijpt|grijpen)\b.*\btot actie\b/i.test(s)) return false;
-                return /vechtpartij/i.test(s) && (/\b(greep|grijpt)\b.*\bin\b/i.test(s) || /\bingreep\b/i.test(s) || /\b(ging|gaat)\b.*\btot actie over\b/i.test(s) || /\b(kwam|komt)\b.*\bin actie\b/i.test(s) || /\btrad\b.*\bop\b/i.test(s));
-            }
-        },
-        {
-            id: 4,
-            wrong: "Dit strafbare feit behoort tot een van de zwaarste misdrijven in het wetboek.",
-            errorType: "Contaminatie",
-            hint: "Combineer niet 'behoort tot' met 'een van de'. Kies voor 'behoort tot de...' óf 'is een van de...'.",
-            sample: "Dit strafbare feit behoort tot de zwaarste misdrijven in het wetboek.",
-            validate: (s) => {
-                if (/behoor(t|en)?\s+tot\s+(?:één|een)\s+van\b/i.test(s)) return false;
-                return /(misdrijven|feiten)/i.test(s) && (/behoor(t|en)?\s+tot\s+de\b/i.test(s) || /\b(is|zijn)\s+(?:één|een)\s+van\s+de\b/i.test(s) || /\bvalt\s+onder\b/i.test(s));
-            }
-        },
-        {
-            id: 5,
-            wrong: "Op de plaats delict troffen de agenten een dood lijk aan.",
-            errorType: "Pleonasme",
-            hint: "Een eigenschap wordt genoemd die al vanzelfsprekend in het zelfstandig naamwoord zit.",
-            sample: "Op de plaats delict troffen de agenten een lijk aan.",
-            validate: (s) => {
-                if (/\b(dood|dode|overleden|gestorven)\s+lijk\b/i.test(s)) return false;
-                return /(plaats delict|pd)/i.test(s) && /\b(lijk|overleden|stoffelijk overschot|dode)\b/i.test(s);
-            }
-        },
-        {
-            id: 6,
-            wrong: "De verdachte vertelde tijdens het verhoor een valse leugen over zijn alibi.",
-            errorType: "Pleonasme",
-            hint: "Kijk goed naar de combinatie rond 'leugen': een leugen is per definitie niet waar.",
-            sample: "De verdachte vertelde tijdens het verhoor een leugen over zijn alibi.",
-            validate: (s) => {
-                if (/\b(valse|onware|gelogen)\s+leugen\b/i.test(s)) return false;
-                return /verhoor/i.test(s) && /alibi/i.test(s) && /\b(leugen|loog|onwaarheid|vals verhaal|leugenachtig verhaal)\b/i.test(s);
-            }
-        },
-        {
-            id: 7,
-            wrong: "De vluchtende bestuurder reed met hoge topsnelheid door het rode verkeerslicht.",
-            errorType: "Pleonasme",
-            hint: "'Topsnelheid' betekent al de hoogst mogelijke snelheid; het bijvoeglijk naamwoord is dubbelop.",
-            sample: "De vluchtende bestuurder reed met topsnelheid door het rode verkeerslicht.",
-            validate: (s) => {
-                if (/\b(hoge|zeer hoge|enorme|grote|maximale)\s+topsnelheid\b/i.test(s)) return false;
-                return /(verkeerslicht|rood|rode)/i.test(s) && (/\btopsnelheid\b/i.test(s) || /\bhoge snelheid\b/i.test(s) || /\bzeer snel\b/i.test(s));
-            }
-        },
-        {
-            id: 8,
-            wrong: "Na lang beraad sprak de rechter het uiteindelijke eindvonnis uit.",
-            errorType: "Pleonasme",
-            hint: "Een 'eindvonnis' staat al vast aan het einde; het bijvoeglijk naamwoord ervoor is overbodig.",
-            sample: "Na lang beraad sprak de rechter het eindvonnis uit.",
-            validate: (s) => {
-                if (/\b(uiteindelijke|definitieve|laatste)\s+eindvonnis\b/i.test(s)) return false;
-                return /rechter/i.test(s) && /beraad/i.test(s) && /\b(eindvonnis|vonnis|uitspraak)\b/i.test(s);
-            }
-        },
-        {
-            id: 9,
-            wrong: "De aangeefster verklaarde dat zij tijdens de duw bang en bevreesd was.",
-            errorType: "Tautologie",
-            hint: "Er staan twee woorden van dezelfde woordsoort naast elkaar met bijna exact dezelfde betekenis.",
-            sample: "De aangeefster verklaarde dat zij tijdens de duw bang was.",
-            validate: (s) => {
-                const hasBang = /\bbang\b/i.test(s);
-                const hasBevreesd = /\bbevreesd\b/i.test(s);
-                const hasAngstig = /\bangstig\b/i.test(s);
-                if ((hasBang && hasBevreesd) || (hasBang && hasAngstig) || (hasBevreesd && hasAngstig)) return false;
-                return /duw/i.test(s) && (hasBang || hasBevreesd || hasAngstig);
-            }
-        },
-        {
-            id: 10,
-            wrong: "De verdachte heeft de verklaring vrijwillig en uit eigen beweging ondertekend.",
-            errorType: "Tautologie",
-            hint: "'Vrijwillig' en 'uit eigen beweging' drukken twee keer hetzelfde uit.",
-            sample: "De verdachte heeft de verklaring vrijwillig ondertekend.",
-            validate: (s) => {
-                const hasVrij = /\bvrijwillig\b/i.test(s);
-                const hasEigen = /\beigen beweging\b/i.test(s);
-                if (hasVrij && hasEigen) return false;
-                return /verklaring/i.test(s) && /(ondertekend|getekend)/i.test(s) && (hasVrij || hasEigen);
-            }
-        },
-        {
-            id: 11,
-            wrong: "De inbreker ging er stiekem en heimelijk met de kluis vandoor.",
-            errorType: "Tautologie",
-            hint: "'Stiekem' en 'heimelijk' betekenen hetzelfde. Laat één van beide weg.",
-            sample: "De inbreker ging er heimelijk met de kluis vandoor.",
-            validate: (s) => {
-                const hasStiekem = /\bstiekem\b/i.test(s);
-                const hasHeimelijk = /\bheimelijk\b/i.test(s);
-                if (hasStiekem && hasHeimelijk) return false;
-                return /kluis/i.test(s) && (hasStiekem || hasHeimelijk || /\bongemerkt\b/i.test(s));
-            }
-        },
-        {
-            id: 12,
-            wrong: "De politie heeft de man die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde aangehouden.",
-            errorType: "Tangconstructie",
-            hint: "De werkwoorden 'heeft' en 'aangehouden' staan te ver uit elkaar. Zet 'aangehouden' vóór de bijzin, óf plaats de bijzin tussen twee komma's.",
-            sample: "De politie heeft de man aangehouden die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde.",
-            validate: (s) => {
-                if (!/politie/i.test(s) || !/trap/i.test(s) || !/(aangehouden|hield.*aan)/i.test(s)) return false;
-                const aangehoudenVoorDie = /\baangehouden\b[\s\S]*\bdie\b/i.test(s);
-                const tussenKommas = /,\s*die\b[\s\S]*?duwde\s*,/i.test(s) || /,\s*die\b[\s\S]*?,\s*(?:aangehouden|heeft)/i.test(s);
-                const tweeZinnen = /\.\s+[A-Z]/.test(s);
-                const verledenZonderTang = /\bhield\s+de\s+man\b[\s\S]{0,25}\baan\b/i.test(s);
-                return aangehoudenVoorDie || tussenKommas || tweeZinnen || verledenZonderTang;
-            }
-        },
-        {
-            id: 13,
-            wrong: "De officier van justitie heeft het door de advocaat van de verdachte tijdens de zitting ingediende bezwaarschrift afgewezen.",
-            errorType: "Tangconstructie",
-            hint: "'Het' en 'bezwaarschrift' (en 'heeft' en 'afgewezen') staan te ver uit elkaar. Zet 'bezwaarschrift afgewezen' eerder in de zin en plaats de rest in een bijzin erachter.",
-            sample: "De officier van justitie heeft het bezwaarschrift afgewezen dat tijdens de zitting door de advocaat van de verdachte was ingediend.",
-            validate: (s) => {
-                if (/\bingediende\s+bezwaarschrift\b/i.test(s) && !/,\s*(?:dat|welk)\b/i.test(s)) return false;
-                return /(officier|ovj)/i.test(s) && /bezwaarschrift/i.test(s) && /(afgewezen|wees.*af)/i.test(s) &&
-                    (/\bbezwaarschrift\b[\s\S]*\b(dat|welk|door de advocaat|ingediend|tijdens)\b/i.test(s) || /,\s*(?:dat|ingediend)\b[\s\S]*?,/i.test(s));
-            }
-        },
-        {
-            id: 14,
-            wrong: "Ter plaatse gekomen bij de voordeur van de woning van de aangeefster, bleek zij reeds op een kier te staan.",
-            errorType: "Foutief beknopte bijzin + onjuiste verwijzing",
-            hint: "Er zitten twee problemen in: wie kwam er ter plaatse (de bijzin mist een kloppend onderwerp) en wie is 'zij'? Nu lijkt het alsof de aangeefster op een kier stond!",
-            sample: "Toen wij ter plaatse kwamen bij de woning van de aangeefster, bleek de voordeur reeds op een kier te staan.",
-            validate: (s) => {
-                if (/\b(bleek|stond)\s+zij\b/i.test(s) || /\bzij\b[\s\S]*\bkier\b/i.test(s)) return false;
-                if (!/(voordeur|deur)/i.test(s) || !/kier/i.test(s)) return false;
-                // Als ze nog starten met "Ter plaatse gekomen", moet een handelend onderwerp volgen in de hoofdzin (zagen wij / troffen wij / constateerde...)
-                if (/^\s*ter plaatse gekomen\b/i.test(s)) {
-                    return /\b(wij|ik|agent|agenten|verbalisant|verbalisanten|politie)\b/i.test(s) && !/,\s*bleek\b/i.test(s);
-                }
-                return /\b(toen|nadat|bij aankomst|wij|ik|agent|agenten|verbalisant|politie|voordeur)\b/i.test(s);
-            }
-        },
-        {
-            id: 15,
-            wrong: "Na de handboeien te hebben omgedaan, reed de dienstwagen naar het politiebureau.",
-            errorType: "Foutief beknopte bijzin (zwevende bepaling)",
-            hint: "Volgens deze zin deed de dienstwagen zelf de handboeien om. Zorg dat de handelende personen ('de agenten' / 'wij') het onderwerp worden.",
-            sample: "Nadat de agenten de verdachte de handboeien hadden omgedaan, reden zij met de dienstwagen naar het politiebureau.",
-            validate: (s) => {
-                if (/\bomgedaan\s*,?\s*reed\s+de\s+dienstwagen\b/i.test(s)) return false;
-                return /(handboeien|boeien)/i.test(s) && /(dienstwagen|politieauto|politiebureau|bureau)/i.test(s) &&
-                    /\b(agent|agenten|wij|ik|verbalisant|verbalisanten|politie|rechercheurs)\b/i.test(s);
-            }
-        },
-        {
-            id: 16,
-            wrong: "De verdachte sloeg het slachtoffer in het gezicht en vervolgens op de vlucht.",
-            errorType: "Foutieve samentrekking",
-            hint: "'Sloeg' wordt gebruikt in twee verschillende betekenissen ('een klap geven' en 'op de vlucht slaan'). Voeg het ontbrekende werkwoord weer toe.",
-            sample: "De verdachte sloeg het slachtoffer in het gezicht en sloeg vervolgens op de vlucht.",
-            validate: (s) => {
-                if (/\bgezicht\s+en\s+(?:vervolgens\s+)?op\s+de\s+vlucht\b/i.test(s)) return false;
-                return /verdachte/i.test(s) && /slachtoffer/i.test(s) && /gezicht/i.test(s) &&
-                    (/\b(sloeg|ging|rende|begaf)\b[\s\S]*\bop\s+de\s+vlucht\b/i.test(s) || /\b(vluchtte|ging er.*vandoor|rende weg)\b/i.test(s));
-            }
-        },
-        {
-            id: 17,
-            wrong: "De politie arresteerde de verdachte op de overloop en werd direct overgebracht naar het cellencomplex.",
-            errorType: "Foutieve samentrekking",
-            hint: "Het onderwerp wisselt onterecht van 'de politie' naar 'de verdachte'. Maak duidelijk wie er werd overgebracht.",
-            sample: "De politie arresteerde de verdachte op de overloop, waarna hij direct werd overgebracht naar het cellencomplex.",
-            validate: (s) => {
-                if (/\boverloop\s+en\s+werd\b/i.test(s)) return false;
-                return /(politie|agenten)/i.test(s) && /verdachte/i.test(s) && /overloop/i.test(s) && /(cellencomplex|cel|bureau)/i.test(s) &&
-                    (/\b(waarna hij|en hij werd|en de verdachte werd|die direct werd|bracht hem|brachten hem|om hem)\b/i.test(s) || /\.\s*(hij|de verdachte)\s+werd\b/i.test(s));
-            }
-        },
-        {
-            id: 18,
-            wrong: "Het proces-verbaal wat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.",
-            errorType: "Onjuist verwijswoord",
-            hint: "Let op het verwijswoord na 'het proces-verbaal' (een bepaald het-woord).",
-            sample: "Het proces-verbaal dat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.",
-            validate: (s) => {
-                if (/(proces-verbaal|proces verbaal)\s*,?\s*wat\b/i.test(s)) return false;
-                return /(proces-verbaal|proces verbaal)/i.test(s) && /aspirant/i.test(s) && (/\bdat\b/i.test(s) || /\bopgemaakt door\b/i.test(s));
-            }
-        },
-        {
-            id: 19,
-            wrong: "De rechercheurs hebben hun gisteravond laat nog op heterdaad aangehouden.",
-            errorType: "Onjuist verwijswoord",
-            hint: "'Hun' mag hier niet gebruikt worden als lijdend voorwerp. Gebruik de juiste vorm.",
-            sample: "De rechercheurs hebben hen gisteravond laat nog op heterdaad aangehouden.",
-            validate: (s) => {
-                if (/\bhun\b/i.test(s)) return false;
-                return /rechercheurs/i.test(s) && /heterdaad/i.test(s) && /aangehouden/i.test(s) && /\b(hen|ze|de verdachten|verdachten)\b/i.test(s);
-            }
-        },
-        {
-            id: 20,
-            wrong: "De verdachte wordt voorlopig niet vervolgd, mits de officier van justitie alsnog nieuw bewijs vindt.",
-            errorType: "Verkeerd voegwoord",
-            hint: "'Mits' betekent 'op voorwaarde dat', terwijl hier een uitzondering bedoeld wordt.",
-            sample: "De verdachte wordt voorlopig niet vervolgd, tenzij de officier van justitie alsnog nieuw bewijs vindt.",
-            validate: (s) => {
-                if (/\bmits\b/i.test(s)) return false;
-                return /verdachte/i.test(s) && /vervolgd/i.test(s) && /bewijs/i.test(s) && (/\btenzij\b/i.test(s) || /\bbehalve als\b/i.test(s) || /\bindien.*geen\b/i.test(s));
-            }
-        },
-        {
-            id: 21,
-            wrong: "De nieuwe verklaring van de getuige is veel betrouwbaarder als zijn eerste verhaal.",
-            errorType: "Foutieve vergelijking (als/dan)",
-            hint: "Na een vergrotende trap ('betrouwbaarder') staat in correct Nederlands een ander woord dan 'als'.",
-            sample: "De nieuwe verklaring van de getuige is veel betrouwbaarder dan zijn eerste verhaal.",
-            validate: (s) => {
-                if (/(betrouwbaarder|geloofwaardiger)\s+als\b/i.test(s)) return false;
-                return /verklaring/i.test(s) && /getuige/i.test(s) && /(betrouwbaarder|geloofwaardiger)/i.test(s) && /\bdan\b/i.test(s);
-            }
-        },
-        {
-            id: 22,
-            wrong: "De verbalisant irriteerde zich aan de dreigende toon van de verdachte tijdens het verhoor.",
-            errorType: "Foutief werkwoordgebruik / contaminatie",
-            hint: "'Zich irriteren aan' bestaat officieel niet (het is een mix van 'zich ergeren aan' en 'iets irriteert iemand').",
-            sample: "De verbalisant ergerde zich aan de dreigende toon van de verdachte tijdens het verhoor.",
-            validate: (s) => {
-                if (/irriteerde?\s+zich/i.test(s)) return false;
-                return /(verbalisant|agent)/i.test(s) && /toon/i.test(s) && /verhoor/i.test(s) && (/(ergerde|stoorde)\s+zich\s+aan/i.test(s) || /toon[\s\S]*irriteerde/i.test(s) || /geïrriteerd/i.test(s));
-            }
-        },
-        {
-            id: 23,
-            wrong: "De aangeefster heeft nooit geen toestemming gegeven om haar woning te betreden.",
-            errorType: "Dubbele ontkenning",
-            hint: "'Nooit geen' heffen elkaar logisch op. Gebruik één ontkenning.",
-            sample: "De aangeefster heeft nooit toestemming gegeven om haar woning te betreden.",
-            validate: (s) => {
-                if (/\bnooit\s+geen\b/i.test(s)) return false;
-                return /(aangeefster|slachtoffer)/i.test(s) && /toestemming/i.test(s) && /(woning|betreden)/i.test(s) && /\b(nooit|geen|nimmer)\b/i.test(s);
-            }
-        },
-        {
-            id: 24,
-            wrong: "Die opgefokte gozer heeft zijn vriendin keihard van de trap af gepleurd.",
-            errorType: "Stijlbreuk / spreektaal in officieel PV",
-            hint: "Een proces-verbaal moet zakelijk, objectief en feitelijk zijn. Vervang alle spreektaal en subjectieve termen ('opgefokte', 'gozer', 'keihard', 'gepleurd').",
-            sample: "De verdachte heeft het slachtoffer met kracht van de trap geduwd.",
-            validate: (s) => {
-                if (/(opgefokt|gozer|keihard|gepleurd|pleur|gast|kerel|wijf|gappie)/i.test(s)) return false;
-                return /\b(verdachte|man)\b/i.test(s) && /trap/i.test(s) && /(geduwd|duwde|gestoten|stiet|afgeduwd)/i.test(s);
-            }
-        },
-        {
-            id: 25,
-            wrong: "Door de verbalisant werd overgegaan tot het in beslag nemen van het aangetroffen voorwerp.",
-            errorType: "Ambtelijke naamwoordstijl / wollige lijdende vorm",
-            hint: "Vermijd omslachtige constructies als 'werd overgegaan tot het in beslag nemen'. Schrijf actief en direct: wie deed wat?",
-            sample: "De verbalisant nam het aangetroffen voorwerp in beslag.",
-            validate: (s) => {
-                if (/overgegaan\s+tot/i.test(s) || /het\s+in\s+beslag\s+nemen\s+van/i.test(s)) return false;
-                return /(verbalisant|ik|agent)/i.test(s) && /voorwerp/i.test(s) && (/\bin beslag\s+(?:nam|genomen|neemt)\b/i.test(s) || /\bnam\b[\s\S]*\bin beslag\b/i.test(s));
-            }
-        }
-    ];
-
-    // =========================================================================
-    // FIREBASE & APPLICATIESTATUS
-    // =========================================================================
     const firebaseConfig = {
         apiKey: "AIzaSyBj8dXkl1rEfyx54_MDy_tYd2P7kAeU8VQ",
         authDomain: "q2les3samirgem.firebaseapp.com",
@@ -1283,13 +407,9 @@
     let currentStudent = "";
     let currentClass = "";
     let studentDbKey = "";
+    let isTeacherUser = false;
+    let loginTimestamp = Date.now();
     let isWaiting = false;
-
-    // Status van leerling in de fasen
-    let fase1Voltooid = false;
-    let phase2Attempts = 0; // 0 = nog niet nagekeken, 1 = poging 1 nagekeken (verbeteren open), 2 = afgerond
-    let phase2Results = {}; // id -> { status: 'correct1' | 'correct2' | 'wrong', points: 0|1|2 }
-    let latestVoortgangData = null;
 
     function escapeHtml(text) {
         const div = document.createElement("div");
@@ -1297,268 +417,173 @@
         return div.innerHTML;
     }
 
+    // FASE 1 CHAT MET PRISCILLA
+    const OPENING_GREETING = `*komt gejaagd de spreekkamer binnenstormen en grijpt met d'r rechterhand naar d'r linkerschouder* "Jâh toch, eindelijk iemand! Ik mot aangifte doen! Die wause vriend van me heb me net gewoon de trap af gepleurd, m'n hele arm doet zo'n zeer!"`;
+
+    const TOPICS = {
+        wat_gebeurd: { category: "incident", first: `*veegt kwaad een traan weg* "Ik liep met m'n wasmand naar bove en zag berichtjes van andere meide op z'n telefoon. Ik sprak die krent d'r op aan op de overloop, hij werd helemaal waus en toen pleurde die me keihard van die gladde trap af! Op 't nippertje greep ik nog die leuning met links."`, repeat: `Dat zei ik net toch, gappie? Ruzie over z'n telefoon en toen heb die me van de trap gepleurd!` },
+        wie_slachtoffer: { category: "wie", first: `"Ik ben Priscilla de Vries, 34 jaar. Ik woon zelf aan de Goeverneurlaan in Laakkwartier, Den Haag."`, repeat: `Priscilla de Vries, 34, Goeverneurlaan in Laakkwartier. Schrijf 't maar effe op nâh!` },
+        wie_dader: { category: "wie", first: `"Da's m'n vriend Wesley van Dijk, 36 jaar — hij's van 14 mei 1990. We zijn acht maande samen. Hij werrekt in de bouw als stratenmaker. Officieel staat-ie nog bij z'n moeder ingeschreve, maar hij slaapt bijna elke nacht bij mij."`, repeat: `Wesley van Dijk! 36 jaar, 14 mei '90, stratenmaker, woont officieel bij z'n moeder.` },
+        kinderen: { category: "wie", first: `*zucht opgelucht* "Ik heb twee kindere, Jayden van 9 en Cheyenne van 6, maar hij is NIET hun vader hoor, ze zijn van m'n ex. Gelukkig ware ze allebei op school en bij oma toen dit gebeurde!"`, repeat: `Nee man, Wesley is niet hun pa! Jayden en Cheyenne ware gelukkig niet thuis, bij oma en op school.` },
+        wanneer: { category: "wanneer", first: `"Net, vanmiddag rond een uurtje of half drie! Een klein uurtje gelede dus. Ik ben daarna meteen m'n jas en sleutels gaan pakke en linea recta hierheen gelope!"`, repeat: `Vandaag rond half drie, uurtje gelede! M'n arm gloeit nâh nog na!` },
+        aanleiding: { category: "waarom", first: `"Ik liep met een volle wasmand netjes opgevouwe schone was naar bove. Ik zette die wasmand op bed in de slaapkamer neer en toen lichtte z'n telefoon op. Allemaal namen en kleffe berichtjes van andere meide! Toen ben ik naar de overloop gelope onder dat kale peertje om 'm te confronteren."`, repeat: `Door die wijve op z'n telefoon! Wasmand stond al op bed en ik sprak 'm d'r op aan op de overloop.` },
+        gaslighting: { category: "geweld", first: `"Hij sloeg in één tel helemaal om, werd knetter-waus! Begon me verrot te schelde en deed net of ik gek was: 'Je ziet spoken, je bent helemaal lijp in je wijvenkop!' Echt zo'n misselijke krent!"`, repeat: `Hij maakte me eerst uit voor lijp en gek, alsof ik spoke zag!` },
+        waarmee_basis: { category: "geweld", first: `"Gewoon met z'n blote hande, gappie! Hij had geen mes, geen stok en geen enkel voorwerp vast!"`, repeat: `Met z'n blote hande zei ik toch! Niks geen wapen of voorwerp!` },
+        waarmee_handen: { category: "geweld", first: `*kijkt je fel aan* "Nee man, niet met één hand! Allebei tegelijk! Z'n linkerhand én z'n rechterhand, met z'n volle gewicht d'r achter!"`, repeat: `Allebei z'n hande! Links én rechts tegelijk!` },
+        handen_positie: { category: "geweld", first: `"Hij stond recht voor m'n neus op die krappe overloop, zette allebei z'n platte handpalme — links en rechts naast mekaar — keihard hoog hier op m'n borst, net onder m'n sleutelbene! En toen stootte die me met volle kracht achterover!"`, repeat: `Hoog op m'n borst, net onder m'n sleutelbene, allebei z'n platte handpalme recht vooruit!` },
+        exacte_quote: { category: "geweld", first: `*trilt van woede* "Vlak terwijl die me duwde schreeuwde die recht in m'n bek: 'Donder nou es echt naar beneje!' Letterlijk die woorde!"`, repeat: `"Donder nou es echt naar beneje!" — dat riep die laffe krent letterlijk!` },
+        val_en_redding: { category: "geweld", first: `*wrijft over d'r onderrug* "Ik liep op sokke, hè! Dat laminaat en die gelakte houte traptrede zijn spekglad, zonder loper of antislip, dus ik had nul grip! Ik klapte dubbel op de bovenste trede en stuiterde drie trede keihard naar beneje. Ik schoot bijna door naar dat zwarte metalen schoenenrek in de gang, maar op 't allerlaatste moment greep ik met m'n linkerhand de houte trapleuning vast. Daardoor kreeg m'n linkerschouder zo'n rotklap!"`, repeat: `Op sokke op dat spekgladde hout en laminaat, drie trede naar beneje gestuiterd en met links de leuning gegrepe vlak voor dat metalen schoenenrek.` },
+        arm_hoogte: { category: "letsel", first: `*probeert d'r linkerarm langzaam op te tillen, komt niet hoger dan d'r ribbenkast voordat ze een schelle gil geeft en d'r arm meteen slap laat zakken* "Auw!! Mot je kijke! Hoger komt-ie echt niet! Ik verga van de pijn in m'n linkerschouder en arm!"`, repeat: `*grimas van de pijn* "Ik til 'm echt niet nòg een keer op voor je, hij komt niet eens boven m'n ribbe uit!"` },
+        route_woning: { category: "decor", first: `"Als je bij mij door de voordeur binnenkomt, stap je in een lange, smalle benedenhal. Na een metertje of vier rechtdoor lope sta je pal voor een steile, dichte houte trap recht omhoog. Bovenaan die trap kom je meteen op de kleine vierkante overloop, met de deure naar de slaapkamer en de badkamer."`, repeat: `Voordeur, smalle gang van vier meter, steile dichte houte trap recht omhoog en boven zit je meteen op de overloop.` },
+        decor_kaal: { category: "decor", first: `"Die overloop is echt kaal en kâhwt! De mure zijn helemaal kaal gestript — kaal stucwerk zonder behang of lijstjes. Op de vloer ligt goedkoop, glad lichtgrijs laminaat zonder kleedje, en aan 't plafond hangt alleen nog één los peertje aan een zwart draadje zonder lampenkap."`, repeat: `Kaal en kâhwt boven: gestripte mure, glad lichtgrijs laminaat zonder kleed en één los peertje aan een draad.` },
+        decor_veranderlijk: { category: "decor", first: `"Het ziet d'r daar elke week weer anders uit, snap je! Sinds Wesley vaker blijft zijn we langzaam aan 't opknappe en herindele. Mure kaal getrokke, lamp d'raf gehaald, en hij schuift steeds spulle heen en weer. Vorige week stonde d'r nog verhuisdoze boven, die zijn weer weg. Echt zo'n veranderlijke bende qua verbouwing!"`, repeat: `We zijn aan 't opknappe en herindele sinds hij d'r vaak is, dus elke week staat of hangt 't daar weer anders.` },
+        decor_ordelijk: { category: "decor", first: `*kijkt je verontwaardigd en fel aan* "Rommel?! Ben je waus?! Ik ben een ontzettende poetser, bij mij ligt d'r nog geen kruimel! Alles in huis is altijd strak en ordelijk opgeruimd — geen losse spulle op de trap of overloop! Zelfs m'n wasmand had ik al netjes in de slaapkamer op bed gezet. Benede in de gang staat één strak, zwart metalen schoenenrek kaarsrecht tege de linkerwand met alle schoene keurig in pare op een rij!"`, repeat: `D'r lag nul rommel! Ik ben hartstikke netjes: wasmand stond op bed en benede staat alles strak op dat metalen schoenenrek.` },
+        sig_postuur: { category: "signalement", first: `"Hij's een lange, pezige gozer — rond de 1 meter 85. Brede schouders en gespierde arme van 't sjouwe in de bouw, maar verder slank en strak afgetraind."`, repeat: `Rond de 1,85 meter, lang, pezig, brede schouders en slank.` },
+        sig_hoofd: { category: "signalement", first: `"Hij heb een langwerpig, smal gezicht met een scherpe, hoekige kaaklijn en een beetje ingevalle wange. Boven z'n rechterwenkbrauw zit een klein oud littekentje. Donkerbruin haar — kort opgeschore aan de zijkante en bovenop iets langer met gel naar achtere — en een donker stoppelbaardje langs z'n kin en kaak."`, repeat: `Smal langwerpig gezicht, hoekige kaak, littekentje boven z'n rechterwenkbrauw, opscheertje met gel naar achter en een stoppelbaardje.` },
+        sig_kleding: { category: "signalement", first: `"Hij had een zwarte hoodie aan, zo'n capuchontrui zonder rits met een klein wit merklogo links op z'n borst, en de mouwe had-ie een stukkie opgestroopt. Daaronder een donkergrijze slim-fit spijkerbroek met een lichte wassing op z'n bovenbene. En boven z'n kraag piepte een dikke zilvere schakelketting uit."`, repeat: `Zwarte hoodie zonder rits met opgestroopte mouwe en wit logootje, donkergrijze slim-fit spijkerbroek en een dikke zilvere schakelketting.` },
+        sig_tattoos: { category: "signalement", first: `"Jâh, opvallend zat! Rechts in z'n nek staat in zwarte sierletters 'Moeder' getatoeëerd. En op z'n linkeronderarm — zag je goed door die opgestroopte mouw — zit een grote zwart-grijze tattoo van een doodshoofd met twee rozen!"`, repeat: `'Moeder' in zwarte sierletters rechts in z'n nek, en een groot doodshoofd met twee rozen op z'n linkeronderarm.` },
+        sig_schoenen: { category: "signalement", first: `"Spierwitte lage Nike Air Max sneakers had-ie aan! Met zwarte veters en een opvallend zwart randje langs de zool."`, repeat: `Spierwitte lage Nike Air Max met zwarte veters en een zwart randje langs de zool.` },
+        verblijfplaats: { category: "wie", first: `"Ik ben meteen weggerend, dus of die krent nâh nog in mijn huis zit of al naar z'n moeder in de Schilderswijk is gepeerd, weet ik niet. Ga 'm alsjeblieft oppakke!"`, repeat: `In mijn huis gebleve of naar z'n moeder gepeerd, weet ik veel — pak 'm op!` }
+    };
+
+    const SIG_ORDER = ["sig_postuur", "sig_kleding", "sig_hoofd", "sig_tattoos", "sig_schoenen"];
+    const DECOR_ORDER = ["route_woning", "decor_kaal", "decor_veranderlijk", "decor_ordelijk"];
+    const GEWELD_ORDER = ["waarmee_basis", "waarmee_handen", "handen_positie", "exacte_quote", "val_en_redding", "arm_hoogte"];
+    let revealed = new Set(), lastCategory = "incident", fallbackIndex = 0;
+
     function formatPriscillaMessage(text) {
         let safe = escapeHtml(text);
         safe = safe.replace(/\*([^*]+)\*/g, '<span class="msg-action">*$1*</span>');
-        safe = safe.replace(/\n/g, "<br>");
-        return safe;
+        return safe.replace(/\n/g, "<br>");
     }
 
     function appendMessage(sender, text) {
         const container = document.getElementById("chatMessages");
         const msgDiv = document.createElement("div");
         msgDiv.className = "msg " + (sender === "Priscilla" ? "msg-priscilla" : "msg-student");
-
         const senderLabel = sender === "Priscilla" ? "Priscilla de Vries" : currentStudent || "Agent";
         const bodyHtml = sender === "Priscilla" ? formatPriscillaMessage(text) : escapeHtml(text).replace(/\n/g, "<br>");
-
         msgDiv.innerHTML = `<div class="msg-sender">${escapeHtml(senderLabel)}</div><div>${bodyHtml}</div>`;
         container.appendChild(msgDiv);
         container.scrollTop = container.scrollHeight;
     }
 
     function initChat() {
-        revealed = new Set();
-        lastCategory = "incident";
-        fallbackIndex = 0;
+        revealed = new Set(); lastCategory = "incident"; fallbackIndex = 0;
         document.getElementById("chatMessages").innerHTML = "";
         appendMessage("Priscilla", OPENING_GREETING);
     }
 
     window.resetChat = function() {
-        if (confirm("Wil je het verhoor met Priscilla helemaal opnieuw beginnen?")) {
-            initChat();
-        }
+        if (confirm("Wil je het verhoor met Priscilla helemaal opnieuw beginnen?")) initChat();
     };
 
     function nextUnrevealedInList(list) {
-        for (const id of list) {
-            if (!revealed.has(id)) return id;
-        }
+        for (const id of list) { if (!revealed.has(id)) return id; }
         return null;
     }
 
     function generatePriscillaReply(rawInput) {
-        const q = rawInput.toLowerCase().trim();
-        const parts = [];
-        const matchedIds = [];
-
+        const q = rawInput.toLowerCase().trim(), parts = [], matchedIds = [];
         const isGreeting = /^(hoi|hallo|hey|he|goedemiddag|goedemorgen|goedenavond|dag|welkom)/i.test(q) || /\b(neem plaats|ga zitten|kom binnen)\b/i.test(q);
         const isEmpathy = /\b(erg|naar|heftig|vervelend|schrikken|rustig|adem|water|koffie|thee|sterkte|zielig|rot voor|sorry|slik)\b/i.test(q);
         const isClosing = /\b(bedankt|dank je|dank u|dankjewel|dankuwel|afronden|onderteken|tekenen|tot ziens|doei|klaar met|proces-verbaal opmaken)\b/i.test(q);
         const isFollowUp = /^(en verder|en toen|vertel meer|nog meer|wat nog meer|verder|details|en daarna|en hoe|ja|oké|oke)\??$/i.test(q) || /\b(volledig|alles vertellen|hele signalement|alles over)\b/i.test(q);
 
-        if (/\b(wat is er gebeurd|wat is gebeurd|vertel eens|wat is het probleem|waarom bent u hier|wat komt u doen|wat is er aan de hand)\b/i.test(q)) {
-            matchedIds.push("wat_gebeurd");
-        }
-        if (/\b(wie bent u|wie ben jij|uw naam|jouw naam|hoe heet u|hoe heet je|priscilla|adres|waar woont u|waar woon je|welke straat)\b/i.test(q)) {
-            matchedIds.push("wie_slachtoffer");
-        }
-        if (/\b(wie is (de |uw |je |die )?(vriend|dader|verdachte|hij|gozer)|hoe heet (hij|die)|zijn naam|wesley|hoe oud is hij|geboorte|zijn werk|wat doet hij)\b/i.test(q) || /^wie\??$/i.test(q)) {
-            matchedIds.push("wie_dader");
-        }
-        if (/kind|zoon|dochter|vader|ex-man|ex\b/i.test(q)) {
-            matchedIds.push("kinderen");
-        }
-        if (/waar is hij nu|gebleven|gevlucht|oppakken|aanhouden|waar zit hij/i.test(q)) {
-            matchedIds.push("verblijfplaats");
-        }
-        if (/wanneer|hoe laat|hoelaat|welk tijdstip|tijd|vandaag|gister|hoe lang geleden/i.test(q)) {
-            matchedIds.push("wanneer");
-        }
-        if (/waarom|aanleiding|hoe begon|ruzie|telefoon|wasmand|berichtjes|vreemdgaan|andere/i.test(q)) {
-            matchedIds.push("aanleiding");
-        }
-        if (/scheld|schold|gaslight|gek|lijp|spoken|zei hij (voor|eerst|toen)/i.test(q)) {
-            matchedIds.push("gaslighting");
-        }
-
-        if (/waarmee|wapen|voorwerp|iets vast|stok|mes/i.test(q)) {
-            matchedIds.push("waarmee_basis");
-        }
-        if (/(één|een|twee|beide|allebei|welke) hand|links of rechts|rechter of linker|met links|met rechts|met twee/i.test(q) && !/leuning/i.test(q)) {
-            matchedIds.push("waarmee_handen");
-        }
-        if (/(waar|hoe|positie|plaats).*(hand|duw|raakte)|op welk deel|op je lichaam|borst|sleutelbeen/i.test(q)) {
-            matchedIds.push("handen_positie");
-        }
+        if (/\b(wat is er gebeurd|wat is gebeurd|vertel eens|wat is het probleem|waarom bent u hier|wat komt u doen|wat is er aan de hand)\b/i.test(q)) matchedIds.push("wat_gebeurd");
+        if (/\b(wie bent u|wie ben jij|uw naam|jouw naam|hoe heet u|hoe heet je|priscilla|adres|waar woont u|waar woon je|welke straat)\b/i.test(q)) matchedIds.push("wie_slachtoffer");
+        if (/\b(wie is (de |uw |je |die )?(vriend|dader|verdachte|hij|gozer)|hoe heet (hij|die)|zijn naam|wesley|hoe oud is hij|geboorte|zijn werk|wat doet hij)\b/i.test(q) || /^wie\??$/i.test(q)) matchedIds.push("wie_dader");
+        if (/kind|zoon|dochter|vader|ex-man|ex\b/i.test(q)) matchedIds.push("kinderen");
+        if (/waar is hij nu|gebleven|gevlucht|oppakken|aanhouden|waar zit hij/i.test(q)) matchedIds.push("verblijfplaats");
+        if (/wanneer|hoe laat|hoelaat|welk tijdstip|tijd|vandaag|gister|hoe lang geleden/i.test(q)) matchedIds.push("wanneer");
+        if (/waarom|aanleiding|hoe begon|ruzie|telefoon|wasmand|berichtjes|vreemdgaan|andere/i.test(q)) matchedIds.push("aanleiding");
+        if (/scheld|schold|gaslight|gek|lijp|spoken|zei hij (voor|eerst|toen)/i.test(q)) matchedIds.push("gaslighting");
+        if (/waarmee|wapen|voorwerp|iets vast|stok|mes/i.test(q)) matchedIds.push("waarmee_basis");
+        if (/(één|een|twee|beide|allebei|welke) hand|links of rechts|rechter of linker|met links|met rechts|met twee/i.test(q) && !/leuning/i.test(q)) matchedIds.push("waarmee_handen");
+        if (/(waar|hoe|positie|plaats).*(hand|duw|raakte)|op welk deel|op je lichaam|borst|sleutelbeen/i.test(q)) matchedIds.push("handen_positie");
         if (/duw(de|en)?\b/i.test(q) && !matchedIds.includes("waarmee_basis") && !matchedIds.includes("waarmee_handen") && !matchedIds.includes("handen_positie")) {
             if (!revealed.has("waarmee_basis")) matchedIds.push("waarmee_basis");
             else if (!revealed.has("waarmee_handen")) matchedIds.push("waarmee_handen");
             else matchedIds.push("handen_positie");
         }
-
-        if (/riep|schreeuw|letterlijk|exacte woorden|precies zei|wat zei hij (tijdens|bij|toen)/i.test(q)) {
-            matchedIds.push("exacte_quote");
-        }
-        if (/val|gevallen|trap af|treden|leuning|gevaarlijk|glad|sokken|grip|schoenenrek|redding|vastgreep/i.test(q) && !/route|bereik|kom je/i.test(q)) {
-            matchedIds.push("val_en_redding");
-        }
-        if (/arm|schouder|optil|omhoog|hoe hoog|letsel|pijn|beweeg|beperking|gewond|dokter|ziekenhuis/i.test(q)) {
-            matchedIds.push("arm_hoogte");
-        }
-
-        if (/route|bereik|hoe kom je|binnenkom|gang|hal|voordeur|indeling|loop je/i.test(q)) {
-            matchedIds.push("route_woning");
-        }
-        if (/kaal|kâhwt|koud|peertje|laminaat|muren|muur|licht|lamp/i.test(q)) {
-            matchedIds.push("decor_kaal");
-        }
-        if (/verander|verbouw|opknap|herindel|elke week|dozen|anders/i.test(q)) {
-            matchedIds.push("decor_veranderlijk");
-        }
-        if (/rommel|troep|ordelijk|netjes|opgeruimd|poets|schoon|struikel|schoenenrek/i.test(q)) {
-            matchedIds.push("decor_ordelijk");
-        }
+        if (/riep|schreeuw|letterlijk|exacte woorden|precies zei|wat zei hij (tijdens|bij|toen)/i.test(q)) matchedIds.push("exacte_quote");
+        if (/val|gevallen|trap af|treden|leuning|gevaarlijk|glad|sokken|grip|schoenenrek|redding|vastgreep/i.test(q) && !/route|bereik|kom je/i.test(q)) matchedIds.push("val_en_redding");
+        if (/arm|schouder|optil|omhoog|hoe hoog|letsel|pijn|beweeg|beperking|gewond|dokter|ziekenhuis/i.test(q)) matchedIds.push("arm_hoogte");
+        if (/route|bereik|hoe kom je|binnenkom|gang|hal|voordeur|indeling|loop je/i.test(q)) matchedIds.push("route_woning");
+        if (/kaal|kâhwt|koud|peertje|laminaat|muren|muur|licht|lamp/i.test(q)) matchedIds.push("decor_kaal");
+        if (/verander|verbouw|opknap|herindel|elke week|dozen|anders/i.test(q)) matchedIds.push("decor_veranderlijk");
+        if (/rommel|troep|ordelijk|netjes|opgeruimd|poets|schoon|struikel|schoenenrek/i.test(q)) matchedIds.push("decor_ordelijk");
         if (/decor|overloop|ruimte|woning|huis|plek|hoe zag het eruit|omgeving/i.test(q)) {
-            if (/volledig|alles/i.test(q)) {
-                DECOR_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
-            } else if (!matchedIds.some(id => DECOR_ORDER.includes(id))) {
-                const nextDecor = nextUnrevealedInList(DECOR_ORDER);
-                matchedIds.push(nextDecor || "decor_kaal");
-            }
+            if (/volledig|alles/i.test(q)) DECOR_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
+            else if (!matchedIds.some(id => DECOR_ORDER.includes(id))) matchedIds.push(nextUnrevealedInList(DECOR_ORDER) || "decor_kaal");
         }
-
-        if (/postuur|lengte|hoe lang|hoe groot|bouw|gewicht|gespierd|breed/i.test(q)) {
-            matchedIds.push("sig_postuur");
-        }
-        if (/hoofd|gezicht|kaak|wangen|haar|kapsel|baard|litteken|ogen/i.test(q)) {
-            matchedIds.push("sig_hoofd");
-        }
-        if (/kleding|kleren|aanhad|droeg|jas|trui|hoodie|broek|ketting|sieraad|sieraden/i.test(q)) {
-            matchedIds.push("sig_kleding");
-        }
-        if (/tatto|tatoe|inkt|nek|opvallend|kenmerk|merk/i.test(q)) {
-            matchedIds.push("sig_tattoos");
-        }
-        if (/schoen(?!enrek)|sneaker|nike|air max|patta|voeten/i.test(q)) {
-            matchedIds.push("sig_schoenen");
-        }
+        if (/postuur|lengte|hoe lang|hoe groot|bouw|gewicht|gespierd|breed/i.test(q)) matchedIds.push("sig_postuur");
+        if (/hoofd|gezicht|kaak|wangen|haar|kapsel|baard|litteken|ogen/i.test(q)) matchedIds.push("sig_hoofd");
+        if (/kleding|kleren|aanhad|droeg|jas|trui|hoodie|broek|ketting|sieraad|sieraden/i.test(q)) matchedIds.push("sig_kleding");
+        if (/tatto|tatoe|inkt|nek|opvallend|kenmerk|merk/i.test(q)) matchedIds.push("sig_tattoos");
+        if (/schoen(?!enrek)|sneaker|nike|air max|patta|voeten/i.test(q)) matchedIds.push("sig_schoenen");
         if (/signalement|uiterlijk|hoe ziet (hij|wesley) eruit|beschrijf (hem|wesley)/i.test(q)) {
-            if (/volledig|alles|hele/i.test(q)) {
-                SIG_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
-            } else if (!matchedIds.some(id => SIG_ORDER.includes(id))) {
+            if (/volledig|alles|hele/i.test(q)) SIG_ORDER.forEach(id => { if (!matchedIds.includes(id)) matchedIds.push(id); });
+            else if (!matchedIds.some(id => SIG_ORDER.includes(id))) {
                 let count = 0;
-                for (const id of SIG_ORDER) {
-                    if (!revealed.has(id) && count < 2) {
-                        matchedIds.push(id);
-                        count++;
-                    }
-                }
+                for (const id of SIG_ORDER) { if (!revealed.has(id) && count < 2) { matchedIds.push(id); count++; } }
                 if (count === 0) matchedIds.push("sig_postuur");
             }
         }
 
         const uniqueMatches = [...new Set(matchedIds)];
-
         if (uniqueMatches.length === 0 && isFollowUp) {
             let pool = GEWELD_ORDER;
             if (lastCategory === "signalement") pool = SIG_ORDER;
             else if (lastCategory === "decor") pool = DECOR_ORDER;
-
-            const nextInPool = nextUnrevealedInList(pool);
-            if (nextInPool) {
-                uniqueMatches.push(nextInPool);
-            } else {
-                const allKeys = Object.keys(TOPICS);
-                const anyLeft = nextUnrevealedInList(allKeys);
-                if (anyLeft) uniqueMatches.push(anyLeft);
-            }
+            const nextInPool = nextUnrevealedInList(pool) || nextUnrevealedInList(Object.keys(TOPICS));
+            if (nextInPool) uniqueMatches.push(nextInPool);
         }
 
         const askingFullOverview = /volledig|alles|hele/i.test(q);
         const unrevealedMatches = uniqueMatches.filter(id => !revealed.has(id));
-
         if (unrevealedMatches.length >= 4 && !askingFullOverview) {
-            const firstTwo = unrevealedMatches.slice(0, 2);
             parts.push(`*schudt met d'r hoofd* "Ho effe, gappie, je vraagt vier dinge tegelijk, m'n kop tolt van de pijn! Ik geef je eerst effe dit, de rest mot je maar rustig daarna vrage:"`);
-            firstTwo.forEach(id => {
-                revealed.add(id);
-                lastCategory = TOPICS[id].category;
-                parts.push(TOPICS[id].first);
-            });
+            unrevealedMatches.slice(0, 2).forEach(id => { revealed.add(id); lastCategory = TOPICS[id].category; parts.push(TOPICS[id].first); });
             return parts.join("\n\n");
         }
-
-        if (isEmpathy && uniqueMatches.length === 0) {
-            return `*veegt een traan weg en knikt gejaagd* "Jâh toch, dank je wel hoor... 't is gewoon zo'n laffe streek! Wat mot je precies wete voor die aangifte?"`;
-        }
-        if (isGreeting && uniqueMatches.length === 0) {
-            return `*kijkt schichtig op* "Goeiemiddag... sorry dat ik zo door mekaar ben, maar m'n arm staat in de fik! Schrijf maar mee, wat wil je eerst wete?"`;
-        }
-        if (isClosing && uniqueMatches.length === 0) {
-            return `*zucht diep* "Gelukkig maar, dank je wel voor 't luistere, gappie. Ik zet m'n krabbel wel met rechts — pak die wause krent maar snel op!"`;
-        }
-
+        if (isEmpathy && uniqueMatches.length === 0) return `*veegt een traan weg en knikt gejaagd* "Jâh toch, dank je wel hoor... 't is gewoon zo'n laffe streek! Wat mot je precies wete voor die aangifte?"`;
+        if (isGreeting && uniqueMatches.length === 0) return `*kijkt schichtig op* "Goeiemiddag... sorry dat ik zo door mekaar ben, maar m'n arm staat in de fik! Schrijf maar mee, wat wil je eerst wete?"`;
+        if (isClosing && uniqueMatches.length === 0) return `*zucht diep* "Gelukkig maar, dank je wel voor 't luistere, gappie. Ik zet m'n krabbel wel met rechts — pak die wause krent maar snel op!"`;
         if (unrevealedMatches.length > 0) {
-            if (isEmpathy) {
-                parts.push(`*knikt nerveus* "Jâh, dank je... ik ben d'r echt ziek van."`);
-            }
-            unrevealedMatches.forEach(id => {
-                revealed.add(id);
-                lastCategory = TOPICS[id].category;
-                parts.push(TOPICS[id].first);
-            });
-
-            if (unrevealedMatches.includes("waarmee_basis") && !revealed.has("waarmee_handen")) {
-                parts.push(`*houdt d'r ribben vast*`);
-            } else if (unrevealedMatches.includes("sig_kleding") && !revealed.has("sig_tattoos") && uniqueMatches.length <= 2) {
-                parts.push(`"Het is gewoon zo'n laffe krent dat-ie dit doet!"`);
-            }
-
+            if (isEmpathy) parts.push(`*knikt nerveus* "Jâh, dank je... ik ben d'r echt ziek van."`);
+            unrevealedMatches.forEach(id => { revealed.add(id); lastCategory = TOPICS[id].category; parts.push(TOPICS[id].first); });
+            if (unrevealedMatches.includes("waarmee_basis") && !revealed.has("waarmee_handen")) parts.push(`*houdt d'r ribben vast*`);
+            else if (unrevealedMatches.includes("sig_kleding") && !revealed.has("sig_tattoos") && uniqueMatches.length <= 2) parts.push(`"Het is gewoon zo'n laffe krent dat-ie dit doet!"`);
             return parts.join("\n\n");
         }
-
         if (uniqueMatches.length > 0) {
             const repeatedId = uniqueMatches[0];
             lastCategory = TOPICS[repeatedId].category;
-
-            if (TOPICS[repeatedId].category === "signalement") {
-                const nextSig = nextUnrevealedInList(SIG_ORDER);
-                if (nextSig) {
-                    revealed.add(nextSig);
-                    return `Dat had ik net al gezegd toch? Maar let op, dit heb je nog niet: ${TOPICS[nextSig].first}`;
-                }
-            }
-            if (TOPICS[repeatedId].category === "decor") {
-                const nextDecor = nextUnrevealedInList(DECOR_ORDER);
-                if (nextDecor) {
-                    revealed.add(nextDecor);
-                    return `Daar had ik 't net al over, maar wat je ook mot wete: ${TOPICS[nextDecor].first}`;
-                }
-            }
-
+            if (TOPICS[repeatedId].category === "signalement") { const n = nextUnrevealedInList(SIG_ORDER); if (n) { revealed.add(n); return `Dat had ik net al gezegd toch? Maar let op, dit heb je nog niet: ${TOPICS[n].first}`; } }
+            if (TOPICS[repeatedId].category === "decor") { const n = nextUnrevealedInList(DECOR_ORDER); if (n) { revealed.add(n); return `Daar had ik 't net al over, maar wat je ook mot wete: ${TOPICS[n].first}`; } }
             return `*kijkt je ongeduldig aan* "${TOPICS[repeatedId].repeat}"`;
         }
-
         const fallbacks = [
             `*grijpt naar d'r schouder* "Hè? Wat bedoel je nâh precies, gappie? M'n hele kop tolt van de adrenaline. Vraag 't ff concreter!"`,
             `*zucht ongeduldig* "Ik volg je niet helemaal hoor. Wil je wete hoe die duw precies ging, hoe m'n huis d'r uitziet boven, of hoe die gozer d'r uitziet?"`,
             `*wrijft met rechts over d'r linkerschouder* "Kappe nâh, praat ff duidelijke taal met me! Wat mot je precies opschrijve voor 't proces-verbaal?"`,
             `*kijkt angstig om zich heen* "Sorry hoor, ik zit helemaal vol stress... stel je vraag es ff anders, dan geef ik je gewoon antwoord."`
         ];
-        const reply = fallbacks[fallbackIndex % fallbacks.length];
-        fallbackIndex++;
-        return reply;
+        return fallbacks[fallbackIndex++ % fallbacks.length];
     }
 
     window.sendChatMessage = function() {
         if (isWaiting) return;
-
-        const inputEl = document.getElementById("chatInput");
-        const userText = inputEl.value.trim();
+        const inputEl = document.getElementById("chatInput"), userText = inputEl.value.trim();
         if (!userText) return;
-
         appendMessage("Student", userText);
         inputEl.value = "";
-
         isWaiting = true;
         document.getElementById("btnSend").disabled = true;
         document.getElementById("typingIndicator").style.display = "block";
-
         setTimeout(() => {
-            const replyText = generatePriscillaReply(userText);
-            appendMessage("Priscilla", replyText);
+            appendMessage("Priscilla", generatePriscillaReply(userText));
             isWaiting = false;
             document.getElementById("btnSend").disabled = false;
             document.getElementById("typingIndicator").style.display = "none";
@@ -1567,112 +592,179 @@
     };
 
     document.getElementById("chatInput").addEventListener("keydown", function(e) {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            window.sendChatMessage();
-        }
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); window.sendChatMessage(); }
     });
+    // === EINDE DEEL 1 — VRAAG OM DEEL 2 EN PLAK DIE DIRECT HIERONDER ===
+    // === START DEEL 2 ===
+    // =========================================================================
+    // FASE 2: 25 STIJLFOUTEN
+    // =========================================================================
+    const PHASE2_EXERCISES = [
+        { id: 1, wrong: "Het opstellen van het uitgebreide proces-verbaal kostte veel tijd in beslag.", errorType: "Contaminatie", hint: "Je haalt 'veel tijd kosten' en 'veel tijd in beslag nemen' door elkaar. Kies er één.", sample: "Het opstellen van het uitgebreide proces-verbaal nam veel tijd in beslag.", validate: s => !(/\b(kost|kostte|kosten)\b.*\bin beslag\b|\bin beslag\b.*\b(kost|kostte|kosten)\b/i.test(s)) && /(proces-verbaal|proces verbaal|pv)/i.test(s) && /\btijd\b/i.test(s) && (/\b(nam|neemt)\b.*\bin beslag\b/i.test(s) || /\b(kost|kostte)\b/i.test(s) || /\bduurde\b/i.test(s)) },
+        { id: 2, wrong: "De agent wees de verdachte erop attent dat hij gebruik mocht maken van zijn zwijgrecht.", errorType: "Contaminatie", hint: "'Ergens op wijzen' en 'ergens attent op maken' worden vermengd.", sample: "De agent wees de verdachte erop dat hij gebruik mocht maken van zijn zwijgrecht.", validate: s => !/\b(wees|wijst|wijzen)\b.*\battent\b/i.test(s) && /zwijgrecht/i.test(s) && (/\b(wees|wijst)\b.*\b(erop|op)\b/i.test(s) || /\b(maakte|maakt)\b.*\battent\b/i.test(s) || /\battendeerde\b/i.test(s)) },
+        { id: 3, wrong: "De verbalisant greep bij de vechtpartij direct tot actie over.", errorType: "Contaminatie", hint: "'Ingrijpen' en 'tot actie overgaan' lopen door elkaar.", sample: "De verbalisant ging bij de vechtpartij direct tot actie over.", validate: s => !/\b(greep|grijpt|grijpen)\b.*\btot actie\b/i.test(s) && /vechtpartij/i.test(s) && (/\b(greep|grijpt)\b.*\bin\b/i.test(s) || /\bingreep\b/i.test(s) || /\b(ging|gaat)\b.*\btot actie over\b/i.test(s) || /\b(kwam|komt)\b.*\bin actie\b/i.test(s) || /\btrad\b.*\bop\b/i.test(s)) },
+        { id: 4, wrong: "Dit strafbare feit behoort tot een van de zwaarste misdrijven in het wetboek.", errorType: "Contaminatie", hint: "Combineer niet 'behoort tot' met 'een van de'. Kies 'behoort tot de...' óf 'is een van de...'.", sample: "Dit strafbare feit behoort tot de zwaarste misdrijven in het wetboek.", validate: s => !/behoor(t|en)?\s+tot\s+(?:één|een)\s+van\b/i.test(s) && /(misdrijven|feiten)/i.test(s) && (/behoor(t|en)?\s+tot\s+de\b/i.test(s) || /\b(is|zijn)\s+(?:één|een)\s+van\s+de\b/i.test(s) || /\bvalt\s+onder\b/i.test(s)) },
+        { id: 5, wrong: "Op de plaats delict troffen de agenten een dood lijk aan.", errorType: "Pleonasme", hint: "Een eigenschap wordt genoemd die vanzelfsprekend in het woord zit.", sample: "Op de plaats delict troffen de agenten een lijk aan.", validate: s => !/\b(dood|dode|overleden|gestorven)\s+lijk\b/i.test(s) && /(plaats delict|pd)/i.test(s) && /\b(lijk|overleden|stoffelijk overschot|dode)\b/i.test(s) },
+        { id: 6, wrong: "De verdachte vertelde tijdens het verhoor een valse leugen over zijn alibi.", errorType: "Pleonasme", hint: "Een leugen is per definitie vals/onwaar.", sample: "De verdachte vertelde tijdens het verhoor een leugen over zijn alibi.", validate: s => !/\b(valse|onware|gelogen)\s+leugen\b/i.test(s) && /verhoor/i.test(s) && /alibi/i.test(s) && /\b(leugen|loog|onwaarheid|vals verhaal|leugenachtig verhaal)\b/i.test(s) },
+        { id: 7, wrong: "De vluchtende bestuurder reed met hoge topsnelheid door het rode verkeerslicht.", errorType: "Pleonasme", hint: "'Topsnelheid' betekent al de hoogste snelheid; 'hoge' is dubbelop.", sample: "De vluchtende bestuurder reed met topsnelheid door het rode verkeerslicht.", validate: s => !/\b(hoge|zeer hoge|enorme|grote|maximale)\s+topsnelheid\b/i.test(s) && /(verkeerslicht|rood|rode)/i.test(s) && (/\btopsnelheid\b/i.test(s) || /\bhoge snelheid\b/i.test(s) || /\bzeer snel\b/i.test(s)) },
+        { id: 8, wrong: "Na lang beraad sprak de rechter het uiteindelijke eindvonnis uit.", errorType: "Pleonasme", hint: "Een 'eindvonnis' komt altijd aan het einde; 'uiteindelijke' is overbodig.", sample: "Na lang beraad sprak de rechter het eindvonnis uit.", validate: s => !/\b(uiteindelijke|definitieve|laatste)\s+eindvonnis\b/i.test(s) && /rechter/i.test(s) && /beraad/i.test(s) && /\b(eindvonnis|vonnis|uitspraak)\b/i.test(s) },
+        { id: 9, wrong: "De aangeefster verklaarde dat zij tijdens de duw bang en bevreesd was.", errorType: "Tautologie", hint: "Twee woorden met bijna dezelfde betekenis staan naast elkaar.", sample: "De aangeefster verklaarde dat zij tijdens de duw bang was.", validate: s => { const b=/\bbang\b/i.test(s), v=/\bbevreesd\b/i.test(s), a=/\bangstig\b/i.test(s); return !((b&&v)||(b&&a)||(v&&a)) && /duw/i.test(s) && (b||v||a); } },
+        { id: 10, wrong: "De verdachte heeft de verklaring vrijwillig en uit eigen beweging ondertekend.", errorType: "Tautologie", hint: "'Vrijwillig' en 'uit eigen beweging' drukken twee keer hetzelfde uit.", sample: "De verdachte heeft de verklaring vrijwillig ondertekend.", validate: s => { const v=/\bvrijwillig\b/i.test(s), e=/\beigen beweging\b/i.test(s); return !(v&&e) && /verklaring/i.test(s) && /(ondertekend|getekend)/i.test(s) && (v||e); } },
+        { id: 11, wrong: "De inbreker ging er stiekem en heimelijk met de kluis vandoor.", errorType: "Tautologie", hint: "'Stiekem' en 'heimelijk' betekenen hetzelfde.", sample: "De inbreker ging er heimelijk met de kluis vandoor.", validate: s => { const st=/\bstiekem\b/i.test(s), h=/\bheimelijk\b/i.test(s); return !(st&&h) && /kluis/i.test(s) && (st||h||/\bongemerkt\b/i.test(s)); } },
+        { id: 12, wrong: "De politie heeft de man die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde aangehouden.", errorType: "Tangconstructie", hint: "'Heeft' en 'aangehouden' staan te ver uit elkaar. Zet 'aangehouden' vóór 'die...' óf plaats de bijzin tussen komma's.", sample: "De politie heeft de man aangehouden die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde.", validate: s => /politie/i.test(s) && /trap/i.test(s) && /(aangehouden|hield.*aan)/i.test(s) && (/\baangehouden\b[\s\S]*\bdie\b/i.test(s) || /,\s*die\b[\s\S]*?duwde\s*,/i.test(s) || /,\s*die\b[\s\S]*?,\s*(?:aangehouden|heeft)/i.test(s) || /\.\s+[A-Z]/.test(s) || /\bhield\s+de\s+man\b[\s\S]{0,25}\baan\b/i.test(s)) },
+        { id: 13, wrong: "De officier van justitie heeft het door de advocaat van de verdachte tijdens de zitting ingediende bezwaarschrift afgewezen.", errorType: "Tangconstructie", hint: "'Het' en 'bezwaarschrift' ('heeft' en 'afgewezen') staan te ver uit elkaar.", sample: "De officier van justitie heeft het bezwaarschrift afgewezen dat tijdens de zitting door de advocaat van de verdachte was ingediend.", validate: s => !(/\bingediende\s+bezwaarschrift\b/i.test(s) && !/,\s*(?:dat|welk)\b/i.test(s)) && /(officier|ovj)/i.test(s) && /bezwaarschrift/i.test(s) && /(afgewezen|wees.*af)/i.test(s) && (/\bbezwaarschrift\b[\s\S]*\b(dat|welk|door de advocaat|ingediend|tijdens)\b/i.test(s) || /,\s*(?:dat|ingediend)\b[\s\S]*?,/i.test(s)) },
+        { id: 14, wrong: "Ter plaatse gekomen bij de voordeur van de woning van de aangeefster, bleek zij reeds op een kier te staan.", errorType: "Foutief beknopte bijzin + onjuiste verwijzing", hint: "Wie kwam er ter plaatse (kloppend onderwerp ontbreekt) én wie is 'zij'? Nu lijkt de aangeefster op een kier te staan!", sample: "Toen wij ter plaatse kwamen bij de woning van de aangeefster, bleek de voordeur reeds op een kier te staan.", validate: s => !(/\b(bleek|stond)\s+zij\b/i.test(s) || /\bzij\b[\s\S]*\bkier\b/i.test(s)) && /(voordeur|deur)/i.test(s) && /kier/i.test(s) && (/^\s*ter plaatse gekomen\b/i.test(s) ? (/\b(wij|ik|agent|agenten|verbalisant|verbalisanten|politie)\b/i.test(s) && !/,\s*bleek\b/i.test(s)) : /\b(toen|nadat|bij aankomst|wij|ik|agent|agenten|verbalisant|politie|voordeur)\b/i.test(s)) },
+        { id: 15, wrong: "Na de handboeien te hebben omgedaan, reed de dienstwagen naar het politiebureau.", errorType: "Foutief beknopte bijzin", hint: "De dienstwagen kan geen handboeien omdoen; voeg de handelende personen ('de agenten' / 'wij') toe.", sample: "Nadat de agenten de verdachte de handboeien hadden omgedaan, reden zij met de dienstwagen naar het politiebureau.", validate: s => !/\bomgedaan\s*,?\s*reed\s+de\s+dienstwagen\b/i.test(s) && /(handboeien|boeien)/i.test(s) && /(dienstwagen|politieauto|politiebureau|bureau)/i.test(s) && /\b(agent|agenten|wij|ik|verbalisant|verbalisanten|politie|rechercheurs)\b/i.test(s) },
+        { id: 16, wrong: "De verdachte sloeg het slachtoffer in het gezicht en vervolgens op de vlucht.", errorType: "Foutieve samentrekking", hint: "'Sloeg' wordt in twee verschillende betekenissen gebruikt. Herhaal het werkwoord of gebruik een ander werkwoord.", sample: "De verdachte sloeg het slachtoffer in het gezicht en sloeg vervolgens op de vlucht.", validate: s => !/\bgezicht\s+en\s+(?:vervolgens\s+)?op\s+de\s+vlucht\b/i.test(s) && /verdachte/i.test(s) && /slachtoffer/i.test(s) && /gezicht/i.test(s) && (/\b(sloeg|ging|rende|begaf)\b[\s\S]*\bop\s+de\s+vlucht\b/i.test(s) || /\b(vluchtte|ging er.*vandoor|rende weg)\b/i.test(s)) },
+        { id: 17, wrong: "De politie arresteerde de verdachte op de overloop en werd direct overgebracht naar het cellencomplex.", errorType: "Foutieve samentrekking", hint: "Het onderwerp wisselt onterecht van 'de politie' naar 'de verdachte'.", sample: "De politie arresteerde de verdachte op de overloop, waarna hij direct werd overgebracht naar het cellencomplex.", validate: s => !/\boverloop\s+en\s+werd\b/i.test(s) && /(politie|agenten)/i.test(s) && /verdachte/i.test(s) && /overloop/i.test(s) && /(cellencomplex|cel|bureau)/i.test(s) && (/\b(waarna hij|en hij werd|en de verdachte werd|die direct werd|bracht hem|brachten hem|om hem)\b/i.test(s) || /\.\s*(hij|de verdachte)\s+werd\b/i.test(s)) },
+        { id: 18, wrong: "Het proces-verbaal wat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.", errorType: "Onjuist verwijswoord", hint: "Na 'het proces-verbaal' gebruik je niet 'wat'.", sample: "Het proces-verbaal dat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.", validate: s => !/(proces-verbaal|proces verbaal)\s*,?\s*wat\b/i.test(s) && /(proces-verbaal|proces verbaal)/i.test(s) && /aspirant/i.test(s) && (/\bdat\b/i.test(s) || /\bopgemaakt door\b/i.test(s)) },
+        { id: 19, wrong: "De rechercheurs hebben hun gisteravond laat nog op heterdaad aangehouden.", errorType: "Onjuist verwijswoord", hint: "'Hun' is geen geldig lijdend voorwerp.", sample: "De rechercheurs hebben hen gisteravond laat nog op heterdaad aangehouden.", validate: s => !/\bhun\b/i.test(s) && /rechercheurs/i.test(s) && /heterdaad/i.test(s) && /aangehouden/i.test(s) && /\b(hen|ze|de verdachten|verdachten)\b/i.test(s) },
+        { id: 20, wrong: "De verdachte wordt voorlopig niet vervolgd, mits de officier van justitie alsnog nieuw bewijs vindt.", errorType: "Verkeerd voegwoord", hint: "'Mits' betekent 'op voorwaarde dat', terwijl hier een uitzondering wordt bedoeld.", sample: "De verdachte wordt voorlopig niet vervolgd, tenzij de officier van justitie alsnog nieuw bewijs vindt.", validate: s => !/\bmits\b/i.test(s) && /verdachte/i.test(s) && /vervolgd/i.test(s) && /bewijs/i.test(s) && (/\btenzij\b/i.test(s) || /\bbehalve als\b/i.test(s) || /\bindien.*geen\b/i.test(s)) },
+        { id: 21, wrong: "De nieuwe verklaring van de getuige is veel betrouwbaarder als zijn eerste verhaal.", errorType: "Foutieve vergelijking", hint: "Na een vergrotende trap ('betrouwbaarder') staat geen 'als'.", sample: "De nieuwe verklaring van de getuige is veel betrouwbaarder dan zijn eerste verhaal.", validate: s => !/(betrouwbaarder|geloofwaardiger)\s+als\b/i.test(s) && /verklaring/i.test(s) && /getuige/i.test(s) && /(betrouwbaarder|geloofwaardiger)/i.test(s) && /\bdan\b/i.test(s) },
+        { id: 22, wrong: "De verbalisant irriteerde zich aan de dreigende toon van de verdachte tijdens het verhoor.", errorType: "Foutief werkwoordgebruik", hint: "'Zich irriteren aan' bestaat officieel niet.", sample: "De verbalisant ergerde zich aan de dreigende toon van de verdachte tijdens het verhoor.", validate: s => !/irriteerde?\s+zich/i.test(s) && /(verbalisant|agent)/i.test(s) && /toon/i.test(s) && /verhoor/i.test(s) && (/(ergerde|stoorde)\s+zich\s+aan/i.test(s) || /toon[\s\S]*irriteerde/i.test(s) || /geïrriteerd/i.test(s)) },
+        { id: 23, wrong: "De aangeefster heeft nooit geen toestemming gegeven om haar woning te betreden.", errorType: "Dubbele ontkenning", hint: "'Nooit geen' heft elkaar logisch op.", sample: "De aangeefster heeft nooit toestemming gegeven om haar woning te betreden.", validate: s => !/\bnooit\s+geen\b/i.test(s) && /(aangeefster|slachtoffer)/i.test(s) && /toestemming/i.test(s) && /(woning|betreden)/i.test(s) && /\b(nooit|geen|nimmer)\b/i.test(s) },
+        { id: 24, wrong: "Die opgefokte gozer heeft zijn vriendin keihard van de trap af gepleurd.", errorType: "Stijlbreuk / spreektaal", hint: "Een PV moet zakelijk, objectief en feitelijk zijn; vermijd spreektaal ('opgefokte', 'gozer', 'keihard', 'gepleurd').", sample: "De verdachte heeft het slachtoffer met kracht van de trap geduwd.", validate: s => !/(opgefokt|gozer|keihard|gepleurd|pleur|gast|kerel|wijf|gappie)/i.test(s) && /\b(verdachte|man)\b/i.test(s) && /trap/i.test(s) && /(geduwd|duwde|gestoten|stiet|afgeduwd)/i.test(s) },
+        { id: 25, wrong: "Door de verbalisant werd overgegaan tot het in beslag nemen van het aangetroffen voorwerp.", errorType: "Naamwoordstijl / wollige lijdende vorm", hint: "Vermijd omslachtige constructies als 'werd overgegaan tot het in beslag nemen'. Schrijf actief.", sample: "De verbalisant nam het aangetroffen voorwerp in beslag.", validate: s => !(/overgegaan\s+tot/i.test(s) || /het\s+in\s+beslag\s+nemen\s+van/i.test(s)) && /(verbalisant|ik|agent)/i.test(s) && /voorwerp/i.test(s) && (/\bin beslag\s+(?:nam|genomen|neemt)\b/i.test(s) || /\bnam\b[\s\S]*\bin beslag\b/i.test(s)) }
+    ];
 
     // =========================================================================
-    // FASE 2: OPBOUW & NAKIJKEN (25 ZINNEN)
+    // FASE 3: 15 FOTO'S BEROEPSVAARDIGHEDEN
+    // =========================================================================
+    const PHASE3_ITEMS = [
+        { id: 1, img: "foto.jpg", altImg: "foto1.jpg", title: "Vorderen ter inzage identiteitsbewijs", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik vorderde...', 'Ik zag dat...') + redenen van wetenschap. Hint: ID-bewijs vorderen en zien dat de man de kaart uit zijn portemonnee pakt en overhandigt.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, vorderde ik van de man inzage in een identiteitsbewijs. Ik zag dat hij een identiteitskaart uit zijn portemonnee pakte en aan mij overhandigde.", check: s => ({ ok: /(vorderde|vroeg|inzage)/i.test(s) && /(identiteitsbewijs|identiteitskaart|id-bewijs|id-kaart|\bid\b|legitimatie)/i.test(s) && /(portemonnee|overhandig|gaf|pakte)/i.test(s), msg: "Benoem het vorderen van het identiteitsbewijs en dat jij zag dat hij de kaart uit zijn portemonnee pakte / overhandigde." }) },
+        { id: 2, img: "foto2.jpg", title: "Veiligheidsfouillering / onderzoek aan kleding", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik onderzocht...', 'Ik voelde...', 'Ik zag dat...'). Hint: Kleding onderzoeken, hard voorwerp voelen in rechter jaszak en zwart zakmes aantreffen.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, onderzocht ik de kleding van de man. Ik voelde een voorwerp in zijn rechter jaszak en zag dat ik een zwart zakmes uit die jaszak haalde.", check: s => ({ ok: /(onderzocht|fouilleerde|voelde|kleding)/i.test(s) && /(jaszak|zak|rechter)/i.test(s) && /(zakmes|mes)/i.test(s), msg: "Beschrijf het onderzoek aan de kleding, wat je voelde in de (rechter) jaszak en het aantreffen van het zakmes." }) },
+        { id: 3, img: "foto3.jpg", title: "Aanhouding & aanleggen handboeien", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik deelde mede...', 'Ik legde...'). Hint: Mededelen van aanhouding en het aanleggen van de handboeien op de rug.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, deelde ik de man mede dat hij was aangehouden en legde ik hem de handboeien op zijn rug aan.", check: s => ({ ok: /(aanhoud|aangehouden|aanhield)/i.test(s) && /(handboeien|boeien)/i.test(s), msg: "Benoem zowel de aanhouding als het aanleggen van de handboeien in de ik-vorm." }) },
+        { id: 4, img: "foto4.jpg", title: "Cautie geven (mededeling zwijgrecht)", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik deelde mede...', 'Ik zag dat...'). Hint: Mededelen dat de verdachte niet tot antwoorden verplicht is (cautie) en zijn waarneembare reactie.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, deelde ik de verdachte mede dat hij niet tot antwoorden verplicht was. Ik zag dat hij mij aankeek en knikte.", check: s => ({ ok: /(cautie|zwijgrecht|niet tot antwoorden verplicht|hoeft niet te antwoorden|verplicht.*antwoorden)/i.test(s) && /(deelde|zei|hoorde|zag|knikte|luisterde)/i.test(s), msg: "Noteer expliciet de cautie ('niet tot antwoorden verplicht') en wat je waarnam bij de verdachte." }) },
+        { id: 5, img: "foto5.jpg", title: "Staandehouding verkeer (telefoon & gordel)", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag dat...', 'Ik hield staande...'). Hint: Bestuurder met telefoon in de rechterhand en zonder autogordel zien rijden + staandehouden.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik dat de bestuurder een telefoon in zijn rechterhand vasthield en geen autogordel droeg. Ik hield hem staande.", check: s => ({ ok: /(telefoon|smartphone|mobiel)/i.test(s) && /(gordel|autogordel)/i.test(s) && /(bestuurder|auto|reed|staandehield|staande hield|stopteken)/i.test(s), msg: "Benoem zowel het zien vasthouden van de telefoon als het niet dragen van de gordel en de staandehouding." }) },
+        { id: 6, img: "foto6.jpg", title: "Voorlopig ademonderzoek / blaastest", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik rook...', 'Ik vorderde...', 'Ik zag dat...'). Hint: Ademonderzoek vorderen en waarnemen dat de bestuurder blaast / apparaat uitslag geeft.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, vorderde ik van de bestuurder medewerking aan een voorlopig ademonderzoek. Ik zag dat hij in het apparaat blies en dat de indicator oplichtte.", check: s => ({ ok: /(ademonderzoek|blaastest|blies|blazen|alcoholtester|blaasapparaat)/i.test(s) && /(bestuurder|indicatie|uitslag|lichtte|alcohol|rook)/i.test(s), msg: "Beschrijf het vorderen/afnemen van het ademonderzoek (blaastest) en wat je bij de bestuurder zag of rook." }) },
+        { id: 7, img: "foto7.jpg", title: "Onderzoek kofferbak (inbrekerswerktuig)", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik onderzocht...', 'Ik scheen...', 'Ik zag dat...'). Hint: Kofferbak met zaklamp onderzoeken en zien van rood breekijzer en zwarte betonschaar.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, onderzocht ik de kofferbak en scheen met mijn zaklamp naar binnen. Ik zag dat op de mat een breekijzer en een betonschaar lagen.", check: s => ({ ok: /(kofferbak)/i.test(s) && /(breekijzer|koevoet)/i.test(s) && /(betonschaar|kniptang|schaar)/i.test(s), msg: "Benoem het onderzoek in de kofferbak en wat je daar precies zag liggen (breekijzer en betonschaar)." }) },
+        { id: 8, img: "foto8.jpg", title: "Optreden met korte wapenstok", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag dat...', 'Ik vorderde...', 'Ik nam...'). Hint: Man balt vuist, nadert dreigend; jij vordert afstand en houdt wapenstok gereed.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik dat de man zijn vuist balde en op mij afliep. Ik vorderde dat hij afstand hield en nam mijn wapenstok in de hand.", check: s => ({ ok: /(wapenstok)/i.test(s) && /(vuist|dreigend|afstand|vorderde|balde|naderde|afliep)/i.test(s), msg: "Benoem wat je bij de man zag (gebalde vuist / naderen), jouw vordering tot afstand en het pakken van de wapenstok." }) },
+        { id: 9, img: "foto9.jpg", title: "Richten pepperspray & waarschuwen", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag dat...', 'Ik richtte...', 'Ik waarschuwde...'). Hint: Man blijft naderen; jij steekt hand op (STOP), richt pepperspray en waarschuwt.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik dat de man bleef naderen. Ik hield mijn hand omhoog als stopteken, richtte mijn pepperspray en waarschuwde hem luid.", check: s => ({ ok: /(pepperspray|spray)/i.test(s) && /(waarschuw|stop|hand|richtte|naderde|afstand)/i.test(s), msg: "Noteer het richten van de pepperspray, je waarschuwing/stopgebaar en de waarneembare aanleiding." }) },
+        { id: 10, img: "foto10.jpg", title: "Opnemen getuigenverklaring", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik sprak...', 'Ik hoorde dat...', 'Ik zag dat...'). Hint: Getuige wijst naar vernielde buitenspiegel van geparkeerde auto; jij hoort en noteert haar verklaring.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, hoorde ik dat de getuige verklaarde wat zij had gezien terwijl zij naar de vernielde buitenspiegel wees. Ik noteerde haar verklaring.", check: s => ({ ok: /(getuige|vrouw)/i.test(s) && /(verklaarde|verklaring|noteerde|schreef|hoorde)/i.test(s) && /(spiegel|buitenspiegel|zijspiegel|auto|wees)/i.test(s), msg: "Benoem wat je van de getuige hoorde, dat zij naar de vernielde spiegel/auto wees en dat jij haar verklaring noteerde." }) },
+        { id: 11, img: "foto11.jpg", title: "Inbeslagneming gripzakjes & contant geld", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag...', 'Ik nam in beslag...', 'Ik verpakte...'). Hint: Gripzakjes met wit poeder en eurobiljetten in bewijszak/sealbag plaatsen.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik vier gripzakjes met wit poeder en eurobiljetten. Ik nam deze goederen in beslag en verpakte ze in een bewijszak.", check: s => ({ ok: /(gripzak|zakje|poeder)/i.test(s) && /(geld|biljetten|euro)/i.test(s) && /(in beslag|bewijszak|sealbag|verpakte)/i.test(s), msg: "Beschrijf de gripzakjes met wit poeder, het geld, de inbeslagneming en het verpakken in een bewijszak." }) },
+        { id: 12, img: "foto12.jpg", title: "Binnentreden woning & braakschade", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik trad binnen...', 'Ik zag dat...'). Hint: Gesplinterde deurpost rond slot en scheef schoenenrek in hal waarnemen bij binnentreden.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, trad ik de woning binnen en zag dat het hout van de deurpost rond het slot versplinterd was en het schoenenrek scheef stond.", check: s => ({ ok: /(woning|binnen|trad|hal|deurpost|voordeur)/i.test(s) && /(gesplinterd|versplinterd|braak|beschadigd|slot|schoenenrek|scheef)/i.test(s), msg: "Benoem het binnentreden van de woning en de exacte schade die je zag (versplinterde deurpost / slot / scheef schoenenrek)." }) },
+        { id: 13, img: "foto13.jpg", title: "Eerste hulp aan gewonde fietser", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag dat...', 'Ik knielde...', 'Ik legde...'). Hint: Gewonde fietser op fietspad naast omgevallen fiets; verband uit EHBO-set om onderarm aanleggen.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik een gewonde fietser naast een omgevallen fiets zitten. Ik knielde naast hem en legde een verband uit de EHBO-set om zijn onderarm.", check: s => ({ ok: /(fietser|gewond|fiets)/i.test(s) && /(arm|onderarm|verband|ehbo|knielde|verbond)/i.test(s), msg: "Beschrijf wat je zag (gewonde fietser / omgevallen fiets) en jouw EHBO-handeling (verband aanleggen om de onderarm)." }) },
+        { id: 14, img: "foto14.jpg", title: "Afzetten plaats delict met politielint", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik zag dat...', 'Ik zette af...'). Hint: Vernielde winkelruit waarnemen en trottoir afzetten met blauw-wit politielint.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, zag ik dat de winkelruit vernield was. Ik zette het trottoir voor de winkel af met politielint.", check: s => ({ ok: /(politielint|lint|afzetlint|zette.*af|afgezet)/i.test(s) && /(ruit|winkelruit|glas|winkel|plaats delict)/i.test(s), msg: "Benoem de vernielde winkelruit die je zag en het afzetten van de locatie met politielint." }) },
+        { id: 15, img: "foto15.jpg", altImg: "15.jpg", title: "Insluitingsfouillering op politiebureau", placeholder: "Vereist: dag/datum/tijd + ik-vorm ('Ik nam af...', 'Ik zag dat...'). Hint: Voorwerpen uit zakken in bak op de balie zien: portemonnee, smartphone, sleutelbos en aansteker.", sample: "Op woensdag 18 november 2026, omstreeks 11:42 uur, nam ik aan de balie de insluitingsfouillering af. Ik zag dat een portemonnee, smartphone, sleutelbos en aansteker in de bak lagen.", check: s => ({ ok: /(insluitingsfouillering|fouillering|balie|bureau|bak)/i.test(s) && /(portemonnee|telefoon|smartphone|sleutel|aansteker)/i.test(s), msg: "Beschrijf de insluitingsfouillering op het bureau en de concrete goederen die je in de bak zag (portemonnee, telefoon, sleutels, aansteker)." }) }
+    ];
+
+    // =========================================================================
+    // FASE 4: KRUISWOORDRAADSEL (28 WOORDEN)
+    // =========================================================================
+    const CW_ROWS = 30, CW_COLS = 25; // kolommen 1..24 gebruikt
+    const CROSSWORD_WORDS = [
+        { word: "PAGODE", dir: "H", r: 0, c: 2, clue: "boeddhistische tempel in het Verre Oosten" },
+        { word: "TIRANNIEK", dir: "H", r: 3, c: 3, clue: "wreed; wreedaardig" },
+        { word: "PIRAMIDE", dir: "H", r: 4, c: 16, clue: "bouwwerk waarvan de zijvlakken (op een vierkante basis) driehoeken zijn" },
+        { word: "REPUBLIKEINS", dir: "H", r: 5, c: 3, clue: "zoals een republiek (regeringsvorm waarin het staatshoofd een door het volk gekozen persoon is, die in die functie blijft gedurende een aantal jaren)" },
+        { word: "OPPORTUNISTISCH", dir: "H", r: 12, c: 4, clue: "zo handelend dat je doet wat snel het meeste voordeel heeft" },
+        { word: "CONFRONTATIE", dir: "H", r: 20, c: 1, clue: "botsing; aanvaring" },
+        { word: "ARROGANT", dir: "H", r: 20, c: 17, clue: "verwaand; hooghartig" },
+        { word: "DEFLATIE", dir: "H", r: 24, c: 1, clue: "dalende economische activiteiten, meestal gepaard met daling van prijzen" },
+        { word: "SPECIMEN", dir: "H", r: 27, c: 12, clue: "proeve; voorbeeld" },
+        { word: "ILLUSIONIST", dir: "H", r: 29, c: 14, clue: "goochelaar" },
+        { word: "DEVALUATIE", dir: "V", r: 0, c: 6, clue: "waardevermindering" },
+        { word: "PRAGMATISCH", dir: "V", r: 4, c: 16, clue: "praktisch; uitgaande van feiten" },
+        { word: "MACABERE", dir: "V", r: 4, c: 20, clue: "griezelige; spookachtig" },
+        { word: "DENIGREREN", dir: "V", r: 4, c: 22, clue: "minachten, geringschatten" },
+        { word: "INDOCTRINATIE", dir: "V", r: 5, c: 12, clue: "systematisch opdringen van een mening" },
+        { word: "THEATRAAL", dir: "V", r: 7, c: 8, clue: "aangrijpend, op onnatuurlijke wijze indrukwekkend" },
+        { word: "TURBULENT", dir: "V", r: 8, c: 10, clue: "onrustig; onstuimig" },
+        { word: "CANTATE", dir: "V", r: 9, c: 14, clue: "meerdelig zangstuk met instrumentale begeleiding" },
+        { word: "OMISSIE", dir: "V", r: 12, c: 4, clue: "weglating; nalatigheid" },
+        { word: "PROTECTIONIST", dir: "V", r: 12, c: 6, clue: "handelsbeschermer" },
+        { word: "HETZE", dir: "V", r: 12, c: 18, clue: "lastercampagne" },
+        { word: "AUTORISATIE", dir: "V", r: 18, c: 10, clue: "volmacht; machtiging" },
+        { word: "INGENIEUS", dir: "V", r: 18, c: 21, clue: "vindingrijk" },
+        { word: "INTRAVENEUS", dir: "V", r: 19, c: 23, clue: "in de ader aangebracht" },
+        { word: "EMPATHISCH", dir: "V", r: 20, c: 12, clue: "inlevend; meevoelend" },
+        { word: "ANTONIEM", dir: "V", r: 20, c: 17, clue: "woord met een tegengestelde betekenis" },
+        { word: "CANON", dir: "V", r: 23, c: 19, clue: "verzameling van de belangrijkste werken, die als waardevol erkend worden en dienen als referentiepunt in het onderwijs" },
+        { word: "LATENT", dir: "V", r: 24, c: 4, clue: "als iets er wel is, maar je het niet merkt, sluimerend" }
+    ];
+
+    // =========================================================================
+    // STATE & HULPFUNCTIES
+    // =========================================================================
+    let fase1Voltooid = false, fase2Afgerond = false, fase3Afgerond = false;
+    let phase2Attempts = 0, phase2Results = {};
+    let phase3Attempts = 0, phase3Results = {};
+    let myPoints = { f2: 0, f3: 0, f4: 0 };
+    let latestVoortgangData = null;
+    let handledClosingAt = 0;
+    let closingInterval = null;
+
+    function updateHeaderScore() {
+        const tot = (myPoints.f2 || 0) + (myPoints.f3 || 0) + (myPoints.f4 || 0);
+        document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${tot} PUNTEN`;
+    }
+
+    function getAccurateDutchDateTime() {
+        const now = new Date();
+        const dagen = ["zondag", "maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag"];
+        const maanden = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+        const dag = dagen[now.getDay()];
+        const datum = `${now.getDate()} ${maanden[now.getMonth()]} ${now.getFullYear()}`;
+        const hh = String(now.getHours()).padStart(2, "0");
+        const mm = String(now.getMinutes()).padStart(2, "0");
+        return { label: `${dag} ${datum}, ${hh}:${mm} uur`, prefix: `Op ${dag} ${datum}, omstreeks ${hh}:${mm} uur, ` };
+    }
+
+    // =========================================================================
+    // FASE 2 LOGICA
     // =========================================================================
     function renderPhase2Sentences() {
         const container = document.getElementById("sentencesContainer");
         container.innerHTML = "";
-        PHASE2_EXERCISES.forEach((ex) => {
+        PHASE2_EXERCISES.forEach(ex => {
             const card = document.createElement("div");
             card.className = "sentence-card";
             card.id = `sentence-card-${ex.id}`;
-            card.innerHTML = `
-                <div class="sentence-num">Zin ${ex.id} van 25</div>
-                <div class="sentence-original">${escapeHtml(ex.wrong)}</div>
-                <textarea class="sentence-input" id="zin-input-${ex.id}" rows="2" placeholder="Noteer hier de correcte zin..."></textarea>
-                <div class="sentence-feedback" id="zin-fb-${ex.id}"></div>
-            `;
+            card.innerHTML = `<div class="sentence-num">Zin ${ex.id} van 25</div><div class="sentence-original">${escapeHtml(ex.wrong)}</div><textarea class="sentence-input" id="zin-input-${ex.id}" rows="2" placeholder="Noteer de correcte zin."></textarea><div class="sentence-feedback" id="zin-fb-${ex.id}"></div>`;
             container.appendChild(card);
-
-            const textarea = card.querySelector("textarea");
-            textarea.addEventListener("input", () => {
-                card.classList.remove("is-missing");
-                updateFilledCounter();
-            });
+            card.querySelector("textarea").addEventListener("input", () => { card.classList.remove("is-missing"); updateFilledCounter(); });
         });
         updateFilledCounter();
     }
 
     function updateFilledCounter() {
         let filled = 0;
-        PHASE2_EXERCISES.forEach(ex => {
-            const val = document.getElementById(`zin-input-${ex.id}`).value.trim();
-            if (val.length > 0) filled++;
-        });
+        PHASE2_EXERCISES.forEach(ex => { if (document.getElementById(`zin-input-${ex.id}`).value.trim()) filled++; });
         document.getElementById("filledCounter").innerText = `Ingevuld: ${filled} / 25 zinnen`;
-        const hintEl = document.getElementById("phase2StatusHint");
         if (phase2Attempts === 0) {
-            hintEl.innerText = filled === 25
-                ? "Alle 25 zinnen zijn ingevuld. Klik op NAKIJKEN!"
-                : `Vul nog ${25 - filled} zin(nen) in om te kunnen nakijken.`;
+            document.getElementById("phase2StatusHint").innerText = filled === 25 ? "Alle 25 zinnen zijn ingevuld. Klik op NAKIJKEN!" : `Vul nog ${25 - filled} zin(nen) in om te kunnen nakijken.`;
         }
     }
 
-    function isSentenceValid(ex, rawAnswer) {
-        const cleaned = rawAnswer.trim();
-        const words = cleaned.split(/\s+/).filter(Boolean);
-        // Minimaal een echte volledige zin en niet letterlijk gelijk aan de foute zin
-        if (words.length < 4 || cleaned.length < 20) return false;
-        if (cleaned.toLowerCase() === ex.wrong.toLowerCase()) return false;
-        return ex.validate(cleaned);
-    }
-
-    function calcPhase2Score() {
-        let total = 0;
-        let firstCount = 0;
-        let improvedCount = 0;
-        Object.values(phase2Results).forEach(r => {
-            total += r.points;
-            if (r.status === "correct1") firstCount++;
-            if (r.status === "correct2") improvedCount++;
-        });
-        return { total, firstCount, improvedCount };
+    function isSentenceValid(ex, raw) {
+        const c = raw.trim(), words = c.split(/\s+/).filter(Boolean);
+        if (words.length < 4 || c.length < 20 || c.toLowerCase() === ex.wrong.toLowerCase()) return false;
+        return ex.validate(c);
     }
 
     window.checkPhase2 = async function() {
         if (phase2Attempts >= 2) return;
-
-        // Eis: ALLE 25 zinnen moeten ingevuld zijn voordat we nakijken
-        const missingIds = [];
+        const missing = [];
         PHASE2_EXERCISES.forEach(ex => {
-            const val = document.getElementById(`zin-input-${ex.id}`).value.trim();
-            const card = document.getElementById(`sentence-card-${ex.id}`);
-            if (!val) {
-                missingIds.push(ex.id);
-                card.classList.add("is-missing");
-            } else {
-                card.classList.remove("is-missing");
-            }
+            const val = document.getElementById(`zin-input-${ex.id}`).value.trim(), card = document.getElementById(`sentence-card-${ex.id}`);
+            if (!val) { missing.push(ex.id); card.classList.add("is-missing"); } else card.classList.remove("is-missing");
         });
-
-        if (missingIds.length > 0) {
-            alert(`Vul eerst alle 25 zinnen in voordat je kunt nakijken!\nJe mist nog zin: ${missingIds.join(", ")}`);
-            document.getElementById(`sentence-card-${missingIds[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
+        if (missing.length > 0) {
+            alert(`Vul eerst alle 25 zinnen in voordat je kunt nakijken!\nJe mist nog zin: ${missing.join(", ")}`);
+            document.getElementById(`sentence-card-${missing[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
 
         if (phase2Attempts === 0) {
-            // 1e keer nakijken: 2 punten per direct goede zin; bij fout alleen melding WAT fout is (niet de correcte zin!)
+            let firstCount = 0, total = 0;
             PHASE2_EXERCISES.forEach(ex => {
-                const inputEl = document.getElementById(`zin-input-${ex.id}`);
-                const card = document.getElementById(`sentence-card-${ex.id}`);
-                const fb = document.getElementById(`zin-fb-${ex.id}`);
-                const ok = isSentenceValid(ex, inputEl.value);
-
+                const inp = document.getElementById(`zin-input-${ex.id}`), card = document.getElementById(`sentence-card-${ex.id}`), fb = document.getElementById(`zin-fb-${ex.id}`);
                 card.classList.remove("is-correct", "is-wrong");
-                if (ok) {
+                if (isSentenceValid(ex, inp.value)) {
                     phase2Results[ex.id] = { status: "correct1", points: 2 };
-                    card.classList.add("is-correct");
-                    inputEl.disabled = true;
-                    fb.className = "sentence-feedback fb-ok";
-                    fb.innerHTML = `<strong>✓ Correct! (+2 punten)</strong>`;
+                    firstCount++; total += 2;
+                    card.classList.add("is-correct"); inp.disabled = true;
+                    fb.className = "sentence-feedback fb-ok"; fb.innerHTML = `<strong>✓ Correct! (+2 punten)</strong>`;
                 } else {
                     phase2Results[ex.id] = { status: "wrong", points: 0 };
                     card.classList.add("is-wrong");
@@ -1680,103 +772,417 @@
                     fb.innerHTML = `<strong>✗ Nog niet goed (${escapeHtml(ex.errorType)}):</strong> ${escapeHtml(ex.hint)} <em>Verbeter de zin hierboven voor +1 punt.</em>`;
                 }
             });
-
             phase2Attempts = 1;
-            const { total, firstCount } = calcPhase2Score();
-            const wrongCount = 25 - firstCount;
-
-            document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${total} PUNTEN`;
-
-            const banner = document.getElementById("phase2ScoreBanner");
+            myPoints.f2 = total; updateHeaderScore();
+            const wrongCount = 25 - firstCount, banner = document.getElementById("phase2ScoreBanner");
             banner.style.display = "block";
             if (wrongCount === 0) {
-                phase2Attempts = 2;
-                banner.innerHTML = `<strong>Uitstekend! 25 van de 25 zinnen in één keer goed (${total} / 50 punten)!</strong> Fase 2 is afgerond en je score is opgeslagen.`;
+                phase2Attempts = 2; fase2Afgerond = true;
+                document.getElementById("btnNavPhase3").disabled = false;
+                banner.innerHTML = `<strong>Uitstekend! 25/25 in één keer goed (${total} / 50 punten)!</strong> <button onclick="showPhase(3)" style="margin-left:10px; background:var(--politie-blauw); color:#fff; border:none; padding:6px 12px; cursor:pointer; font-weight:bold;">Ga naar Fase 3 →</button>`;
                 document.getElementById("btnCheckPhase2").disabled = true;
                 document.getElementById("btnCheckPhase2").innerText = "FASE 2 AFGEROND";
-                document.getElementById("phase2StatusHint").innerText = "Je hebt de maximale score behaald!";
-                await saveStudentProgress({
-                    fase2Status: "Afgerond",
-                    fase2GoedPoging1: firstCount,
-                    fase2Verbeterd: 0,
-                    fase2Punten: total,
-                    totaalPunten: total
-                });
+                await saveStudentProgress({ fase2Status: "Afgerond", fase2Afgerond: true, fase2Punten: total, totaalPunten: total + myPoints.f3 + myPoints.f4 });
             } else {
-                banner.innerHTML = `<strong>1e controle klaar:</strong> ${firstCount} / 25 zinnen in één keer goed (<strong>${total} punten</strong>). Verbeter nu de <strong>${wrongCount} rode zinnen</strong> aan de hand van de aanwijzingen om extra punten te sprokkelen (+1 punt per verbeterde zin)!`;
+                banner.innerHTML = `<strong>1e controle klaar:</strong> ${firstCount} / 25 goed (<strong>${total} pnt</strong>). Verbeter nu de <strong>${wrongCount} rode zinnen</strong> voor extra punten (+1 pnt per verbetering)!`;
                 document.getElementById("btnCheckPhase2").innerText = "VERBETERINGEN NAKIJKEN (+1 PNT)";
                 document.getElementById("phase2StatusHint").innerText = `Verbeter de ${wrongCount} foute zin(nen) en klik nog één keer op nakijken.`;
-                await saveStudentProgress({
-                    fase2Status: `Poging 1 (${firstCount}/25 goed)`,
-                    fase2GoedPoging1: firstCount,
-                    fase2Verbeterd: 0,
-                    fase2Punten: total,
-                    totaalPunten: total
-                });
+                await saveStudentProgress({ fase2Status: `Poging 1 (${firstCount}/25)`, fase2Afgerond: false, fase2Punten: total, totaalPunten: total + myPoints.f3 + myPoints.f4 });
             }
             banner.scrollIntoView({ behavior: "smooth", block: "center" });
-
         } else if (phase2Attempts === 1) {
-            // Verbeterpoging: +1 punt per nu wel goede zin; daarna afronden & voorbeeldzinnen bij overgebleven fouten tonen
+            let firstCount = 0, improvedCount = 0, total = 0;
             PHASE2_EXERCISES.forEach(ex => {
-                if (phase2Results[ex.id]?.status === "correct1") return;
-
-                const inputEl = document.getElementById(`zin-input-${ex.id}`);
-                const card = document.getElementById(`sentence-card-${ex.id}`);
-                const fb = document.getElementById(`zin-fb-${ex.id}`);
-                const ok = isSentenceValid(ex, inputEl.value);
-
-                card.classList.remove("is-correct", "is-wrong");
-                inputEl.disabled = true;
-
-                if (ok) {
+                if (phase2Results[ex.id]?.status === "correct1") { firstCount++; total += 2; return; }
+                const inp = document.getElementById(`zin-input-${ex.id}`), card = document.getElementById(`sentence-card-${ex.id}`), fb = document.getElementById(`zin-fb-${ex.id}`);
+                card.classList.remove("is-correct", "is-wrong"); inp.disabled = true;
+                if (isSentenceValid(ex, inp.value)) {
                     phase2Results[ex.id] = { status: "correct2", points: 1 };
-                    card.classList.add("is-correct");
-                    fb.className = "sentence-feedback fb-ok";
-                    fb.innerHTML = `<strong>✓ Netjes verbeterd! (+1 punt)</strong>`;
+                    improvedCount++; total += 1;
+                    card.classList.add("is-correct"); fb.className = "sentence-feedback fb-ok"; fb.innerHTML = `<strong>✓ Netjes verbeterd! (+1 punt)</strong>`;
                 } else {
                     phase2Results[ex.id] = { status: "wrong", points: 0 };
-                    card.classList.add("is-wrong");
-                    fb.className = "sentence-feedback fb-err";
-                    fb.innerHTML = `<strong>✗ Nog niet juist (${escapeHtml(ex.errorType)}).</strong><br>Voorbeeld van een correcte zin: <em>"${escapeHtml(ex.sample)}"</em>`;
+                    card.classList.add("is-wrong"); fb.className = "sentence-feedback fb-err";
+                    fb.innerHTML = `<strong>✗ Nog niet juist (${escapeHtml(ex.errorType)}).</strong><br>Voorbeeld: <em>"${escapeHtml(ex.sample)}"</em>`;
                 }
             });
-
-            phase2Attempts = 2;
-            const { total, firstCount, improvedCount } = calcPhase2Score();
-            document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${total} PUNTEN`;
-
+            phase2Attempts = 2; fase2Afgerond = true;
+            myPoints.f2 = total; updateHeaderScore();
+            document.getElementById("btnNavPhase3").disabled = false;
             const banner = document.getElementById("phase2ScoreBanner");
             banner.style.display = "block";
-            banner.innerHTML = `<strong>Fase 2 afgerond!</strong> Je behaalde <strong>${total} / 50 punten</strong> (${firstCount} direct goed à 2 pnt + ${improvedCount} verbeterd à 1 pnt). Je definitieve score staat in het klassenoverzicht!`;
-
+            banner.innerHTML = `<strong>Fase 2 afgerond!</strong> Score: <strong>${total} / 50 punten</strong> (${firstCount}×2 pnt + ${improvedCount}×1 pnt). <button onclick="showPhase(3)" style="margin-left:10px; background:var(--politie-blauw); color:#fff; border:none; padding:8px 14px; cursor:pointer; font-weight:bold; border-radius:3px;">Door naar Fase 3 (15 Foto's) →</button>`;
             document.getElementById("btnCheckPhase2").disabled = true;
             document.getElementById("btnCheckPhase2").innerText = "FASE 2 AFGEROND";
             document.getElementById("phase2StatusHint").innerText = `Eindscore Fase 2: ${total} / 50 punten.`;
-
-            await saveStudentProgress({
-                fase2Status: "Afgerond",
-                fase2GoedPoging1: firstCount,
-                fase2Verbeterd: improvedCount,
-                fase2Punten: total,
-                totaalPunten: total
-            });
+            await saveStudentProgress({ fase2Status: "Afgerond", fase2Afgerond: true, fase2Punten: total, totaalPunten: total + myPoints.f3 + myPoints.f4 });
             banner.scrollIntoView({ behavior: "smooth", block: "center" });
         }
     };
 
     // =========================================================================
-    // FASENAVIGATIE & VOORTGANG IN FIREBASE
+    // FASE 3 LOGICA (15 FOTO'S + KLOKKNOP + PLACEHOLDERS + NAKIJKEN)
     // =========================================================================
-    window.showPhase = function(num) {
-        if (num === 2 && !fase1Voltooid) {
-            alert("Lever eerst je Proces-Verbaal in bij Fase 1 om door te gaan naar Fase 2.");
+    function renderPhase3Items() {
+        const container = document.getElementById("phase3Container");
+        container.innerHTML = "";
+        const dtLabel = getAccurateDutchDateTime().label;
+        PHASE3_ITEMS.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "sentence-card";
+            card.id = `p3-card-${item.id}`;
+            const altAttr = item.altImg ? `if(!this.dataset.triedAlt){this.dataset.triedAlt=1;this.src='${item.altImg}';return;}` : "";
+            card.innerHTML = `
+                <div class="sentence-num">Situatie ${item.id} van 15 — ${escapeHtml(item.title)}</div>
+                <div class="phase3-card-layout">
+                    <div class="phase3-img-box">
+                        <img src="${item.img}" alt="Situatie ${item.id}" onerror="${altAttr}this.style.display='none';this.nextElementSibling.style.display='block';">
+                        <div style="display:none;padding:25px;color:#ddd;font-size:12px;text-align:center;">Afbeelding <code>${item.img}</code> niet gevonden.</div>
+                        <div class="phase3-img-label">FOTO ${item.id}: ${escapeHtml(item.title.toUpperCase())}</div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-datetime" id="p3-dtbtn-${item.id}" onclick="insertDateTimePhase3(${item.id})">🕒 Actuele dag, datum &amp; tijd invoegen (${dtLabel})</button>
+                        <textarea class="sentence-input" id="p3-input-${item.id}" rows="5" placeholder="${escapeHtml(item.placeholder)}"></textarea>
+                        <div class="sentence-feedback" id="p3-fb-${item.id}"></div>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+            card.querySelector("textarea").addEventListener("input", () => { card.classList.remove("is-missing"); updatePhase3Counter(); });
+        });
+        updatePhase3Counter();
+    }
+
+    setInterval(() => {
+        const dtLabel = getAccurateDutchDateTime().label;
+        PHASE3_ITEMS.forEach(item => {
+            const btn = document.getElementById(`p3-dtbtn-${item.id}`);
+            if (btn) btn.innerHTML = `🕒 Actuele dag, datum &amp; tijd invoegen (${dtLabel})`;
+        });
+    }, 15000);
+
+    window.insertDateTimePhase3 = function(id) {
+        const inp = document.getElementById(`p3-input-${id}`);
+        if (!inp || inp.disabled) return;
+        const { prefix } = getAccurateDutchDateTime();
+        const cur = inp.value.trim();
+        if (/^op\s+(maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)\b[\s\S]*?uur,\s*/i.test(cur)) {
+            inp.value = cur.replace(/^op\s+(maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)\b[\s\S]*?uur,\s*/i, prefix);
+        } else {
+            inp.value = prefix + (cur ? cur.charAt(0).toLowerCase() + cur.slice(1) : "");
+        }
+        document.getElementById(`p3-card-${id}`).classList.remove("is-missing");
+        updatePhase3Counter();
+        inp.focus();
+    };
+
+    function updatePhase3Counter() {
+        let filled = 0;
+        PHASE3_ITEMS.forEach(item => { if (document.getElementById(`p3-input-${item.id}`).value.trim()) filled++; });
+        document.getElementById("phase3FilledCounter").innerText = `Ingevuld: ${filled} / 15 situaties`;
+        if (phase3Attempts === 0) {
+            document.getElementById("phase3StatusHint").innerText = filled === 15 ? "Alle 15 situaties zijn ingevuld. Klik op CONTROLEREN!" : `Vul nog ${15 - filled} situatie(s) in om te controleren.`;
+        }
+    }
+
+    function validatePhase3Entry(item, raw) {
+        const s = raw.trim(), errs = [];
+        if (s.split(/\s+/).filter(Boolean).length < 7) errs.push("De beschrijving is te kort voor een volledig proces-verbaalbericht.");
+        const hasDateOrDay = /\b(maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)\b/i.test(s) && (/\b\d{1,2}[-/]\d{1,2}/.test(s) || /\b\d{1,2}\s+(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december)\b/i.test(s));
+        const hasTime = /\b\d{1,2}[:.]\d{2}\b|\b\d{1,2}\s*uur\b/i.test(s);
+        if (!hasDateOrDay || !hasTime) errs.push("Er ontbreekt een volledige dag, datum en/of tijdstip (gebruik eventueel het knopje hierboven).");
+        if (!/\bik\b/i.test(s)) errs.push("Schrijf altijd in de ik-vorm ('Ik zag dat...', 'Ik voelde...', 'Ik vorderde...').");
+        else if (!/\b(zag|zie|hoorde|voelde|rook|trof|vorderde|deelde|onderzocht|legde|nam|stelde|schreef|noteerde|trad|opende|richtte|waarschuwde|zette|knielde|plaatste|controleerde|bevroeg|constateerde|gaf|hield|scheen|pakte|verpakte|las|bemerkte|sprak)\b/i.test(s)) errs.push("Gebruik concrete redenen van wetenschap (wat jij zag, hoorde, voelde, rook of deed).");
+        if (/\b(wilde steken|wilde slaan|van plan was|expres|schuldige|crimineel|boef|dacht dat hij)\b/i.test(s)) errs.push("Vermijd aannames of conclusies over bedoelingen; noteer alleen objectieve waarnemingen.");
+        const c = item.check(s);
+        if (!c.ok) errs.push(c.msg);
+        return errs;
+    }
+
+    async function savePhase3TextsToFirebase() {
+        const entries = PHASE3_ITEMS.map(item => ({ id: item.id, title: item.title, text: document.getElementById(`p3-input-${item.id}`).value.trim() }));
+        try {
+            await set(ref(db, `fase3Inzendingen/${studentDbKey}`), { student: currentStudent, klas: currentClass, teksten: entries, timestamp: Date.now() });
+        } catch (err) { console.error("Fout opslaan fase3 teksten:", err); }
+    }
+
+    window.checkPhase3 = async function() {
+        if (phase3Attempts >= 2) return;
+        const missing = [];
+        PHASE3_ITEMS.forEach(item => {
+            const val = document.getElementById(`p3-input-${item.id}`).value.trim(), card = document.getElementById(`p3-card-${item.id}`);
+            if (!val) { missing.push(item.id); card.classList.add("is-missing"); } else card.classList.remove("is-missing");
+        });
+        if (missing.length > 0) {
+            alert(`Vul eerst alle 15 situaties in voordat je kunt controleren!\nJe mist nog situatie: ${missing.join(", ")}`);
+            document.getElementById(`p3-card-${missing[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
             return;
         }
-        document.getElementById("phase1Screen").style.display = num === 1 ? "block" : "none";
-        document.getElementById("phase2Screen").style.display = num === 2 ? "block" : "none";
-        document.getElementById("btnNavPhase1").classList.toggle("active", num === 1);
-        document.getElementById("btnNavPhase2").classList.toggle("active", num === 2);
+
+        if (phase3Attempts === 0) {
+            let firstCount = 0, total = 0;
+            PHASE3_ITEMS.forEach(item => {
+                const inp = document.getElementById(`p3-input-${item.id}`), card = document.getElementById(`p3-card-${item.id}`), fb = document.getElementById(`p3-fb-${item.id}`);
+                const errs = validatePhase3Entry(item, inp.value);
+                card.classList.remove("is-correct", "is-wrong");
+                if (errs.length === 0) {
+                    phase3Results[item.id] = { status: "correct1", points: 2 };
+                    firstCount++; total += 2;
+                    card.classList.add("is-correct"); inp.disabled = true;
+                    document.getElementById(`p3-dtbtn-${item.id}`).disabled = true;
+                    fb.className = "sentence-feedback fb-ok"; fb.innerHTML = `<strong>✓ Goed verwoord in ik-vorm en redenen van wetenschap! (+2 punten)</strong>`;
+                } else {
+                    phase3Results[item.id] = { status: "wrong", points: 0 };
+                    card.classList.add("is-wrong"); fb.className = "sentence-feedback fb-err";
+                    fb.innerHTML = `<strong>✗ Verbeterpunten:</strong><ul style="margin:4px 0 4px 18px;padding:0;">${errs.map(e => `<li>${escapeHtml(e)}</li>`).join("")}</ul><em>Pas de zin opnieuw aan voor +1 punt.</em>`;
+                }
+            });
+            phase3Attempts = 1; myPoints.f3 = total; updateHeaderScore();
+            const wrongCount = 15 - firstCount, banner = document.getElementById("phase3ScoreBanner");
+            banner.style.display = "block";
+            if (wrongCount === 0) {
+                phase3Attempts = 2; fase3Afgerond = true;
+                document.getElementById("btnNavPhase4").disabled = false;
+                banner.innerHTML = `<strong>Top! Alle 15 situaties in één keer foutloos (${total} / 30 punten)!</strong> <button onclick="showPhase(4)" style="margin-left:10px; background:var(--politie-blauw); color:#fff; border:none; padding:8px 14px; cursor:pointer; font-weight:bold; border-radius:3px;">Door naar Fase 4 (Kruiswoordraadsel) →</button>`;
+                document.getElementById("btnCheckPhase3").disabled = true;
+                document.getElementById("btnCheckPhase3").innerText = "FASE 3 AFGEROND";
+                await savePhase3TextsToFirebase();
+                await saveStudentProgress({ fase3Status: "Afgerond", fase3Afgerond: true, fase3Punten: total, totaalPunten: myPoints.f2 + total + myPoints.f4 });
+                await checkAllStudentsFinishedTexts();
+            } else {
+                banner.innerHTML = `<strong>1e controle klaar:</strong> ${firstCount} / 15 goed (<strong>${total} pnt</strong>). Verbeter nu de <strong>${wrongCount} rode situaties</strong> aan de hand van de uitleg en klik op opnieuw controleren!`;
+                document.getElementById("btnCheckPhase3").innerText = "OPNIEUW CONTROLEREN (+1 PNT)";
+                document.getElementById("phase3StatusHint").innerText = `Voer de ${wrongCount} afgekeurde zin(nen) opnieuw in en controleer nogmaals.`;
+                await saveStudentProgress({ fase3Status: `Poging 1 (${firstCount}/15)`, fase3Afgerond: false, fase3Punten: total, totaalPunten: myPoints.f2 + total + myPoints.f4 });
+            }
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else if (phase3Attempts === 1) {
+            let firstCount = 0, improvedCount = 0, total = 0;
+            PHASE3_ITEMS.forEach(item => {
+                if (phase3Results[item.id]?.status === "correct1") { firstCount++; total += 2; return; }
+                const inp = document.getElementById(`p3-input-${item.id}`), card = document.getElementById(`p3-card-${item.id}`), fb = document.getElementById(`p3-fb-${item.id}`);
+                const errs = validatePhase3Entry(item, inp.value);
+                card.classList.remove("is-correct", "is-wrong"); inp.disabled = true;
+                document.getElementById(`p3-dtbtn-${item.id}`).disabled = true;
+                if (errs.length === 0) {
+                    phase3Results[item.id] = { status: "correct2", points: 1 };
+                    improvedCount++; total += 1;
+                    card.classList.add("is-correct"); fb.className = "sentence-feedback fb-ok"; fb.innerHTML = `<strong>✓ Netjes verbeterd! (+1 punt)</strong>`;
+                } else {
+                    phase3Results[item.id] = { status: "wrong", points: 0 };
+                    card.classList.add("is-wrong"); fb.className = "sentence-feedback fb-err";
+                    fb.innerHTML = `<strong>✗ Nog niet volledig:</strong> ${escapeHtml(errs[0])}<br>Voorbeeld: <em>"${escapeHtml(item.sample)}"</em>`;
+                }
+            });
+            phase3Attempts = 2; fase3Afgerond = true;
+            myPoints.f3 = total; updateHeaderScore();
+            document.getElementById("btnNavPhase4").disabled = false;
+            const banner = document.getElementById("phase3ScoreBanner");
+            banner.style.display = "block";
+            banner.innerHTML = `<strong>Fase 3 afgerond &amp; teksten ingeleverd!</strong> Score: <strong>${total} / 30 punten</strong> (${firstCount}×2 pnt + ${improvedCount}×1 pnt). <button onclick="showPhase(4)" style="margin-left:10px; background:var(--politie-blauw); color:#fff; border:none; padding:8px 14px; cursor:pointer; font-weight:bold; border-radius:3px;">Open Scherm 4 (Kruiswoordraadsel) →</button>`;
+            document.getElementById("btnCheckPhase3").disabled = true;
+            document.getElementById("btnCheckPhase3").innerText = "FASE 3 AFGEROND";
+            document.getElementById("phase3StatusHint").innerText = `Eindscore Fase 3: ${total} / 30 punten.`;
+            await savePhase3TextsToFirebase();
+            await saveStudentProgress({ fase3Status: "Afgerond", fase3Afgerond: true, fase3Punten: total, totaalPunten: myPoints.f2 + total + myPoints.f4 });
+            await checkAllStudentsFinishedTexts();
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    };
+
+    // =========================================================================
+    // FASE 4: INTERACTIEF KRUISWOORDRAADSEL (28 WOORDEN)
+    // =========================================================================
+    let cwGridData = [], cwInputs = {}, cwActiveWord = null;
+
+    function buildCrossword() {
+        cwGridData = Array.from({ length: CW_ROWS }, () => Array.from({ length: CW_COLS }, () => null));
+        CROSSWORD_WORDS.forEach(w => {
+            for (let i = 0; i < w.word.length; i++) {
+                const rr = w.dir === "H" ? w.r : w.r + i;
+                const cc = w.dir === "H" ? w.c + i : w.c;
+                if (!cwGridData[rr][cc]) cwGridData[rr][cc] = { letter: w.word[i], words: [], num: null };
+                cwGridData[rr][cc].words.push(w);
+            }
+        });
+
+        let clueCounter = 0;
+        for (let r = 0; r < CW_ROWS; r++) {
+            for (let c = 1; c < CW_COLS; c++) {
+                const starts = CROSSWORD_WORDS.filter(w => w.r === r && w.c === c);
+                if (starts.length > 0) {
+                    clueCounter++;
+                    cwGridData[r][c].num = clueCounter;
+                    starts.forEach(w => w.num = clueCounter);
+                }
+            }
+        }
+
+        const gridEl = document.getElementById("crosswordGrid");
+        gridEl.style.gridTemplateColumns = `repeat(${CW_COLS - 1}, 26px)`;
+        gridEl.innerHTML = "";
+        cwInputs = {};
+
+        for (let r = 0; r < CW_ROWS; r++) {
+            for (let c = 1; c < CW_COLS; c++) {
+                const cellData = cwGridData[r][c];
+                const cell = document.createElement("div");
+                if (!cellData) {
+                    cell.className = "cw-cell cw-black";
+                } else {
+                    cell.className = "cw-cell cw-white";
+                    cell.id = `cw-cell-${r}-${c}`;
+                    if (cellData.num) cell.innerHTML += `<span class="cw-num">${cellData.num}</span>`;
+                    const inp = document.createElement("input");
+                    inp.type = "text"; inp.maxLength = 1; inp.className = "cw-input"; inp.autocomplete = "off";
+                    inp.dataset.r = r; inp.dataset.c = c;
+                    inp.addEventListener("focus", () => {
+                        if (!cwActiveWord || !cellData.words.includes(cwActiveWord)) {
+                            setActiveCrosswordWord(cellData.words[0]);
+                        }
+                    });
+                    inp.addEventListener("click", () => {
+                        if (cellData.words.length > 1 && cwActiveWord && cellData.words.includes(cwActiveWord)) {
+                            const other = cellData.words.find(w => w !== cwActiveWord);
+                            if (other) setActiveCrosswordWord(other);
+                        } else {
+                            setActiveCrosswordWord(cellData.words[0]);
+                        }
+                    });
+                    inp.addEventListener("input", (e) => {
+                        const val = inp.value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+                        inp.value = val ? val[0] : "";
+                        cell.classList.remove("cw-wrong");
+                        if (val && cwActiveWord) moveInWord(r, c, 1);
+                    });
+                    inp.addEventListener("keydown", (e) => {
+                        if (e.key === "Backspace" && !inp.value && cwActiveWord) { e.preventDefault(); moveInWord(r, c, -1, true); }
+                        else if (e.key === "ArrowRight") { e.preventDefault(); focusCell(r, c + 1); }
+                        else if (e.key === "ArrowLeft") { e.preventDefault(); focusCell(r, c - 1); }
+                        else if (e.key === "ArrowDown") { e.preventDefault(); focusCell(r + 1, c); }
+                        else if (e.key === "ArrowUp") { e.preventDefault(); focusCell(r - 1, c); }
+                    });
+                    cell.appendChild(inp);
+                    cwInputs[`${r}-${c}`] = inp;
+                }
+                gridEl.appendChild(cell);
+            }
+        }
+
+        const acrossEl = document.getElementById("cluesAcross"), downEl = document.getElementById("cluesDown");
+        acrossEl.innerHTML = ""; downEl.innerHTML = "";
+        CROSSWORD_WORDS.slice().sort((a, b) => a.num - b.num).forEach(w => {
+            const li = document.createElement("li");
+            li.className = "cw-clue-item";
+            li.id = `cw-clue-${w.dir}-${w.num}`;
+            li.innerHTML = `<strong>${w.num}.</strong> ${escapeHtml(w.clue)} <span style="color:#777;">(${w.word.length})</span>`;
+            li.addEventListener("click", () => {
+                setActiveCrosswordWord(w);
+                // Focus eerste lege vakje van dat woord (of eerste vakje)
+                let target = cwInputs[`${w.r}-${w.c}`];
+                for (let i = 0; i < w.word.length; i++) {
+                    const rr = w.dir === "H" ? w.r : w.r + i, cc = w.dir === "H" ? w.c + i : w.c;
+                    if (!cwInputs[`${rr}-${cc}`].value) { target = cwInputs[`${rr}-${cc}`]; break; }
+                }
+                target.focus();
+            });
+            (w.dir === "H" ? acrossEl : downEl).appendChild(li);
+        });
+    }
+
+    function setActiveCrosswordWord(w) {
+        cwActiveWord = w;
+        document.querySelectorAll(".cw-cell.cw-active-word").forEach(el => el.classList.remove("cw-active-word"));
+        document.querySelectorAll(".cw-clue-item.active-clue").forEach(el => el.classList.remove("active-clue"));
+        if (!w) return;
+        for (let i = 0; i < w.word.length; i++) {
+            const rr = w.dir === "H" ? w.r : w.r + i, cc = w.dir === "H" ? w.c + i : w.c;
+            document.getElementById(`cw-cell-${rr}-${cc}`)?.classList.add("cw-active-word");
+        }
+        const clueEl = document.getElementById(`cw-clue-${w.dir}-${w.num}`);
+        if (clueEl) { clueEl.classList.add("active-clue"); clueEl.scrollIntoView({ block: "nearest" }); }
+    }
+
+    function focusCell(r, c) {
+        const inp = cwInputs[`${r}-${c}`];
+        if (inp) inp.focus();
+    }
+
+    function moveInWord(r, c, step, clearPrev = false) {
+        if (!cwActiveWord) return;
+        const idx = cwActiveWord.dir === "H" ? c - cwActiveWord.c : r - cwActiveWord.r;
+        const nextIdx = idx + step;
+        if (nextIdx >= 0 && nextIdx < cwActiveWord.word.length) {
+            const nr = cwActiveWord.dir === "H" ? cwActiveWord.r : cwActiveWord.r + nextIdx;
+            const nc = cwActiveWord.dir === "H" ? cwActiveWord.c + nextIdx : cwActiveWord.c;
+            const target = cwInputs[`${nr}-${nc}`];
+            if (target) {
+                if (clearPrev && !target.disabled) target.value = "";
+                target.focus();
+            }
+        }
+    }
+
+    window.checkPhase4 = async function() {
+        let solvedWords = 0;
+        document.querySelectorAll(".cw-cell.cw-white").forEach(el => el.classList.remove("cw-correct", "cw-wrong"));
+
+        CROSSWORD_WORDS.forEach(w => {
+            let wordCorrect = true, anyFilled = false;
+            for (let i = 0; i < w.word.length; i++) {
+                const rr = w.dir === "H" ? w.r : w.r + i, cc = w.dir === "H" ? w.c + i : w.c;
+                const val = (cwInputs[`${rr}-${cc}`].value || "").toUpperCase();
+                if (val) anyFilled = true;
+                if (val !== w.word[i]) wordCorrect = false;
+            }
+            const clueEl = document.getElementById(`cw-clue-${w.dir}-${w.num}`);
+            if (wordCorrect) {
+                solvedWords++;
+                clueEl?.classList.add("solved-clue");
+                for (let i = 0; i < w.word.length; i++) {
+                    const rr = w.dir === "H" ? w.r : w.r + i, cc = w.dir === "H" ? w.c + i : w.c;
+                    document.getElementById(`cw-cell-${rr}-${cc}`)?.classList.add("cw-correct");
+                }
+            } else {
+                clueEl?.classList.remove("solved-clue");
+                if (anyFilled) {
+                    for (let i = 0; i < w.word.length; i++) {
+                        const rr = w.dir === "H" ? w.r : w.r + i, cc = w.dir === "H" ? w.c + i : w.c;
+                        const cellEl = document.getElementById(`cw-cell-${rr}-${cc}`);
+                        if (cwInputs[`${rr}-${cc}`].value.toUpperCase() !== w.word[i] && !cellEl.classList.contains("cw-correct")) {
+                            cellEl.classList.add("cw-wrong");
+                        }
+                    }
+                }
+            }
+        });
+
+        myPoints.f4 = solvedWords;
+        updateHeaderScore();
+        document.getElementById("cwScoreBadge").innerText = `${solvedWords} / 28 goed`;
+        const banner = document.getElementById("phase4ScoreBanner");
+        banner.style.display = "block";
+        banner.innerHTML = solvedWords === 28
+            ? `<strong>Geweldig! Alle 28 woorden van het kruiswoordraadsel goed (+28 punten)!</strong>`
+            : `<strong>Je hebt momenteel ${solvedWords} / 28 woorden helemaal goed (+${solvedWords} punten).</strong> Rood gemarkeerde vakjes kun je nog verbeteren!`;
+
+        await saveStudentProgress({
+            fase4Status: solvedWords === 28 ? "Afgerond (28/28)" : `Bezig (${solvedWords}/28)`,
+            fase4Punten: solvedWords,
+            totaalPunten: myPoints.f2 + myPoints.f3 + solvedWords
+        });
+    };
+
+    // =========================================================================
+    // NAVIGATIE, SCOREBORD & KLASSIKALE 5-SECONDEN AFSLUITING
+    // =========================================================================
+    window.showPhase = function(num) {
+        if (num === 2 && !fase1Voltooid) { alert("Lever eerst je Proces-Verbaal in bij Fase 1."); return; }
+        if (num === 3 && !fase2Afgerond) { alert("Rond eerst Fase 2 (25 zinnen) af."); return; }
+        if (num === 4 && !fase3Afgerond) { alert("Rond eerst Fase 3 (15 foto's) af."); return; }
+        ["phase1Screen", "phase2Screen", "phase3Screen", "phase4Screen"].forEach((id, idx) => {
+            document.getElementById(id).style.display = (idx + 1 === num) ? "block" : "none";
+            document.getElementById(`btnNavPhase${idx + 1}`).classList.toggle("active", idx + 1 === num);
+        });
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
@@ -1786,191 +1192,170 @@
             await update(ref(db, `voortgang/${studentDbKey}`), {
                 student: currentStudent,
                 klas: currentClass,
+                isDocent: isTeacherUser,
                 ...fields,
                 laatsteUpdate: Date.now()
             });
-        } catch (err) {
-            console.error("Fout bij opslaan voortgang:", err);
-        }
+        } catch (err) { console.error("Fout opslaan voortgang:", err); }
+    }
+
+    async function checkAllStudentsFinishedTexts() {
+        try {
+            const snap = await get(ref(db, "voortgang"));
+            if (!snap.exists()) return;
+            const students = Object.values(snap.val()).filter(item => !item.isDocent);
+            // Automatisch triggeren bij 2+ ingelogde studenten zodra de laatste Fase 3 heeft ingeleverd
+            if (students.length >= 2 && students.every(st => st.fase1Voltooid && st.fase2Afgerond && st.fase3Afgerond)) {
+                await window.triggerClassClosing("laatste_student");
+            }
+        } catch (err) { console.error("Fout checken afsluiting:", err); }
+    }
+
+    window.triggerClassClosing = async function(reason) {
+        if (reason === "docent" && !confirm("Alle ingelogde schermen 5 seconden lang de scores tonen en daarna naar Scherm 1 (livefeed) sturen?")) return;
+        try {
+            await set(ref(db, "lesStatus/afsluiting"), { triggeredAt: Date.now(), reason: reason || "docent" });
+        } catch (err) { alert("Fout bij activeren klassikale afsluiting: " + err.message); }
+    };
+
+    function buildScoreTableHtml(dataObj, filterClass) {
+        if (!dataObj) return `<p>Nog geen scores geregistreerd.</p>`;
+        const rows = Object.values(dataObj).filter(item => !item.isDocent && (filterClass === "ALLE" || (item.klas || "").toUpperCase() === filterClass.toUpperCase()));
+        rows.sort((a, b) => ((b.totaalPunten || 0) - (a.totaalPunten || 0)) || (a.klas || "").localeCompare(b.klas || ""));
+        if (rows.length === 0) return `<p>Geen studenten gevonden.</p>`;
+
+        const trs = rows.map(item => `
+            <tr>
+                <td><strong>${escapeHtml((item.student || "").toUpperCase())}</strong></td>
+                <td>${escapeHtml((item.klas || "").toUpperCase())}</td>
+                <td><span class="pill ${item.fase1Voltooid ? "pill-done" : "pill-busy"}">${item.fase1Voltooid ? "✓ Ingeleverd" : "Bezig"}</span></td>
+                <td>${escapeHtml(item.fase2Status || "Niet gestart")} (${item.fase2Punten ?? 0}/50)</td>
+                <td>${escapeHtml(item.fase3Status || "Niet gestart")} (${item.fase3Punten ?? 0}/30)</td>
+                <td>${escapeHtml(item.fase4Status || "Niet gestart")} (${item.fase4Punten ?? 0}/28)</td>
+                <td><strong>${item.totaalPunten ?? 0} pnt</strong></td>
+            </tr>`).join("");
+        return `<table class="score-table"><thead><tr><th>Student</th><th>Klas</th><th>Fase 1</th><th>Fase 2</th><th>Fase 3</th><th>Fase 4</th><th>Totaal</th></tr></thead><tbody>${trs}</tbody></table>`;
     }
 
     function renderScoreboard() {
-        const tbody = document.getElementById("scoreboardBody");
-        const filter = document.getElementById("classFilter").value;
-
-        if (!latestVoortgangData) {
-            tbody.innerHTML = `<tr><td colspan="6">Nog geen studenten geregistreerd.</td></tr>`;
-            return;
-        }
-
-        const rows = Object.values(latestVoortgangData).filter(item => {
-            return filter === "ALLE" || (item.klas || "").toUpperCase() === filter.toUpperCase();
-        });
-
-        rows.sort((a, b) => {
-            if ((b.totaalPunten || 0) !== (a.totaalPunten || 0)) {
-                return (b.totaalPunten || 0) - (a.totaalPunten || 0);
-            }
-            return (a.klas || "").localeCompare(b.klas || "") || (a.student || "").localeCompare(b.student || "");
-        });
-
-        if (rows.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6">Geen studenten gevonden voor klas ${escapeHtml(filter)}.</td></tr>`;
-            return;
-        }
+        const tbody = document.getElementById("scoreboardBody"), filter = document.getElementById("classFilter").value;
+        if (!latestVoortgangData) { tbody.innerHTML = `<tr><td colspan="7">Nog geen studenten geregistreerd.</td></tr>`; return; }
+        const rows = Object.values(latestVoortgangData).filter(item => !item.isDocent && (filter === "ALLE" || (item.klas || "").toUpperCase() === filter.toUpperCase()));
+        rows.sort((a, b) => ((b.totaalPunten || 0) - (a.totaalPunten || 0)) || (a.klas || "").localeCompare(b.klas || "") || (a.student || "").localeCompare(b.student || ""));
+        if (rows.length === 0) { tbody.innerHTML = `<tr><td colspan="7">Geen studenten gevonden voor klas ${escapeHtml(filter)}.</td></tr>`; return; }
 
         tbody.innerHTML = "";
         rows.forEach(item => {
             const tr = document.createElement("tr");
-            const f1Badge = item.fase1Voltooid
-                ? `<span class="pill pill-done">✓ Ingeleverd</span>`
-                : `<span class="pill pill-busy">Bezig</span>`;
-
-            let f2Class = "pill-wait";
-            const f2Status = item.fase2Status || "Nog niet gestart";
-            if (f2Status === "Afgerond") f2Class = "pill-done";
-            else if (f2Status.startsWith("Poging")) f2Class = "pill-busy";
-
-            tr.innerHTML = `
-                <td><strong>${escapeHtml((item.student || "").toUpperCase())}</strong></td>
-                <td>${escapeHtml((item.klas || "").toUpperCase())}</td>
-                <td>${f1Badge}</td>
-                <td><span class="pill ${f2Class}">${escapeHtml(f2Status)}</span></td>
-                <td>${item.fase2Punten ?? 0} / 50 pnt</td>
-                <td><strong>${item.totaalPunten ?? 0} pnt</strong></td>
-            `;
+            const f1Badge = item.fase1Voltooid ? `<span class="pill pill-done">✓ Ingeleverd</span>` : `<span class="pill pill-busy">Bezig</span>`;
+            const f2Badge = item.fase2Afgerond ? `<span class="pill pill-done">${item.fase2Punten ?? 0}/50 pnt</span>` : `<span class="pill ${item.fase2Status?.startsWith("Poging") ? "pill-busy" : "pill-wait"}">${escapeHtml(item.fase2Status || "Wacht")}</span>`;
+            const f3Badge = item.fase3Afgerond ? `<span class="pill pill-done">${item.fase3Punten ?? 0}/30 pnt</span>` : `<span class="pill ${item.fase3Status?.startsWith("Poging") ? "pill-busy" : "pill-wait"}">${escapeHtml(item.fase3Status || "Wacht")}</span>`;
+            const f4Text = item.fase4Punten ? `<span class="pill pill-done">${item.fase4Punten}/28 pnt</span>` : `<span class="pill pill-wait">${escapeHtml(item.fase4Status || "Wacht")}</span>`;
+            tr.innerHTML = `<td><strong>${escapeHtml((item.student || "").toUpperCase())}</strong></td><td>${escapeHtml((item.klas || "").toUpperCase())}</td><td>${f1Badge}</td><td>${f2Badge}</td><td>${f3Badge}</td><td>${f4Text}</td><td><strong>${item.totaalPunten ?? 0} pnt</strong></td>`;
             tbody.appendChild(tr);
         });
     }
 
     document.getElementById("classFilter").addEventListener("change", renderScoreboard);
+    onValue(ref(db, "voortgang"), (snapshot) => { latestVoortgangData = snapshot.val(); renderScoreboard(); });
 
-    onValue(ref(db, 'voortgang'), (snapshot) => {
-        latestVoortgangData = snapshot.val();
-        renderScoreboard();
+    onValue(ref(db, "lesStatus/afsluiting"), (snapshot) => {
+        const val = snapshot.val();
+        if (!val || !val.triggeredAt || val.triggeredAt < loginTimestamp || handledClosingAt === val.triggeredAt) return;
+        handledClosingAt = val.triggeredAt;
+
+        document.getElementById("closingScoreTableWrap").innerHTML = buildScoreTableHtml(latestVoortgangData, "ALLE");
+        const overlay = document.getElementById("closing-score-overlay");
+        const countEl = document.getElementById("closingCountdown");
+        overlay.style.display = "flex";
+
+        let sec = 5;
+        countEl.innerText = `Alle teksten zijn ingeleverd! Over ${sec} seconden springen alle schermen naar Scherm 1 voor het nakijken...`;
+        if (closingInterval) clearInterval(closingInterval);
+        closingInterval = setInterval(() => {
+            sec--;
+            if (sec > 0) {
+                countEl.innerText = `Alle teksten zijn ingeleverd! Over ${sec} seconden springen alle schermen naar Scherm 1 voor het nakijken...`;
+            } else {
+                clearInterval(closingInterval);
+                overlay.style.display = "none";
+                // Terug naar het eerste scherm & direct naar de ingeleverde teksten
+                ["phase1Screen", "phase2Screen", "phase3Screen", "phase4Screen"].forEach((id, idx) => {
+                    document.getElementById(id).style.display = idx === 0 ? "block" : "none";
+                    document.getElementById(`btnNavPhase${idx + 1}`).classList.toggle("active", idx === 0);
+                });
+                document.getElementById("livefeed").scrollIntoView({ behavior: "smooth" });
+            }
+        }, 1000);
     });
 
     // =========================================================================
-    // LOGIN, PV INLEVEREN & LIVEFEED (ONGEWIJZIGD + PROGRESSIE)
+    // LOGIN, PV INLEVEREN & LIVEFEEDS (FASE 1 + FASE 3)
     // =========================================================================
     window.startLesson = async function() {
         currentStudent = document.getElementById('userFirstName').value.trim();
         currentClass = document.getElementById('userClass').value;
-        if (!currentStudent) {
-            alert("Vul eerst je voornaam in.");
-            document.getElementById('userFirstName').focus();
-            return;
-        }
+        isTeacherUser = document.getElementById('isTeacherLogin').checked || currentStudent.toLowerCase() === "docent";
+        if (!currentStudent) { alert("Vul eerst je voornaam in."); document.getElementById('userFirstName').focus(); return; }
 
+        loginTimestamp = Date.now();
         studentDbKey = `${currentClass}_${currentStudent}`.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
-
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('mainContent').style.display = 'block';
-        document.getElementById('classDisplay').innerText = "GEBRUIKER: " + currentStudent.toUpperCase() + " | KLAS: " + currentClass.toUpperCase();
+        document.getElementById('classDisplay').innerText = "GEBRUIKER: " + currentStudent.toUpperCase() + " | KLAS: " + currentClass.toUpperCase() + (isTeacherUser ? " (DOCENT)" : "");
 
         initChat();
         renderPhase2Sentences();
+        renderPhase3Items();
+        buildCrossword();
 
-        // Controleer of deze student al voortgang heeft in Firebase (bijv. na verversen)
+        if (isTeacherUser) {
+            fase1Voltooid = true; fase2Afgerond = true; fase3Afgerond = true;
+            ["btnNavPhase2", "btnNavPhase3", "btnNavPhase4"].forEach(id => document.getElementById(id).disabled = false);
+        }
+
         try {
             const snap = await get(ref(db, `voortgang/${studentDbKey}`));
             if (snap.exists()) {
-                const existing = snap.val();
-                if (existing.fase1Voltooid) {
-                    fase1Voltooid = true;
-                    document.getElementById("btnNavPhase2").disabled = false;
-                }
-                if (typeof existing.totaalPunten === "number") {
-                    document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${existing.totaalPunten} PUNTEN`;
-                }
-            } else {
-                await saveStudentProgress({
-                    fase1Voltooid: false,
-                    fase2Status: "Nog niet gestart",
-                    fase2GoedPoging1: 0,
-                    fase2Verbeterd: 0,
-                    fase2Punten: 0,
-                    totaalPunten: 0
-                });
+                const ex = snap.val();
+                if (ex.fase1Voltooid) { fase1Voltooid = true; document.getElementById("btnNavPhase2").disabled = false; }
+                if (ex.fase2Afgerond) { fase2Afgerond = true; document.getElementById("btnNavPhase3").disabled = false; }
+                if (ex.fase3Afgerond) { fase3Afgerond = true; document.getElementById("btnNavPhase4").disabled = false; }
+                myPoints = { f2: ex.fase2Punten || 0, f3: ex.fase3Punten || 0, f4: ex.fase4Punten || 0 };
+                updateHeaderScore();
+            } else if (!isTeacherUser) {
+                await saveStudentProgress({ fase1Voltooid: false, fase2Status: "Nog niet gestart", fase2Afgerond: false, fase2Punten: 0, fase3Status: "Nog niet gestart", fase3Afgerond: false, fase3Punten: 0, fase4Status: "Nog niet gestart", fase4Punten: 0, totaalPunten: 0 });
             }
-        } catch (err) {
-            console.error("Kon eerdere voortgang niet ophalen:", err);
-        }
+        } catch (err) { console.error("Kon eerdere voortgang niet ophalen:", err); }
     };
 
     window.submitPV = async function() {
-        const pvEl = document.getElementById('pvText');
-        const text = pvEl.value.trim();
-        if (!text) {
-            alert("Typ eerst je proces-verbaal voordat je het inlevert.");
-            return;
-        }
+        const pvEl = document.getElementById('pvText'), text = pvEl.value.trim();
+        if (!text) { alert("Typ eerst je proces-verbaal voordat je het inlevert."); return; }
         try {
-            await push(ref(db, 'aangiftes'), {
-                student: currentStudent,
-                klas: currentClass,
-                inhoud: text,
-                feedback: ""
-            });
+            await push(ref(db, 'aangiftes'), { student: currentStudent, klas: currentClass, inhoud: text, feedback: "" });
             pvEl.value = "";
             fase1Voltooid = true;
             document.getElementById("btnNavPhase2").disabled = false;
             await saveStudentProgress({ fase1Voltooid: true });
-
-            alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen. Je gaat nu door naar Fase 2: Stijlfouten verbeteren!");
+            alert("Systeemmelding: Proces-Verbaal opgeslagen. Je gaat nu door naar Fase 2: Stijlfouten verbeteren!");
             window.showPhase(2);
-        } catch (err) {
-            alert("Fout bij opslaan in database (controleer internetverbinding): " + err.message);
-        }
+        } catch (err) { alert("Fout bij opslaan in database: " + err.message); }
     };
 
     onValue(ref(db, 'aangiftes'), (snapshot) => {
-        const data = snapshot.val();
-        const feed = document.getElementById('feedContent');
-
-        if (!data) {
-            feed.innerHTML = "Geen records gevonden.";
-            return;
-        }
-
-        if (!feed.querySelector('.pv-item')) {
-            feed.innerHTML = "";
-        }
-
+        const data = snapshot.val(), feed = document.getElementById('feedContent');
+        if (!data) { feed.innerHTML = "Geen records gevonden."; return; }
+        if (!feed.querySelector('.pv-item')) feed.innerHTML = "";
         const keys = Object.keys(data).reverse();
-
-        Array.from(feed.querySelectorAll('.pv-item')).forEach(el => {
-            if (!data[el.dataset.key]) {
-                el.remove();
-            }
-        });
-
+        Array.from(feed.querySelectorAll('.pv-item')).forEach(el => { if (!data[el.dataset.key]) el.remove(); });
         keys.forEach((key, index) => {
-            const item = data[key];
-            const safeStudent = escapeHtml((item.student || "").toUpperCase());
-            const safeKlas = escapeHtml((item.klas || "").toUpperCase());
-            const safeInhoud = escapeHtml(item.inhoud || "");
-            const rawFeedback = item.feedback || "";
-            const safeFeedback = rawFeedback ? escapeHtml(rawFeedback) : "";
-
+            const item = data[key], rawFeedback = item.feedback || "", safeFeedback = rawFeedback ? escapeHtml(rawFeedback) : "";
             let existing = document.getElementById(`pv-${key}`);
-
             if (!existing) {
                 const itemDiv = document.createElement("div");
-                itemDiv.className = "pv-item";
-                itemDiv.id = `pv-${key}`;
-                itemDiv.dataset.key = key;
-
-                itemDiv.innerHTML = `
-                    <div class="pv-header">${safeStudent} - KLAS ${safeKlas}</div>
-                    <p style="white-space: pre-wrap;">${safeInhoud}</p>
-                    <div class="feedback-slot" data-last-fb="${escapeHtml(rawFeedback)}">${safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : ''}</div>
-                    <button onclick="document.getElementById('input-${key}').style.display='block'" style="font-size:10px; padding:2px 5px; cursor:pointer;">FEEDBACK TOEVOEGEN</button>
-                    <div id="input-${key}" class="feedback-input-area">
-                        <textarea id="text-${key}" style="width:100%; height:60px; box-sizing:border-box;"></textarea>
-                        <button onclick="saveFeedback('${key}')" style="background:var(--politie-geel); border:none; cursor:pointer; font-weight:bold; padding:5px; margin-top:4px;">BEVESTIGEN</button>
-                    </div>
-                `;
+                itemDiv.className = "pv-item"; itemDiv.id = `pv-${key}`; itemDiv.dataset.key = key;
+                itemDiv.innerHTML = `<div class="pv-header">${escapeHtml((item.student || "").toUpperCase())} - KLAS ${escapeHtml((item.klas || "").toUpperCase())}</div><p style="white-space: pre-wrap;">${escapeHtml(item.inhoud || "")}</p><div class="feedback-slot" data-last-fb="${escapeHtml(rawFeedback)}">${safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : ''}</div><button onclick="document.getElementById('input-${key}').style.display='block'" style="font-size:10px; padding:2px 5px; cursor:pointer;">FEEDBACK TOEVOEGEN</button><div id="input-${key}" class="feedback-input-area"><textarea id="text-${key}" style="width:100%; height:60px; box-sizing:border-box;"></textarea><button onclick="saveFeedback('${key}')" style="background:var(--politie-geel); border:none; cursor:pointer; font-weight:bold; padding:5px; margin-top:4px;">BEVESTIGEN</button></div>`;
                 feed.insertBefore(itemDiv, feed.children[index] || null);
             } else {
                 const fbSlot = existing.querySelector('.feedback-slot');
@@ -1978,35 +1363,41 @@
                     fbSlot.dataset.lastFb = rawFeedback;
                     fbSlot.innerHTML = safeFeedback ? `<div class="feedback-section"><strong>FEEDBACK:</strong> ${safeFeedback}</div>` : '';
                 }
-                if (feed.children[index] !== existing) {
-                    feed.insertBefore(existing, feed.children[index] || null);
-                }
+                if (feed.children[index] !== existing) feed.insertBefore(existing, feed.children[index] || null);
             }
         });
     });
 
+    onValue(ref(db, 'fase3Inzendingen'), (snapshot) => {
+        const data = snapshot.val(), feed = document.getElementById('phase3FeedContent');
+        if (!data) { feed.innerHTML = "Nog geen Fase 3 teksten ingeleverd."; return; }
+        feed.innerHTML = "";
+        Object.values(data).forEach(entry => {
+            const div = document.createElement("div");
+            div.className = "pv-item";
+            const itemsHtml = (entry.teksten || []).map(t => `<li><strong>Foto ${t.id} (${escapeHtml(t.title)}):</strong> ${escapeHtml(t.text)}</li>`).join("");
+            div.innerHTML = `<div class="pv-header">${escapeHtml((entry.student || "").toUpperCase())} - KLAS ${escapeHtml((entry.klas || "").toUpperCase())} (FASE 3)</div><ul style="margin:6px 0 0 18px;padding:0;font-size:13px;line-height:1.5;">${itemsHtml}</ul>`;
+            feed.appendChild(div);
+        });
+    });
+
     window.saveFeedback = async function(key) {
-        const inputEl = document.getElementById(`text-${key}`);
-        const fbText = inputEl.value;
         try {
-            await set(ref(db, `aangiftes/${key}/feedback`), fbText);
+            await set(ref(db, `aangiftes/${key}/feedback`), document.getElementById(`text-${key}`).value);
             document.getElementById(`input-${key}`).style.display = 'none';
-        } catch (err) {
-            alert("Fout bij opslaan van feedback: " + err.message);
-        }
+        } catch (err) { alert("Fout bij opslaan van feedback: " + err.message); }
     };
 
     window.resetDatabase = async function() {
-        if (confirm("WAARSCHUWING: Alle data in de livefeed én alle studentenscores worden definitief verwijderd. Doorgaan?")) {
+        if (confirm("WAARSCHUWING: Alle data in de livefeed, Fase 3 teksten én alle studentenscores worden definitief verwijderd. Doorgaan?")) {
             try {
                 await remove(ref(db, 'aangiftes'));
                 await remove(ref(db, 'voortgang'));
-            } catch (err) {
-                alert("Fout bij resetten van database: " + err.message);
-            }
+                await remove(ref(db, 'fase3Inzendingen'));
+                await remove(ref(db, 'lesStatus'));
+            } catch (err) { alert("Fout bij resetten van database: " + err.message); }
         }
     };
 </script>
-
 </body>
 </html>
