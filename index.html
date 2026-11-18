@@ -11,6 +11,8 @@
             --licht-grijs: #f4f4f4;
             --wit: #ffffff;
             --gevaar-rood: #d9534f;
+            --succes-groen: #2e7d32;
+            --waarschuwing-oranje: #e65100;
         }
 
         body {
@@ -55,11 +57,59 @@
 
         header {
             border-bottom: 2px solid var(--politie-blauw);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         h1 { color: var(--politie-blauw); margin: 0; font-size: 22px; text-transform: uppercase; }
+
+        /* Fasenavigatie */
+        .phase-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            background: #eef2f8;
+            padding: 10px 14px;
+            border-radius: 4px;
+            border: 1px solid #d0d9e8;
+            align-items: center;
+        }
+
+        .phase-btn {
+            padding: 8px 14px;
+            border: 1px solid var(--politie-blauw);
+            background: var(--wit);
+            color: var(--politie-blauw);
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .phase-btn.active {
+            background: var(--politie-blauw);
+            color: var(--wit);
+        }
+
+        .phase-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .phase-badge-locked {
+            font-size: 11px;
+            color: #666;
+            padding: 6px 10px;
+            background: #e4e4e4;
+            border-radius: 3px;
+        }
 
         .instruction-box {
             background: #f9f9f9;
@@ -78,7 +128,7 @@
             margin-bottom: 6px;
         }
 
-        /* Werkruimte: Afbeelding + Chat links, PV rechts */
+        /* Werkruimte Fase 1: Afbeelding + Chat links, PV rechts */
         .workspace-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -300,6 +350,241 @@
             background: #00338d;
         }
 
+        /* FASE 2 STYLING */
+        #phase2Screen { display: none; }
+
+        .phase2-header-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 800px) {
+            .phase2-header-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .phase2-instruction-box {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-left: 6px solid var(--politie-geel);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .phase2-instruction-box h2 {
+            margin: 0 0 10px 0;
+            color: var(--politie-blauw);
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .phase2-photo-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #111;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phase2-photo-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+        }
+
+        .sentence-card {
+            background: #fff;
+            border: 1px solid #d5dbe5;
+            border-left: 4px solid var(--politie-blauw);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 14px;
+        }
+
+        .sentence-card.is-correct {
+            border-left-color: var(--succes-groen);
+            background: #f3fbf4;
+        }
+
+        .sentence-card.is-wrong {
+            border-left-color: var(--gevaar-rood);
+            background: #fff8f8;
+        }
+
+        .sentence-card.is-missing {
+            border-color: var(--waarschuwing-oranje);
+            box-shadow: 0 0 0 2px rgba(230, 81, 0, 0.2);
+        }
+
+        .sentence-num {
+            font-weight: bold;
+            color: var(--politie-blauw);
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .sentence-original {
+            background: #f2f4f8;
+            padding: 9px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #e1e6ef;
+        }
+
+        .sentence-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .sentence-input:disabled {
+            background: #e9f5ea;
+            color: #1b5e20;
+            border-color: #a5d6a7;
+            font-weight: bold;
+        }
+
+        .sentence-feedback {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 3px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .sentence-feedback.fb-ok {
+            display: block;
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-left: 4px solid var(--succes-groen);
+        }
+
+        .sentence-feedback.fb-err {
+            display: block;
+            background: #ffebee;
+            color: #b71c1c;
+            border-left: 4px solid var(--gevaar-rood);
+        }
+
+        .phase2-actions {
+            position: sticky;
+            bottom: 15px;
+            background: var(--politie-blauw);
+            color: var(--wit);
+            padding: 14px 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+            z-index: 50;
+        }
+
+        .btn-check-phase2 {
+            background: var(--politie-geel);
+            color: var(--politie-blauw);
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .btn-check-phase2:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .phase2-score-banner {
+            display: none;
+            background: #eef6ee;
+            border: 2px solid var(--succes-groen);
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        /* Klassenscore / Voortgangsmonitor */
+        #scoreboard-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border-top: 3px solid var(--politie-blauw);
+            padding-top: 20px;
+        }
+
+        .scoreboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .score-table-wrap {
+            overflow-x: auto;
+        }
+
+        table.score-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: #fff;
+        }
+
+        table.score-table th {
+            background: var(--politie-blauw);
+            color: #fff;
+            text-align: left;
+            padding: 10px 12px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        table.score-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table.score-table tr:nth-child(even) {
+            background: #f9fafc;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .pill-done { background: #e8f5e9; color: #1b5e20; }
+        .pill-busy { background: #fff8e1; color: #b26a00; }
+        .pill-wait { background: #eeeeee; color: #666; }
+
         /* Livefeed & Feedback */
         .pv-item { 
             background: #fff; 
@@ -371,57 +656,168 @@
 
 <div class="container main-content" id="mainContent">
     <header>
-        <h1>PROCES-VERBAAL VAN AANGIFTE - LES 5</h1>
-        <p id="classDisplay" style="font-weight:bold; margin-bottom: 0;"></p>
+        <div>
+            <h1>PROCES-VERBAAL VAN AANGIFTE - LES 5</h1>
+            <p id="classDisplay" style="font-weight:bold; margin: 4px 0 0 0;"></p>
+        </div>
+        <div id="headerScoreDisplay" style="font-weight:bold; color: var(--politie-blauw); background: #fff8dc; border: 1px solid var(--politie-geel); padding: 6px 12px; border-radius: 3px; font-size: 13px;">
+            JOUW SCORE: 0 PUNTEN
+        </div>
     </header>
 
-    <div class="instruction-box">
-        <h3 style="margin-top:0; color:var(--politie-blauw);">STAPPENPLAN VERHOOR & AANGIFTE</h3>
-        <ol>
-            <li><strong>Verhoor Priscilla:</strong> Voer links het gesprek met aangeefster Priscilla de Vries. Zij is in paniek en geeft niet alles zomaar prijs. Vraag gericht door op alle <strong>7 W's</strong> (inclusief <em>waarmee precies</em> en de exacte handpositie), de route en het <strong>kale, veranderlijke maar ordelijke decor</strong>, én het <strong>volledige signalement</strong> van de verdachte.</li>
-            <li><strong>Rapportage:</strong> Stel rechts tijdens of na het gesprek het proces-verbaal op. Focus op de feitelijke omschrijving, het decor, het signalement en de functionele beperkingen van het slachtoffer.</li>
-            <li><strong>Inleveren:</strong> Klik op <em>PV Definitief Inleveren</em> om je uitwerking in de livefeed te plaatsen voor feedback.</li>
-        </ol>
+    <!-- Fasenavigatie -->
+    <div class="phase-nav">
+        <button class="phase-btn active" id="btnNavPhase1" onclick="showPhase(1)">Fase 1: Verhoor &amp; PV Aangifte</button>
+        <button class="phase-btn" id="btnNavPhase2" onclick="showPhase(2)" disabled>Fase 2: 25 Stijlfouten</button>
+        <span class="phase-badge-locked">Fase 3: Binnenkort</span>
+        <span class="phase-badge-locked">Fase 4: Pac-Man (Binnenkort)</span>
+        <button class="phase-btn" style="margin-left:auto; border-style:dashed;" onclick="document.getElementById('scoreboard-section').scrollIntoView({behavior:'smooth'})">Klassenscores &amp; Livefeed ↓</button>
     </div>
 
-    <div class="workspace-grid">
-        <!-- Linker kolom: Afbeelding + Zelfstandige Chat -->
-        <div class="left-column">
-            <div class="priscilla-photo-card">
-                <img src="priscilla.jpg" alt="Priscilla de Vries" onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='block';">
-                <div id="photoFallback" style="display:none; padding: 20px; color: #ddd; font-size: 13px; text-align:center;">
-                    Afbeelding <code>priscilla.jpg</code> niet gevonden in dezelfde map als <code>index.html</code>.
+    <!-- =================================================================== -->
+    <!-- FASE 1 SCHERM (ONGEWIJZIGD)                                         -->
+    <!-- =================================================================== -->
+    <div id="phase1Screen">
+        <div class="instruction-box">
+            <h3 style="margin-top:0; color:var(--politie-blauw);">STAPPENPLAN VERHOOR &amp; AANGIFTE</h3>
+            <ol>
+                <li><strong>Verhoor Priscilla:</strong> Voer links het gesprek met aangeefster Priscilla de Vries. Zij is in paniek en geeft niet alles zomaar prijs. Vraag gericht door op alle <strong>7 W's</strong> (inclusief <em>waarmee precies</em> en de exacte handpositie), de route en het <strong>kale, veranderlijke maar ordelijke decor</strong>, én het <strong>volledige signalement</strong> van de verdachte.</li>
+                <li><strong>Rapportage:</strong> Stel rechts tijdens of na het gesprek het proces-verbaal op. Focus op de feitelijke omschrijving, het decor, het signalement en de functionele beperkingen van het slachtoffer.</li>
+                <li><strong>Inleveren:</strong> Klik op <em>PV Definitief Inleveren</em> om je uitwerking in de livefeed te plaatsen en door te gaan naar <strong>Fase 2</strong>.</li>
+            </ol>
+        </div>
+
+        <div class="workspace-grid">
+            <!-- Linker kolom: Afbeelding + Zelfstandige Chat -->
+            <div class="left-column">
+                <div class="priscilla-photo-card">
+                    <img src="priscilla.jpg" alt="Priscilla de Vries" onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='block';">
+                    <div id="photoFallback" style="display:none; padding: 20px; color: #ddd; font-size: 13px; text-align:center;">
+                        Afbeelding <code>priscilla.jpg</code> niet gevonden in dezelfde map als <code>index.html</code>.
+                    </div>
+                    <div class="priscilla-photo-caption">
+                        <span>AANGEEFSTER: PRISCILLA DE VRIES (34)</span>
+                        <span>VERHOORKAMER 2</span>
+                    </div>
+                </div>
+
+                <div class="chat-panel">
+                    <div class="chat-header">
+                        <span><span class="status-dot"></span>Gesprek met Priscilla</span>
+                        <button class="btn-chat-reset" onclick="resetChat()">Gesprek herstarten</button>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages"></div>
+                    <div class="typing-indicator" id="typingIndicator">Priscilla is aan het praten...</div>
+
+                    <div class="chat-input-area">
+                        <textarea id="chatInput" placeholder="Stel hier je vraag aan Priscilla... (Enter = verzenden)"></textarea>
+                        <button class="btn-send" id="btnSend" onclick="sendChatMessage()">Stuur</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rechter kolom: PV invoer -->
+            <div id="submission-area">
+                <label for="pvText">Tekst Proces-Verbaal van Aangifte:</label>
+                <textarea id="pvText" placeholder="Start hier uw feitelijke verslaglegging (7 W's, decor/route, signalement, letsel)..."></textarea>
+                <button onclick="submitPV()" class="btn-submit-pv">PV DEFINITIEF INLEVEREN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- FASE 2 SCHERM: 25 ZINNEN MET STIJLFOUTEN                            -->
+    <!-- =================================================================== -->
+    <div id="phase2Screen">
+        <div class="phase2-header-grid">
+            <div class="phase2-instruction-box">
+                <h2>FASE 2: STIJLFOUTEN VERBETEREN</h2>
+                <p style="font-size: 16px; font-weight: bold; color: var(--politie-blauw); margin: 0 0 10px 0;">
+                    Noteer de correcte zin.
+                </p>
+                <p style="font-size: 13px; margin: 0 0 8px 0; line-height: 1.5;">
+                    Hieronder staan 25 zinnen uit de politiepraktijk met een stijlfout. Herschrijf elke zin foutloos in zakelijk, correct Nederlands.
+                </p>
+                <ul style="font-size: 13px; margin: 0; padding-left: 18px; line-height: 1.5;">
+                    <li><strong>Alle 25 zinnen</strong> moeten ingevuld zijn voordat je op <em>Nakijken</em> kunt klikken.</li>
+                    <li>Elke zin die in één keer goed is levert <strong>2 punten</strong> op (max. 50 punten).</li>
+                    <li>Bij fouten zie je <em>wat er fout is</em> (nog niet het antwoord) en mag je de zin verbeteren voor <strong>1 extra punt</strong> per verbeterde zin.</li>
+                </ul>
+            </div>
+
+            <div class="phase2-photo-card">
+                <img src="priscilla2.jpg" alt="Priscilla - Fase 2" onerror="this.style.display='none'; document.getElementById('photoFallback2').style.display='block';">
+                <div id="photoFallback2" style="display:none; padding: 20px; color: #ddd; font-size: 13px; text-align:center;">
+                    Afbeelding <code>priscilla2.jpg</code> niet gevonden in dezelfde map als <code>index.html</code>.
                 </div>
                 <div class="priscilla-photo-caption">
-                    <span>AANGEEFSTER: PRISCILLA DE VRIES (34)</span>
-                    <span>VERHOORKAMER 2</span>
-                </div>
-            </div>
-
-            <div class="chat-panel">
-                <div class="chat-header">
-                    <span><span class="status-dot"></span>Gesprek met Priscilla</span>
-                    <button class="btn-chat-reset" onclick="resetChat()">Gesprek herstarten</button>
-                </div>
-
-                <div class="chat-messages" id="chatMessages"></div>
-                <div class="typing-indicator" id="typingIndicator">Priscilla is aan het praten...</div>
-
-                <div class="chat-input-area">
-                    <textarea id="chatInput" placeholder="Stel hier je vraag aan Priscilla... (Enter = verzenden)"></textarea>
-                    <button class="btn-send" id="btnSend" onclick="sendChatMessage()">Stuur</button>
+                    <span>FASE 2: STIJL &amp; FORMULEREN</span>
+                    <span>25 ZINNEN</span>
                 </div>
             </div>
         </div>
 
-        <!-- Rechter kolom: PV invoer -->
-        <div id="submission-area">
-            <label for="pvText">Tekst Proces-Verbaal van Aangifte:</label>
-            <textarea id="pvText" placeholder="Start hier uw feitelijke verslaglegging (7 W's, decor/route, signalement, letsel)..."></textarea>
-            <button onclick="submitPV()" class="btn-submit-pv">PV DEFINITIEF INLEVEREN</button>
+        <div class="phase2-score-banner" id="phase2ScoreBanner"></div>
+
+        <div id="sentencesContainer"></div>
+
+        <div class="phase2-actions">
+            <div>
+                <span id="filledCounter" style="font-weight:bold; font-size:14px;">Ingevuld: 0 / 25 zinnen</span>
+                <span id="phase2StatusHint" style="font-size:12px; opacity:0.9; display:block;">Vul alle 25 zinnen in om te kunnen nakijken.</span>
+            </div>
+            <button class="btn-check-phase2" id="btnCheckPhase2" onclick="checkPhase2()">NAKIJKEN</button>
         </div>
     </div>
 
+    <!-- =================================================================== -->
+    <!-- REAL-TIME KLASSENSCORE & VOORTGANG (VOOR COLLEGA'S)                 -->
+    <!-- =================================================================== -->
+    <div id="scoreboard-section">
+        <div class="scoreboard-header">
+            <h2 style="color: var(--politie-blauw); margin:0;">VOORTGANG &amp; SCORES PER KLAS (REAL-TIME)</h2>
+            <div>
+                <label for="classFilter" style="font-size:13px; font-weight:bold;">Filter op NAVO-klas: </label>
+                <select id="classFilter" style="padding:5px 8px; border:1px solid #999;">
+                    <option value="ALLE">Alle klassen</option>
+                    <option value="Alpha">Alpha</option>
+                    <option value="Bravo">Bravo</option>
+                    <option value="Delta">Delta</option>
+                    <option value="Echo">Echo</option>
+                    <option value="Foxtrot">Foxtrot</option>
+                    <option value="Golf">Golf</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="India">India</option>
+                    <option value="Juliett">Juliett</option>
+                    <option value="Kilo">Kilo</option>
+                    <option value="Lima">Lima</option>
+                    <option value="Mike">Mike</option>
+                </select>
+            </div>
+        </div>
+        <div class="score-table-wrap">
+            <table class="score-table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Klas</th>
+                        <th>Fase 1 (PV Aangifte)</th>
+                        <th>Fase 2 (25 Zinnen)</th>
+                        <th>Score Fase 2</th>
+                        <th>Totaalscore</th>
+                    </tr>
+                </thead>
+                <tbody id="scoreboardBody">
+                    <tr><td colspan="6">Scores laden uit database...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- LIVEFEED AANGIFTES (ONGEWIJZIGD + ANTI-VERSPRING FIX)               -->
+    <!-- =================================================================== -->
     <div id="livefeed">
         <h2 style="color: var(--politie-blauw); border-bottom: 2px solid var(--politie-blauw); padding-bottom: 5px;">LIVEFEED AANGIFTES</h2>
         <div id="feedContent">Verbinding maken met database...</div>
@@ -434,8 +830,11 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, push, onValue, set, get, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+    // =========================================================================
+    // FASE 1: UITGEBREIDE CHAT MET PRISCILLA (ONGEWIJZIGD)
+    // =========================================================================
     const OPENING_GREETING = `*komt gejaagd de spreekkamer binnenstormen en grijpt met d'r rechterhand naar d'r linkerschouder* "Jâh toch, eindelijk iemand! Ik mot aangifte doen! Die wause vriend van me heb me net gewoon de trap af gepleurd, m'n hele arm doet zo'n zeer!"`;
 
     const TOPICS = {
@@ -564,6 +963,310 @@
     let lastCategory = "incident";
     let fallbackIndex = 0;
 
+    // =========================================================================
+    // FASE 2: 25 STIJLFOUTEN + BEOORDELINGSLOGICA
+    // =========================================================================
+    const PHASE2_EXERCISES = [
+        {
+            id: 1,
+            wrong: "Het opstellen van het uitgebreide proces-verbaal kostte veel tijd in beslag.",
+            errorType: "Contaminatie",
+            hint: "Je haalt twee uitdrukkingen ('veel tijd kosten' en 'veel tijd in beslag nemen') door elkaar. Kies er één.",
+            sample: "Het opstellen van het uitgebreide proces-verbaal nam veel tijd in beslag.",
+            validate: (s) => {
+                if (/\b(kost|kostte|kosten)\b.*\bin beslag\b|\bin beslag\b.*\b(kost|kostte|kosten)\b/i.test(s)) return false;
+                return /(proces-verbaal|proces verbaal|pv)/i.test(s) && /\btijd\b/i.test(s) && (/\b(nam|neemt)\b.*\bin beslag\b/i.test(s) || /\b(kost|kostte)\b/i.test(s) || /\bduurde\b/i.test(s));
+            }
+        },
+        {
+            id: 2,
+            wrong: "De agent wees de verdachte erop attent dat hij gebruik mocht maken van zijn zwijgrecht.",
+            errorType: "Contaminatie",
+            hint: "'Ergens op wijzen' en 'ergens attent op maken' worden hier vermengd. Gebruik één juiste constructie.",
+            sample: "De agent wees de verdachte erop dat hij gebruik mocht maken van zijn zwijgrecht.",
+            validate: (s) => {
+                if (/\b(wees|wijst|wijzen)\b.*\battent\b/i.test(s)) return false;
+                return /zwijgrecht/i.test(s) && (/\b(wees|wijst)\b.*\b(erop|op)\b/i.test(s) || /\b(maakte|maakt)\b.*\battent\b/i.test(s) || /\battendeerde\b/i.test(s));
+            }
+        },
+        {
+            id: 3,
+            wrong: "De verbalisant greep bij de vechtpartij direct tot actie over.",
+            errorType: "Contaminatie",
+            hint: "'Ingrijpen' en 'tot actie overgaan' lopen hier door elkaar.",
+            sample: "De verbalisant ging bij de vechtpartij direct tot actie over.",
+            validate: (s) => {
+                if (/\b(greep|grijpt|grijpen)\b.*\btot actie\b/i.test(s)) return false;
+                return /vechtpartij/i.test(s) && (/\b(greep|grijpt)\b.*\bin\b/i.test(s) || /\bingreep\b/i.test(s) || /\b(ging|gaat)\b.*\btot actie over\b/i.test(s) || /\b(kwam|komt)\b.*\bin actie\b/i.test(s) || /\btrad\b.*\bop\b/i.test(s));
+            }
+        },
+        {
+            id: 4,
+            wrong: "Dit strafbare feit behoort tot een van de zwaarste misdrijven in het wetboek.",
+            errorType: "Contaminatie",
+            hint: "Combineer niet 'behoort tot' met 'een van de'. Kies voor 'behoort tot de...' óf 'is een van de...'.",
+            sample: "Dit strafbare feit behoort tot de zwaarste misdrijven in het wetboek.",
+            validate: (s) => {
+                if (/behoor(t|en)?\s+tot\s+(?:één|een)\s+van\b/i.test(s)) return false;
+                return /(misdrijven|feiten)/i.test(s) && (/behoor(t|en)?\s+tot\s+de\b/i.test(s) || /\b(is|zijn)\s+(?:één|een)\s+van\s+de\b/i.test(s) || /\bvalt\s+onder\b/i.test(s));
+            }
+        },
+        {
+            id: 5,
+            wrong: "Op de plaats delict troffen de agenten een dood lijk aan.",
+            errorType: "Pleonasme",
+            hint: "Een eigenschap wordt genoemd die al vanzelfsprekend in het zelfstandig naamwoord zit.",
+            sample: "Op de plaats delict troffen de agenten een lijk aan.",
+            validate: (s) => {
+                if (/\b(dood|dode|overleden|gestorven)\s+lijk\b/i.test(s)) return false;
+                return /(plaats delict|pd)/i.test(s) && /\b(lijk|overleden|stoffelijk overschot|dode)\b/i.test(s);
+            }
+        },
+        {
+            id: 6,
+            wrong: "De verdachte vertelde tijdens het verhoor een valse leugen over zijn alibi.",
+            errorType: "Pleonasme",
+            hint: "Kijk goed naar de combinatie rond 'leugen': een leugen is per definitie niet waar.",
+            sample: "De verdachte vertelde tijdens het verhoor een leugen over zijn alibi.",
+            validate: (s) => {
+                if (/\b(valse|onware|gelogen)\s+leugen\b/i.test(s)) return false;
+                return /verhoor/i.test(s) && /alibi/i.test(s) && /\b(leugen|loog|onwaarheid|vals verhaal|leugenachtig verhaal)\b/i.test(s);
+            }
+        },
+        {
+            id: 7,
+            wrong: "De vluchtende bestuurder reed met hoge topsnelheid door het rode verkeerslicht.",
+            errorType: "Pleonasme",
+            hint: "'Topsnelheid' betekent al de hoogst mogelijke snelheid; het bijvoeglijk naamwoord is dubbelop.",
+            sample: "De vluchtende bestuurder reed met topsnelheid door het rode verkeerslicht.",
+            validate: (s) => {
+                if (/\b(hoge|zeer hoge|enorme|grote|maximale)\s+topsnelheid\b/i.test(s)) return false;
+                return /(verkeerslicht|rood|rode)/i.test(s) && (/\btopsnelheid\b/i.test(s) || /\bhoge snelheid\b/i.test(s) || /\bzeer snel\b/i.test(s));
+            }
+        },
+        {
+            id: 8,
+            wrong: "Na lang beraad sprak de rechter het uiteindelijke eindvonnis uit.",
+            errorType: "Pleonasme",
+            hint: "Een 'eindvonnis' staat al vast aan het einde; het bijvoeglijk naamwoord ervoor is overbodig.",
+            sample: "Na lang beraad sprak de rechter het eindvonnis uit.",
+            validate: (s) => {
+                if (/\b(uiteindelijke|definitieve|laatste)\s+eindvonnis\b/i.test(s)) return false;
+                return /rechter/i.test(s) && /beraad/i.test(s) && /\b(eindvonnis|vonnis|uitspraak)\b/i.test(s);
+            }
+        },
+        {
+            id: 9,
+            wrong: "De aangeefster verklaarde dat zij tijdens de duw bang en bevreesd was.",
+            errorType: "Tautologie",
+            hint: "Er staan twee woorden van dezelfde woordsoort naast elkaar met bijna exact dezelfde betekenis.",
+            sample: "De aangeefster verklaarde dat zij tijdens de duw bang was.",
+            validate: (s) => {
+                const hasBang = /\bbang\b/i.test(s);
+                const hasBevreesd = /\bbevreesd\b/i.test(s);
+                const hasAngstig = /\bangstig\b/i.test(s);
+                if ((hasBang && hasBevreesd) || (hasBang && hasAngstig) || (hasBevreesd && hasAngstig)) return false;
+                return /duw/i.test(s) && (hasBang || hasBevreesd || hasAngstig);
+            }
+        },
+        {
+            id: 10,
+            wrong: "De verdachte heeft de verklaring vrijwillig en uit eigen beweging ondertekend.",
+            errorType: "Tautologie",
+            hint: "'Vrijwillig' en 'uit eigen beweging' drukken twee keer hetzelfde uit.",
+            sample: "De verdachte heeft de verklaring vrijwillig ondertekend.",
+            validate: (s) => {
+                const hasVrij = /\bvrijwillig\b/i.test(s);
+                const hasEigen = /\beigen beweging\b/i.test(s);
+                if (hasVrij && hasEigen) return false;
+                return /verklaring/i.test(s) && /(ondertekend|getekend)/i.test(s) && (hasVrij || hasEigen);
+            }
+        },
+        {
+            id: 11,
+            wrong: "De inbreker ging er stiekem en heimelijk met de kluis vandoor.",
+            errorType: "Tautologie",
+            hint: "'Stiekem' en 'heimelijk' betekenen hetzelfde. Laat één van beide weg.",
+            sample: "De inbreker ging er heimelijk met de kluis vandoor.",
+            validate: (s) => {
+                const hasStiekem = /\bstiekem\b/i.test(s);
+                const hasHeimelijk = /\bheimelijk\b/i.test(s);
+                if (hasStiekem && hasHeimelijk) return false;
+                return /kluis/i.test(s) && (hasStiekem || hasHeimelijk || /\bongemerkt\b/i.test(s));
+            }
+        },
+        {
+            id: 12,
+            wrong: "De politie heeft de man die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde aangehouden.",
+            errorType: "Tangconstructie",
+            hint: "De werkwoorden 'heeft' en 'aangehouden' staan te ver uit elkaar. Zet 'aangehouden' vóór de bijzin, óf plaats de bijzin tussen twee komma's.",
+            sample: "De politie heeft de man aangehouden die gistermiddag na een ruzie over een mobiele telefoon zijn vriendin van de trap duwde.",
+            validate: (s) => {
+                if (!/politie/i.test(s) || !/trap/i.test(s) || !/(aangehouden|hield.*aan)/i.test(s)) return false;
+                const aangehoudenVoorDie = /\baangehouden\b[\s\S]*\bdie\b/i.test(s);
+                const tussenKommas = /,\s*die\b[\s\S]*?duwde\s*,/i.test(s) || /,\s*die\b[\s\S]*?,\s*(?:aangehouden|heeft)/i.test(s);
+                const tweeZinnen = /\.\s+[A-Z]/.test(s);
+                const verledenZonderTang = /\bhield\s+de\s+man\b[\s\S]{0,25}\baan\b/i.test(s);
+                return aangehoudenVoorDie || tussenKommas || tweeZinnen || verledenZonderTang;
+            }
+        },
+        {
+            id: 13,
+            wrong: "De officier van justitie heeft het door de advocaat van de verdachte tijdens de zitting ingediende bezwaarschrift afgewezen.",
+            errorType: "Tangconstructie",
+            hint: "'Het' en 'bezwaarschrift' (en 'heeft' en 'afgewezen') staan te ver uit elkaar. Zet 'bezwaarschrift afgewezen' eerder in de zin en plaats de rest in een bijzin erachter.",
+            sample: "De officier van justitie heeft het bezwaarschrift afgewezen dat tijdens de zitting door de advocaat van de verdachte was ingediend.",
+            validate: (s) => {
+                if (/\bingediende\s+bezwaarschrift\b/i.test(s) && !/,\s*(?:dat|welk)\b/i.test(s)) return false;
+                return /(officier|ovj)/i.test(s) && /bezwaarschrift/i.test(s) && /(afgewezen|wees.*af)/i.test(s) &&
+                    (/\bbezwaarschrift\b[\s\S]*\b(dat|welk|door de advocaat|ingediend|tijdens)\b/i.test(s) || /,\s*(?:dat|ingediend)\b[\s\S]*?,/i.test(s));
+            }
+        },
+        {
+            id: 14,
+            wrong: "Ter plaatse gekomen bij de voordeur van de woning van de aangeefster, bleek zij reeds op een kier te staan.",
+            errorType: "Foutief beknopte bijzin + onjuiste verwijzing",
+            hint: "Er zitten twee problemen in: wie kwam er ter plaatse (de bijzin mist een kloppend onderwerp) en wie is 'zij'? Nu lijkt het alsof de aangeefster op een kier stond!",
+            sample: "Toen wij ter plaatse kwamen bij de woning van de aangeefster, bleek de voordeur reeds op een kier te staan.",
+            validate: (s) => {
+                if (/\b(bleek|stond)\s+zij\b/i.test(s) || /\bzij\b[\s\S]*\bkier\b/i.test(s)) return false;
+                if (!/(voordeur|deur)/i.test(s) || !/kier/i.test(s)) return false;
+                // Als ze nog starten met "Ter plaatse gekomen", moet een handelend onderwerp volgen in de hoofdzin (zagen wij / troffen wij / constateerde...)
+                if (/^\s*ter plaatse gekomen\b/i.test(s)) {
+                    return /\b(wij|ik|agent|agenten|verbalisant|verbalisanten|politie)\b/i.test(s) && !/,\s*bleek\b/i.test(s);
+                }
+                return /\b(toen|nadat|bij aankomst|wij|ik|agent|agenten|verbalisant|politie|voordeur)\b/i.test(s);
+            }
+        },
+        {
+            id: 15,
+            wrong: "Na de handboeien te hebben omgedaan, reed de dienstwagen naar het politiebureau.",
+            errorType: "Foutief beknopte bijzin (zwevende bepaling)",
+            hint: "Volgens deze zin deed de dienstwagen zelf de handboeien om. Zorg dat de handelende personen ('de agenten' / 'wij') het onderwerp worden.",
+            sample: "Nadat de agenten de verdachte de handboeien hadden omgedaan, reden zij met de dienstwagen naar het politiebureau.",
+            validate: (s) => {
+                if (/\bomgedaan\s*,?\s*reed\s+de\s+dienstwagen\b/i.test(s)) return false;
+                return /(handboeien|boeien)/i.test(s) && /(dienstwagen|politieauto|politiebureau|bureau)/i.test(s) &&
+                    /\b(agent|agenten|wij|ik|verbalisant|verbalisanten|politie|rechercheurs)\b/i.test(s);
+            }
+        },
+        {
+            id: 16,
+            wrong: "De verdachte sloeg het slachtoffer in het gezicht en vervolgens op de vlucht.",
+            errorType: "Foutieve samentrekking",
+            hint: "'Sloeg' wordt gebruikt in twee verschillende betekenissen ('een klap geven' en 'op de vlucht slaan'). Voeg het ontbrekende werkwoord weer toe.",
+            sample: "De verdachte sloeg het slachtoffer in het gezicht en sloeg vervolgens op de vlucht.",
+            validate: (s) => {
+                if (/\bgezicht\s+en\s+(?:vervolgens\s+)?op\s+de\s+vlucht\b/i.test(s)) return false;
+                return /verdachte/i.test(s) && /slachtoffer/i.test(s) && /gezicht/i.test(s) &&
+                    (/\b(sloeg|ging|rende|begaf)\b[\s\S]*\bop\s+de\s+vlucht\b/i.test(s) || /\b(vluchtte|ging er.*vandoor|rende weg)\b/i.test(s));
+            }
+        },
+        {
+            id: 17,
+            wrong: "De politie arresteerde de verdachte op de overloop en werd direct overgebracht naar het cellencomplex.",
+            errorType: "Foutieve samentrekking",
+            hint: "Het onderwerp wisselt onterecht van 'de politie' naar 'de verdachte'. Maak duidelijk wie er werd overgebracht.",
+            sample: "De politie arresteerde de verdachte op de overloop, waarna hij direct werd overgebracht naar het cellencomplex.",
+            validate: (s) => {
+                if (/\boverloop\s+en\s+werd\b/i.test(s)) return false;
+                return /(politie|agenten)/i.test(s) && /verdachte/i.test(s) && /overloop/i.test(s) && /(cellencomplex|cel|bureau)/i.test(s) &&
+                    (/\b(waarna hij|en hij werd|en de verdachte werd|die direct werd|bracht hem|brachten hem|om hem)\b/i.test(s) || /\.\s*(hij|de verdachte)\s+werd\b/i.test(s));
+            }
+        },
+        {
+            id: 18,
+            wrong: "Het proces-verbaal wat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.",
+            errorType: "Onjuist verwijswoord",
+            hint: "Let op het verwijswoord na 'het proces-verbaal' (een bepaald het-woord).",
+            sample: "Het proces-verbaal dat de aspirant-agent heeft opgemaakt, bevat alle zeven W's.",
+            validate: (s) => {
+                if (/(proces-verbaal|proces verbaal)\s*,?\s*wat\b/i.test(s)) return false;
+                return /(proces-verbaal|proces verbaal)/i.test(s) && /aspirant/i.test(s) && (/\bdat\b/i.test(s) || /\bopgemaakt door\b/i.test(s));
+            }
+        },
+        {
+            id: 19,
+            wrong: "De rechercheurs hebben hun gisteravond laat nog op heterdaad aangehouden.",
+            errorType: "Onjuist verwijswoord",
+            hint: "'Hun' mag hier niet gebruikt worden als lijdend voorwerp. Gebruik de juiste vorm.",
+            sample: "De rechercheurs hebben hen gisteravond laat nog op heterdaad aangehouden.",
+            validate: (s) => {
+                if (/\bhun\b/i.test(s)) return false;
+                return /rechercheurs/i.test(s) && /heterdaad/i.test(s) && /aangehouden/i.test(s) && /\b(hen|ze|de verdachten|verdachten)\b/i.test(s);
+            }
+        },
+        {
+            id: 20,
+            wrong: "De verdachte wordt voorlopig niet vervolgd, mits de officier van justitie alsnog nieuw bewijs vindt.",
+            errorType: "Verkeerd voegwoord",
+            hint: "'Mits' betekent 'op voorwaarde dat', terwijl hier een uitzondering bedoeld wordt.",
+            sample: "De verdachte wordt voorlopig niet vervolgd, tenzij de officier van justitie alsnog nieuw bewijs vindt.",
+            validate: (s) => {
+                if (/\bmits\b/i.test(s)) return false;
+                return /verdachte/i.test(s) && /vervolgd/i.test(s) && /bewijs/i.test(s) && (/\btenzij\b/i.test(s) || /\bbehalve als\b/i.test(s) || /\bindien.*geen\b/i.test(s));
+            }
+        },
+        {
+            id: 21,
+            wrong: "De nieuwe verklaring van de getuige is veel betrouwbaarder als zijn eerste verhaal.",
+            errorType: "Foutieve vergelijking (als/dan)",
+            hint: "Na een vergrotende trap ('betrouwbaarder') staat in correct Nederlands een ander woord dan 'als'.",
+            sample: "De nieuwe verklaring van de getuige is veel betrouwbaarder dan zijn eerste verhaal.",
+            validate: (s) => {
+                if (/(betrouwbaarder|geloofwaardiger)\s+als\b/i.test(s)) return false;
+                return /verklaring/i.test(s) && /getuige/i.test(s) && /(betrouwbaarder|geloofwaardiger)/i.test(s) && /\bdan\b/i.test(s);
+            }
+        },
+        {
+            id: 22,
+            wrong: "De verbalisant irriteerde zich aan de dreigende toon van de verdachte tijdens het verhoor.",
+            errorType: "Foutief werkwoordgebruik / contaminatie",
+            hint: "'Zich irriteren aan' bestaat officieel niet (het is een mix van 'zich ergeren aan' en 'iets irriteert iemand').",
+            sample: "De verbalisant ergerde zich aan de dreigende toon van de verdachte tijdens het verhoor.",
+            validate: (s) => {
+                if (/irriteerde?\s+zich/i.test(s)) return false;
+                return /(verbalisant|agent)/i.test(s) && /toon/i.test(s) && /verhoor/i.test(s) && (/(ergerde|stoorde)\s+zich\s+aan/i.test(s) || /toon[\s\S]*irriteerde/i.test(s) || /geïrriteerd/i.test(s));
+            }
+        },
+        {
+            id: 23,
+            wrong: "De aangeefster heeft nooit geen toestemming gegeven om haar woning te betreden.",
+            errorType: "Dubbele ontkenning",
+            hint: "'Nooit geen' heffen elkaar logisch op. Gebruik één ontkenning.",
+            sample: "De aangeefster heeft nooit toestemming gegeven om haar woning te betreden.",
+            validate: (s) => {
+                if (/\bnooit\s+geen\b/i.test(s)) return false;
+                return /(aangeefster|slachtoffer)/i.test(s) && /toestemming/i.test(s) && /(woning|betreden)/i.test(s) && /\b(nooit|geen|nimmer)\b/i.test(s);
+            }
+        },
+        {
+            id: 24,
+            wrong: "Die opgefokte gozer heeft zijn vriendin keihard van de trap af gepleurd.",
+            errorType: "Stijlbreuk / spreektaal in officieel PV",
+            hint: "Een proces-verbaal moet zakelijk, objectief en feitelijk zijn. Vervang alle spreektaal en subjectieve termen ('opgefokte', 'gozer', 'keihard', 'gepleurd').",
+            sample: "De verdachte heeft het slachtoffer met kracht van de trap geduwd.",
+            validate: (s) => {
+                if (/(opgefokt|gozer|keihard|gepleurd|pleur|gast|kerel|wijf|gappie)/i.test(s)) return false;
+                return /\b(verdachte|man)\b/i.test(s) && /trap/i.test(s) && /(geduwd|duwde|gestoten|stiet|afgeduwd)/i.test(s);
+            }
+        },
+        {
+            id: 25,
+            wrong: "Door de verbalisant werd overgegaan tot het in beslag nemen van het aangetroffen voorwerp.",
+            errorType: "Ambtelijke naamwoordstijl / wollige lijdende vorm",
+            hint: "Vermijd omslachtige constructies als 'werd overgegaan tot het in beslag nemen'. Schrijf actief en direct: wie deed wat?",
+            sample: "De verbalisant nam het aangetroffen voorwerp in beslag.",
+            validate: (s) => {
+                if (/overgegaan\s+tot/i.test(s) || /het\s+in\s+beslag\s+nemen\s+van/i.test(s)) return false;
+                return /(verbalisant|ik|agent)/i.test(s) && /voorwerp/i.test(s) && (/\bin beslag\s+(?:nam|genomen|neemt)\b/i.test(s) || /\bnam\b[\s\S]*\bin beslag\b/i.test(s));
+            }
+        }
+    ];
+
+    // =========================================================================
+    // FIREBASE & APPLICATIESTATUS
+    // =========================================================================
     const firebaseConfig = {
         apiKey: "AIzaSyBj8dXkl1rEfyx54_MDy_tYd2P7kAeU8VQ",
         authDomain: "q2les3samirgem.firebaseapp.com",
@@ -579,7 +1282,14 @@
 
     let currentStudent = "";
     let currentClass = "";
+    let studentDbKey = "";
     let isWaiting = false;
+
+    // Status van leerling in de fasen
+    let fase1Voltooid = false;
+    let phase2Attempts = 0; // 0 = nog niet nagekeken, 1 = poging 1 nagekeken (verbeteren open), 2 = afgerond
+    let phase2Results = {}; // id -> { status: 'correct1' | 'correct2' | 'wrong', points: 0|1|2 }
+    let latestVoortgangData = null;
 
     function escapeHtml(text) {
         const div = document.createElement("div");
@@ -863,7 +1573,287 @@
         }
     });
 
-    window.startLesson = function() {
+    // =========================================================================
+    // FASE 2: OPBOUW & NAKIJKEN (25 ZINNEN)
+    // =========================================================================
+    function renderPhase2Sentences() {
+        const container = document.getElementById("sentencesContainer");
+        container.innerHTML = "";
+        PHASE2_EXERCISES.forEach((ex) => {
+            const card = document.createElement("div");
+            card.className = "sentence-card";
+            card.id = `sentence-card-${ex.id}`;
+            card.innerHTML = `
+                <div class="sentence-num">Zin ${ex.id} van 25</div>
+                <div class="sentence-original">${escapeHtml(ex.wrong)}</div>
+                <textarea class="sentence-input" id="zin-input-${ex.id}" rows="2" placeholder="Noteer hier de correcte zin..."></textarea>
+                <div class="sentence-feedback" id="zin-fb-${ex.id}"></div>
+            `;
+            container.appendChild(card);
+
+            const textarea = card.querySelector("textarea");
+            textarea.addEventListener("input", () => {
+                card.classList.remove("is-missing");
+                updateFilledCounter();
+            });
+        });
+        updateFilledCounter();
+    }
+
+    function updateFilledCounter() {
+        let filled = 0;
+        PHASE2_EXERCISES.forEach(ex => {
+            const val = document.getElementById(`zin-input-${ex.id}`).value.trim();
+            if (val.length > 0) filled++;
+        });
+        document.getElementById("filledCounter").innerText = `Ingevuld: ${filled} / 25 zinnen`;
+        const hintEl = document.getElementById("phase2StatusHint");
+        if (phase2Attempts === 0) {
+            hintEl.innerText = filled === 25
+                ? "Alle 25 zinnen zijn ingevuld. Klik op NAKIJKEN!"
+                : `Vul nog ${25 - filled} zin(nen) in om te kunnen nakijken.`;
+        }
+    }
+
+    function isSentenceValid(ex, rawAnswer) {
+        const cleaned = rawAnswer.trim();
+        const words = cleaned.split(/\s+/).filter(Boolean);
+        // Minimaal een echte volledige zin en niet letterlijk gelijk aan de foute zin
+        if (words.length < 4 || cleaned.length < 20) return false;
+        if (cleaned.toLowerCase() === ex.wrong.toLowerCase()) return false;
+        return ex.validate(cleaned);
+    }
+
+    function calcPhase2Score() {
+        let total = 0;
+        let firstCount = 0;
+        let improvedCount = 0;
+        Object.values(phase2Results).forEach(r => {
+            total += r.points;
+            if (r.status === "correct1") firstCount++;
+            if (r.status === "correct2") improvedCount++;
+        });
+        return { total, firstCount, improvedCount };
+    }
+
+    window.checkPhase2 = async function() {
+        if (phase2Attempts >= 2) return;
+
+        // Eis: ALLE 25 zinnen moeten ingevuld zijn voordat we nakijken
+        const missingIds = [];
+        PHASE2_EXERCISES.forEach(ex => {
+            const val = document.getElementById(`zin-input-${ex.id}`).value.trim();
+            const card = document.getElementById(`sentence-card-${ex.id}`);
+            if (!val) {
+                missingIds.push(ex.id);
+                card.classList.add("is-missing");
+            } else {
+                card.classList.remove("is-missing");
+            }
+        });
+
+        if (missingIds.length > 0) {
+            alert(`Vul eerst alle 25 zinnen in voordat je kunt nakijken!\nJe mist nog zin: ${missingIds.join(", ")}`);
+            document.getElementById(`sentence-card-${missingIds[0]}`).scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+
+        if (phase2Attempts === 0) {
+            // 1e keer nakijken: 2 punten per direct goede zin; bij fout alleen melding WAT fout is (niet de correcte zin!)
+            PHASE2_EXERCISES.forEach(ex => {
+                const inputEl = document.getElementById(`zin-input-${ex.id}`);
+                const card = document.getElementById(`sentence-card-${ex.id}`);
+                const fb = document.getElementById(`zin-fb-${ex.id}`);
+                const ok = isSentenceValid(ex, inputEl.value);
+
+                card.classList.remove("is-correct", "is-wrong");
+                if (ok) {
+                    phase2Results[ex.id] = { status: "correct1", points: 2 };
+                    card.classList.add("is-correct");
+                    inputEl.disabled = true;
+                    fb.className = "sentence-feedback fb-ok";
+                    fb.innerHTML = `<strong>✓ Correct! (+2 punten)</strong>`;
+                } else {
+                    phase2Results[ex.id] = { status: "wrong", points: 0 };
+                    card.classList.add("is-wrong");
+                    fb.className = "sentence-feedback fb-err";
+                    fb.innerHTML = `<strong>✗ Nog niet goed (${escapeHtml(ex.errorType)}):</strong> ${escapeHtml(ex.hint)} <em>Verbeter de zin hierboven voor +1 punt.</em>`;
+                }
+            });
+
+            phase2Attempts = 1;
+            const { total, firstCount } = calcPhase2Score();
+            const wrongCount = 25 - firstCount;
+
+            document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${total} PUNTEN`;
+
+            const banner = document.getElementById("phase2ScoreBanner");
+            banner.style.display = "block";
+            if (wrongCount === 0) {
+                phase2Attempts = 2;
+                banner.innerHTML = `<strong>Uitstekend! 25 van de 25 zinnen in één keer goed (${total} / 50 punten)!</strong> Fase 2 is afgerond en je score is opgeslagen.`;
+                document.getElementById("btnCheckPhase2").disabled = true;
+                document.getElementById("btnCheckPhase2").innerText = "FASE 2 AFGEROND";
+                document.getElementById("phase2StatusHint").innerText = "Je hebt de maximale score behaald!";
+                await saveStudentProgress({
+                    fase2Status: "Afgerond",
+                    fase2GoedPoging1: firstCount,
+                    fase2Verbeterd: 0,
+                    fase2Punten: total,
+                    totaalPunten: total
+                });
+            } else {
+                banner.innerHTML = `<strong>1e controle klaar:</strong> ${firstCount} / 25 zinnen in één keer goed (<strong>${total} punten</strong>). Verbeter nu de <strong>${wrongCount} rode zinnen</strong> aan de hand van de aanwijzingen om extra punten te sprokkelen (+1 punt per verbeterde zin)!`;
+                document.getElementById("btnCheckPhase2").innerText = "VERBETERINGEN NAKIJKEN (+1 PNT)";
+                document.getElementById("phase2StatusHint").innerText = `Verbeter de ${wrongCount} foute zin(nen) en klik nog één keer op nakijken.`;
+                await saveStudentProgress({
+                    fase2Status: `Poging 1 (${firstCount}/25 goed)`,
+                    fase2GoedPoging1: firstCount,
+                    fase2Verbeterd: 0,
+                    fase2Punten: total,
+                    totaalPunten: total
+                });
+            }
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        } else if (phase2Attempts === 1) {
+            // Verbeterpoging: +1 punt per nu wel goede zin; daarna afronden & voorbeeldzinnen bij overgebleven fouten tonen
+            PHASE2_EXERCISES.forEach(ex => {
+                if (phase2Results[ex.id]?.status === "correct1") return;
+
+                const inputEl = document.getElementById(`zin-input-${ex.id}`);
+                const card = document.getElementById(`sentence-card-${ex.id}`);
+                const fb = document.getElementById(`zin-fb-${ex.id}`);
+                const ok = isSentenceValid(ex, inputEl.value);
+
+                card.classList.remove("is-correct", "is-wrong");
+                inputEl.disabled = true;
+
+                if (ok) {
+                    phase2Results[ex.id] = { status: "correct2", points: 1 };
+                    card.classList.add("is-correct");
+                    fb.className = "sentence-feedback fb-ok";
+                    fb.innerHTML = `<strong>✓ Netjes verbeterd! (+1 punt)</strong>`;
+                } else {
+                    phase2Results[ex.id] = { status: "wrong", points: 0 };
+                    card.classList.add("is-wrong");
+                    fb.className = "sentence-feedback fb-err";
+                    fb.innerHTML = `<strong>✗ Nog niet juist (${escapeHtml(ex.errorType)}).</strong><br>Voorbeeld van een correcte zin: <em>"${escapeHtml(ex.sample)}"</em>`;
+                }
+            });
+
+            phase2Attempts = 2;
+            const { total, firstCount, improvedCount } = calcPhase2Score();
+            document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${total} PUNTEN`;
+
+            const banner = document.getElementById("phase2ScoreBanner");
+            banner.style.display = "block";
+            banner.innerHTML = `<strong>Fase 2 afgerond!</strong> Je behaalde <strong>${total} / 50 punten</strong> (${firstCount} direct goed à 2 pnt + ${improvedCount} verbeterd à 1 pnt). Je definitieve score staat in het klassenoverzicht!`;
+
+            document.getElementById("btnCheckPhase2").disabled = true;
+            document.getElementById("btnCheckPhase2").innerText = "FASE 2 AFGEROND";
+            document.getElementById("phase2StatusHint").innerText = `Eindscore Fase 2: ${total} / 50 punten.`;
+
+            await saveStudentProgress({
+                fase2Status: "Afgerond",
+                fase2GoedPoging1: firstCount,
+                fase2Verbeterd: improvedCount,
+                fase2Punten: total,
+                totaalPunten: total
+            });
+            banner.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    };
+
+    // =========================================================================
+    // FASENAVIGATIE & VOORTGANG IN FIREBASE
+    // =========================================================================
+    window.showPhase = function(num) {
+        if (num === 2 && !fase1Voltooid) {
+            alert("Lever eerst je Proces-Verbaal in bij Fase 1 om door te gaan naar Fase 2.");
+            return;
+        }
+        document.getElementById("phase1Screen").style.display = num === 1 ? "block" : "none";
+        document.getElementById("phase2Screen").style.display = num === 2 ? "block" : "none";
+        document.getElementById("btnNavPhase1").classList.toggle("active", num === 1);
+        document.getElementById("btnNavPhase2").classList.toggle("active", num === 2);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    async function saveStudentProgress(fields) {
+        if (!studentDbKey) return;
+        try {
+            await update(ref(db, `voortgang/${studentDbKey}`), {
+                student: currentStudent,
+                klas: currentClass,
+                ...fields,
+                laatsteUpdate: Date.now()
+            });
+        } catch (err) {
+            console.error("Fout bij opslaan voortgang:", err);
+        }
+    }
+
+    function renderScoreboard() {
+        const tbody = document.getElementById("scoreboardBody");
+        const filter = document.getElementById("classFilter").value;
+
+        if (!latestVoortgangData) {
+            tbody.innerHTML = `<tr><td colspan="6">Nog geen studenten geregistreerd.</td></tr>`;
+            return;
+        }
+
+        const rows = Object.values(latestVoortgangData).filter(item => {
+            return filter === "ALLE" || (item.klas || "").toUpperCase() === filter.toUpperCase();
+        });
+
+        rows.sort((a, b) => {
+            if ((b.totaalPunten || 0) !== (a.totaalPunten || 0)) {
+                return (b.totaalPunten || 0) - (a.totaalPunten || 0);
+            }
+            return (a.klas || "").localeCompare(b.klas || "") || (a.student || "").localeCompare(b.student || "");
+        });
+
+        if (rows.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6">Geen studenten gevonden voor klas ${escapeHtml(filter)}.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = "";
+        rows.forEach(item => {
+            const tr = document.createElement("tr");
+            const f1Badge = item.fase1Voltooid
+                ? `<span class="pill pill-done">✓ Ingeleverd</span>`
+                : `<span class="pill pill-busy">Bezig</span>`;
+
+            let f2Class = "pill-wait";
+            const f2Status = item.fase2Status || "Nog niet gestart";
+            if (f2Status === "Afgerond") f2Class = "pill-done";
+            else if (f2Status.startsWith("Poging")) f2Class = "pill-busy";
+
+            tr.innerHTML = `
+                <td><strong>${escapeHtml((item.student || "").toUpperCase())}</strong></td>
+                <td>${escapeHtml((item.klas || "").toUpperCase())}</td>
+                <td>${f1Badge}</td>
+                <td><span class="pill ${f2Class}">${escapeHtml(f2Status)}</span></td>
+                <td>${item.fase2Punten ?? 0} / 50 pnt</td>
+                <td><strong>${item.totaalPunten ?? 0} pnt</strong></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById("classFilter").addEventListener("change", renderScoreboard);
+
+    onValue(ref(db, 'voortgang'), (snapshot) => {
+        latestVoortgangData = snapshot.val();
+        renderScoreboard();
+    });
+
+    // =========================================================================
+    // LOGIN, PV INLEVEREN & LIVEFEED (ONGEWIJZIGD + PROGRESSIE)
+    // =========================================================================
+    window.startLesson = async function() {
         currentStudent = document.getElementById('userFirstName').value.trim();
         currentClass = document.getElementById('userClass').value;
         if (!currentStudent) {
@@ -871,10 +1861,41 @@
             document.getElementById('userFirstName').focus();
             return;
         }
+
+        studentDbKey = `${currentClass}_${currentStudent}`.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('mainContent').style.display = 'block';
         document.getElementById('classDisplay').innerText = "GEBRUIKER: " + currentStudent.toUpperCase() + " | KLAS: " + currentClass.toUpperCase();
+
         initChat();
+        renderPhase2Sentences();
+
+        // Controleer of deze student al voortgang heeft in Firebase (bijv. na verversen)
+        try {
+            const snap = await get(ref(db, `voortgang/${studentDbKey}`));
+            if (snap.exists()) {
+                const existing = snap.val();
+                if (existing.fase1Voltooid) {
+                    fase1Voltooid = true;
+                    document.getElementById("btnNavPhase2").disabled = false;
+                }
+                if (typeof existing.totaalPunten === "number") {
+                    document.getElementById("headerScoreDisplay").innerText = `JOUW SCORE: ${existing.totaalPunten} PUNTEN`;
+                }
+            } else {
+                await saveStudentProgress({
+                    fase1Voltooid: false,
+                    fase2Status: "Nog niet gestart",
+                    fase2GoedPoging1: 0,
+                    fase2Verbeterd: 0,
+                    fase2Punten: 0,
+                    totaalPunten: 0
+                });
+            }
+        } catch (err) {
+            console.error("Kon eerdere voortgang niet ophalen:", err);
+        }
     };
 
     window.submitPV = async function() {
@@ -892,7 +1913,12 @@
                 feedback: ""
             });
             pvEl.value = "";
-            alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen.");
+            fase1Voltooid = true;
+            document.getElementById("btnNavPhase2").disabled = false;
+            await saveStudentProgress({ fase1Voltooid: true });
+
+            alert("Systeemmelding: Proces-Verbaal succesvol opgeslagen. Je gaat nu door naar Fase 2: Stijlfouten verbeteren!");
+            window.showPhase(2);
         } catch (err) {
             alert("Fout bij opslaan in database (controleer internetverbinding): " + err.message);
         }
@@ -971,9 +1997,10 @@
     };
 
     window.resetDatabase = async function() {
-        if (confirm("WAARSCHUWING: Alle data in de livefeed wordt definitief verwijderd. Doorgaan?")) {
+        if (confirm("WAARSCHUWING: Alle data in de livefeed én alle studentenscores worden definitief verwijderd. Doorgaan?")) {
             try {
                 await remove(ref(db, 'aangiftes'));
+                await remove(ref(db, 'voortgang'));
             } catch (err) {
                 alert("Fout bij resetten van database: " + err.message);
             }
